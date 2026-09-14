@@ -54,6 +54,7 @@ svg { display: block; }
 
 .button { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px; border: 1px solid var(--ink); border-radius: 12px; color: white; background: var(--ink); font-family: var(--body); font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 24px rgba(7,17,31,.15); transition: transform .2s ease, box-shadow .2s ease, background .2s ease; }
 .button:hover { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(7,17,31,.2); }
+.button:disabled { opacity: .62; cursor: wait; transform: none; }
 .button svg { width: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; }
 .button-small { min-height: 42px; padding: 0 17px; font-size: 13px; border-radius: 10px; }
 .button-light { color: var(--ink); border-color: white; background: white; box-shadow: none; }

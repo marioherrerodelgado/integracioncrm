@@ -10,7 +10,9 @@ Sitio web estático de [integracioncrm.com](https://integracioncrm.com), prepara
 - Solicitud de reunión por Google Meet o Microsoft Teams
 - Sitemap XML, metadatos sociales y datos estructurados JSON-LD
 
-Los formularios usan `mailto:` para preparar la solicitud en el cliente de correo del visitante. Para reservas confirmadas y disponibilidad en tiempo real se debe conectar una URL de Google Calendar, Microsoft Bookings o una plataforma de agenda.
+Los formularios envían a `/api/contacto` mediante una Pages Function y usan `mailto:` como alternativa si el envío automático no está configurado.
+
+Para activar el envío directo, configura en Cloudflare un binding de Email Sending llamado `EMAIL`, permite como destino `info@integracioncrm.com` y verifica `integracioncrm.com` como dominio remitente. Para reservas confirmadas y disponibilidad en tiempo real se debe conectar una URL de Google Calendar, Microsoft Bookings o una plataforma de agenda.
 
 ## Configuración de Cloudflare Pages
 

@@ -128,7 +128,7 @@ const fieldLabels = {
 };
 
 document.querySelectorAll("[data-mail-form]").forEach((form) => {
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const trap = form.querySelector("[name='website']");
     if (trap?.value) return;
@@ -155,7 +155,27 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
     const subject = `${requestType} — ${data.get("nombre") || "Nueva solicitud"}`;
     const body = [`Nueva solicitud desde integracioncrm.com`, "", ...lines, "", "La fecha y hora quedan pendientes de confirmación."].join("\n");
     const status = form.querySelector("[data-form-status]");
-    if (status) status.textContent = "Abriendo tu correo con la solicitud preparada…";
-    window.location.href = `mailto:info@integracioncrm.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const submitButton = form.querySelector("button[type='submit']");
+    if (status) status.textContent = "Enviando solicitud…";
+    if (submitButton) submitButton.disabled = true;
+
+    try {
+      const payload = Object.fromEntries(data.entries());
+      payload.tipo = requestType;
+      const response = await fetch("/api/contacto", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error("Automatic delivery unavailable");
+      if (status) status.textContent = "Solicitud recibida. Te contactaremos para confirmar los siguientes pasos. ✓";
+      form.reset();
+      return;
+    } catch {
+      if (status) status.textContent = "El envío automático aún no está disponible. Abriendo tu correo con la solicitud preparada…";
+      window.location.href = `mailto:info@integracioncrm.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
   });
 });

@@ -5,7 +5,7 @@ Landing estática de [integracioncrm.com](https://integracioncrm.com), preparada
 ## Configuración de Cloudflare Pages
 
 - Framework preset: `None`
-- Build command: dejar vacío
+- Build command: `exit 0`
 - Build output directory: `public`
 - Production branch: `main`
 

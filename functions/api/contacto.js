@@ -24,6 +24,28 @@ const escapeHtml = (value) =>
     "'": "&#039;"
   })[character]);
 
+const saveToSupabase = async (data, env) => {
+  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) return false;
+
+  const response = await fetch(`${env.SUPABASE_URL.replace(/\/$/, "")}/rest/v1/contactos`, {
+    method: "POST",
+    headers: {
+      apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+      authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+      "content-type": "application/json",
+      prefer: "return=minimal"
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    console.error("Supabase contact insert failed", response.status);
+    throw new Error("Supabase insert failed");
+  }
+
+  return true;
+};
+
 export async function onRequestPost({ request, env }) {
   const origin = request.headers.get("origin");
   if (origin) {
@@ -65,7 +87,8 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: false, error: "Revisa los campos obligatorios" }, 400);
   }
 
-  if (!env.EMAIL) return json({ ok: false, error: "Correo pendiente de configurar" }, 503);
+  const hasSupabase = Boolean(env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY);
+  if (!hasSupabase && !env.EMAIL) return json({ ok: false, error: "Destino pendiente de configurar" }, 503);
 
   const rows = Object.entries(data)
     .filter(([, value]) => value)
@@ -73,17 +96,30 @@ export async function onRequestPost({ request, env }) {
     .join("");
 
   try {
-    const result = await env.EMAIL.send({
-      to: "info@integracioncrm.com",
-      from: "formularios@integracioncrm.com",
-      replyTo: data.email,
-      subject: `${data.tipo || "Nueva solicitud web"} — ${data.nombre}`,
-      text: Object.entries(data).filter(([, value]) => value).map(([key, value]) => `${key}: ${value}`).join("\n"),
-      html: `<h2>Nueva solicitud desde integracioncrm.com</h2><table>${rows}</table>`
-    });
-    return json({ ok: true, messageId: result.messageId });
+    const stored = await saveToSupabase(data, env);
+    let messageId;
+    let notified = false;
+
+    if (env.EMAIL) {
+      try {
+        const result = await env.EMAIL.send({
+          to: "info@integracioncrm.com",
+          from: "formularios@integracioncrm.com",
+          replyTo: data.email,
+          subject: `${data.tipo || "Nueva solicitud web"} — ${data.nombre}`,
+          text: Object.entries(data).filter(([, value]) => value).map(([key, value]) => `${key}: ${value}`).join("\n"),
+          html: `<h2>Nueva solicitud desde integracioncrm.com</h2><table>${rows}</table>`
+        });
+        messageId = result.messageId;
+        notified = true;
+      } catch (error) {
+        console.error("Contact form email failed", error?.code || error?.message || "unknown");
+      }
+    }
+
+    return json({ ok: true, stored, notified, messageId });
   } catch (error) {
-    console.error("Contact form email failed", error?.code || "unknown");
+    console.error("Contact form delivery failed", error?.code || error?.message || "unknown");
     return json({ ok: false, error: "No se pudo enviar el mensaje" }, 503);
   }
 }

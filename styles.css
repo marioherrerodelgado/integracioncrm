@@ -381,3 +381,36 @@ svg { display: block; }
 .button-ghost { color: white; background: transparent; border: 1px solid #40546b; }
 .button-ghost:hover { border-color: var(--mint-dark); }
 @media (max-width: 620px) { .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px; } .cookie-actions { width: 100%; } .cookie-actions .button { flex: 1; } }
+
+/* Diagrama de flujo */
+.flow-figure { margin: 0; }
+.flow-diagram { width: 100%; height: auto; overflow: visible; }
+.flow-line { fill: none; stroke: #b9cbc0; stroke-width: 1.5; stroke-dasharray: 5 5; }
+.flow-node rect { fill: white; stroke: var(--line); stroke-width: 1; }
+.flow-node text { fill: #33445a; font: 700 14px var(--body); }
+.flow-core rect { fill: var(--ink); }
+.flow-core text { fill: white; font: 750 26px var(--display); letter-spacing: -.03em; }
+.flow-core text.flow-sub { fill: #8fa6bd; font: 600 13px var(--body); letter-spacing: 0; }
+.flow-dot circle { fill: var(--mint-dark); }
+.flow-figure figcaption { max-width: 640px; margin: 22px auto 0; color: var(--muted); text-align: center; font-size: 14px; }
+@media (max-width: 720px) { .flow-diagram { min-width: 620px; } .flow-scroll { overflow-x: auto; padding-bottom: 8px; } }
+
+/* Nube de logos con iconos reales */
+.logo-cloud span svg { width: 26px; height: 26px; color: var(--ink); }
+.logo-cloud b { background: var(--mint); }
+
+/* Caso de exito */
+.cases { background: #edf1ed; }
+.case-card { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 44px; padding: 40px; background: white; border: 1px solid var(--line); border-radius: 19px; }
+.case-body h3 { margin: 0 0 20px; font: 750 27px/1.15 var(--display); letter-spacing: -.035em; }
+.case-body p { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+.case-body p:last-child { margin-bottom: 0; }
+.case-body strong { color: var(--ink); }
+.case-metric { display: flex; flex-direction: column; justify-content: center; padding: 30px; color: white; background: var(--ink); border-radius: 15px; text-align: center; }
+.case-metric strong { font: 800 62px/1 var(--display); letter-spacing: -.05em; }
+.case-metric strong span { color: var(--mint); font-size: 34px; }
+.case-metric p { margin: 14px 0 0; color: #a9bbcd; font-size: 14px; }
+.case-metric small { margin-top: 16px; padding-top: 14px; color: #7f92a6; border-top: 1px solid rgba(255,255,255,.14); font-size: 11px; line-height: 1.45; }
+@media (max-width: 900px) { .case-card { grid-template-columns: 1fr; gap: 28px; padding: 28px; } }
+@media (max-width: 620px) { .logo-cloud { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 621px) and (max-width: 900px) { .logo-cloud { grid-template-columns: repeat(3, 1fr); } }

@@ -232,14 +232,83 @@
             <p>Conectores nativos, automatización no-code o integraciones mediante API.</p>
           </div>
           <div class="logo-cloud" data-reveal>
-            <span><b>Z</b> Zoho</span>
-            <span><b>D</b> Deluge</span>
-            <span><b>M</b> Make</span>
-            <span><b>n</b> n8n</span>
-            <span><b>W</b> WhatsApp</span>
-            <span><b>R</b> Ringover</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-zoho"/></svg> Zoho</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-hubspot"/></svg> HubSpot</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-salesforce"/></svg> Salesforce</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-whatsapp"/></svg> WhatsApp</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-telefonia"/></svg> Telefonía</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-moodle"/></svg> Moodle</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-zoom"/></svg> Zoom</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-meet"/></svg> Meet y Teams</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-stripe"/></svg> Stripe</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-make"/></svg> Make</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-n8n"/></svg> n8n</span>
+            <span><svg aria-hidden="true"><use href="/iconos.svg#i-api"/></svg> API propia</span>
           </div>
+          <div class="flow-scroll"><figure class="flow-figure" data-reveal>
+              <svg class="flow-diagram" viewBox="0 0 880 320" role="img" aria-labelledby="flow-t flow-d">
+                <title id="flow-t">Diagrama de un ecosistema CRM conectado</title>
+                <desc id="flow-d">Los canales de entrada (formularios web, WhatsApp, llamadas y correo) llegan a un CRM central, que a su vez sincroniza con plataforma de formación, pagos, facturación y cuadros de mando.</desc>
+                <g class="flow-line">
+                  <path d="M188 52C268 52 278 160 352 160"/>
+                  <path d="M188 112C268 112 292 160 352 160"/>
+                  <path d="M188 172C268 172 292 160 352 160"/>
+                  <path d="M188 232C268 232 278 160 352 160"/>
+                  <path d="M576 160C650 160 638 52 716 52"/>
+                  <path d="M576 160C650 160 648 112 716 112"/>
+                  <path d="M576 160C650 160 648 172 716 172"/>
+                  <path d="M576 160C650 160 638 232 716 232"/>
+                </g>
+                <g class="flow-node">
+                  <rect x="8" y="30" width="180" height="44" rx="11"/><text x="40" y="57">Formularios web</text>
+                  <rect x="8" y="90" width="180" height="44" rx="11"/><text x="40" y="117">WhatsApp</text>
+                  <rect x="8" y="150" width="180" height="44" rx="11"/><text x="40" y="177">Llamadas</text>
+                  <rect x="8" y="210" width="180" height="44" rx="11"/><text x="40" y="237">Correo</text>
+                </g>
+                <g class="flow-core">
+                  <rect x="352" y="106" width="224" height="108" rx="17"/>
+                  <text x="464" y="150" text-anchor="middle">CRM</text>
+                  <text x="464" y="176" text-anchor="middle" class="flow-sub">Un solo sitio donde mirar</text>
+                </g>
+                <g class="flow-node">
+                  <rect x="716" y="30" width="156" height="44" rx="11"/><text x="740" y="57">Formación</text>
+                  <rect x="716" y="90" width="156" height="44" rx="11"/><text x="740" y="117">Pagos</text>
+                  <rect x="716" y="150" width="156" height="44" rx="11"/><text x="740" y="177">Facturación</text>
+                  <rect x="716" y="210" width="156" height="44" rx="11"/><text x="740" y="237">Informes</text>
+                </g>
+                <g class="flow-dot">
+                  <circle cx="24" cy="52" r="4"/><circle cx="24" cy="112" r="4"/><circle cx="24" cy="172" r="4"/><circle cx="24" cy="232" r="4"/>
+                  <circle cx="732" cy="52" r="4"/><circle cx="732" cy="112" r="4"/><circle cx="732" cy="172" r="4"/><circle cx="732" cy="232" r="4"/>
+                </g>
+              </svg>
+              <figcaption>Cada canal deja el dato en el sitio correcto y el CRM sincroniza con el resto del ecosistema. Sin copiar y pegar entre pestañas.</figcaption>
+            </figure></div>
           <p class="integration-note">¿No aparece la tuya? Si tiene API, probablemente podemos conectarla.</p>
+        </div>
+      </section>
+
+
+      <section id="casos" class="section cases">
+        <div class="container">
+          <div class="section-heading centered" data-reveal>
+            <p class="eyebrow"><span></span> Un caso real</p>
+            <h2>Qué cambia cuando el proceso se ordena.</h2>
+            <p>Un proyecto propio en un entorno de formación profesional, con el cliente anonimizado.</p>
+          </div>
+          <article class="case-card" data-reveal>
+            <div class="case-body">
+              <h3>Centro de formación profesional</h3>
+              <p class="case-problem"><strong>El punto de partida.</strong> Las solicitudes de información llegaban por web, teléfono y correo, y cada una acababa en un sitio distinto. Las admisiones se llevaban en hojas de cálculo que solo una persona sabía mantener, la facturación se revisaba a mano y nadie podía decir con certeza cuántas matrículas venían de cada campaña.</p>
+              <p class="case-action"><strong>Qué hicimos.</strong> Unificamos la entrada de solicitudes en un único proceso, conectamos el CRM con la gestión académica y la facturación, y automatizamos las tareas repetitivas de seguimiento, documentación y avisos internos. El equipo recibió formación para poder mantenerlo sin depender de nadie.</p>
+              <p class="case-result"><strong>El resultado.</strong> Una sola ficha por alumno, trazabilidad desde la primera consulta hasta la matrícula, e informes en los que la dirección confía porque los datos ya no están duplicados.</p>
+            </div>
+            <div class="case-metric">
+              <strong>30<span>%</span></strong>
+              <p>de reducción en los tiempos de gestión gracias a las automatizaciones</p>
+              <small>Resultado verificable en el perfil profesional de Mario Herrero Delgado.</small>
+            </div>
+          </article>
+          <p class="integration-note">¿Tu situación se parece? <a class="text-link" href="/auditoria-crm-gratis/">Pide una auditoría gratuita →</a></p>
         </div>
       </section>
 

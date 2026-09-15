@@ -205,12 +205,11 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
     if (submitButton) submitButton.disabled = true;
 
     try {
-      const payload = Object.fromEntries(data.entries());
-      payload.tipo = requestType;
-      const response = await fetch("/api/contacto", {
+      data.set("tipo", requestType);
+      const response = await fetch(form.action, {
         method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload)
+        headers: { Accept: "application/json" },
+        body: data
       });
       if (!response.ok) throw new Error("Automatic delivery unavailable");
       if (status) status.textContent = "Solicitud recibida. Te contactaremos para confirmar los siguientes pasos. ✓";

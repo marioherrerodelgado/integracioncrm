@@ -7,6 +7,7 @@ Sitio web estático de [integracioncrm.com](https://integracioncrm.com), prepara
 - Portada con servicios y formulario de auditoría
 - Páginas SEO para Zoho CRM, automatización, integraciones API y reporting
 - Solución específica para centros de FP, academias y entidades de formación con URLs limpias
+- Página de presentación de Mario Herrera Delgado y el enfoque del proyecto
 - Auditoría CRM gratuita
 - Solicitud de reunión por Google Meet o Microsoft Teams
 - Sitemap XML, metadatos sociales y datos estructurados JSON-LD

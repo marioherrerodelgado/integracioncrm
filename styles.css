@@ -414,3 +414,60 @@ svg { display: block; }
 @media (max-width: 900px) { .case-card { grid-template-columns: 1fr; gap: 28px; padding: 28px; } }
 @media (max-width: 620px) { .logo-cloud { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 621px) and (max-width: 900px) { .logo-cloud { grid-template-columns: repeat(3, 1fr); } }
+
+/* Banda de cifras */
+.stat-band { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.14); border-radius: 17px; overflow: hidden; }
+.stat-band div { padding: 22px 24px; background: var(--ink); }
+.stat-band b { display: block; color: var(--mint); font: 800 30px/1.05 var(--display); letter-spacing: -.04em; }
+.stat-band span { display: block; margin-top: 8px; color: #9eafc0; font-size: 12.5px; line-height: 1.45; }
+
+/* Maquetas de interfaz */
+.ui { overflow: hidden; background: white; border: 1px solid var(--line); border-radius: 12px; font-size: 12px; }
+.ui-top { display: flex; align-items: center; gap: 9px; padding: 10px 13px; color: white; background: var(--ink); font-size: 11.5px; font-weight: 700; }
+.ui-top i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--mint); }
+.ui-top span { margin-left: auto; color: #8fa1b4; font-weight: 600; }
+.ui-scroll { overflow-x: auto; }
+.ui table { width: 100%; border-collapse: collapse; }
+.ui th { padding: 9px 12px; color: #6b7a89; background: #f4f6f4; border-bottom: 1px solid var(--line); text-align: left; font-size: 9.5px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+.ui td { padding: 9px 12px; color: var(--ink); border-bottom: 1px solid #eef2ee; white-space: nowrap; }
+.ui tr:last-child td { border-bottom: 0; }
+.ui .campo { color: #8a97a4; }
+.num { font-variant-numeric: tabular-nums; font-weight: 700; }
+.pill { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; }
+.p-ok { color: #0d6b41; background: rgba(41,199,130,.16); }
+.p-no { color: #9b2c2c; background: rgba(214,69,69,.12); }
+.p-wait { color: #7a4a00; background: rgba(224,138,0,.14); }
+.p-info { color: #3b3fb0; background: rgba(113,123,255,.14); }
+.barra { height: 6px; border-radius: 3px; background: #e7ebe7; }
+.barra i { display: block; height: 6px; border-radius: 3px; background: var(--blue); }
+.barra.verde i { background: var(--mint-dark); }
+
+/* Modulos con maqueta */
+.modulo-grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.modulo { display: grid; gap: 13px; align-content: start; padding: 26px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 19px; }
+.modulo h3 { margin: 0; font: 750 19px/1.25 var(--display); letter-spacing: -.03em; }
+.modulo > p { margin: 0; color: var(--muted); font-size: 14.5px; }
+.modulo .tag { justify-self: start; padding: 5px 10px; border-radius: 999px; background: #eef2ee; color: #6b7a89; font-size: 10.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 860px) { .modulo-grid { grid-template-columns: 1fr; } }
+
+/* Piezas del ecosistema */
+.piezas { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.pieza { padding: 18px 19px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 13px; }
+.pieza::before { content: ""; display: block; width: 28px; height: 3px; margin-bottom: 13px; border-radius: 2px; background: var(--mint-dark); }
+.pieza.b::before { background: var(--blue); }
+.pieza.c::before { background: #f38b2b; }
+.pieza.d::before { background: var(--ink); }
+.pieza b { display: block; font-family: var(--display); font-size: 14px; }
+.pieza span { display: block; margin-top: 5px; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+
+/* Garantias sobre fondo oscuro */
+.garantias { display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.14); border-radius: 17px; overflow: hidden; }
+.garantia { padding: 24px; background: var(--ink); }
+.garantia b { display: block; margin-bottom: 7px; color: white; font-family: var(--display); font-size: 14.5px; }
+.garantia p { margin: 0; color: #9eafc0; font-size: 13.5px; }
+.section-dark { color: white; background: var(--ink); }
+.section-dark h2 { color: white; }
+.section-dark .section-heading > p:last-child { color: #9eafc0; }
+
+.section-dark .stat-band { margin: 0; }
+.stat-strip { padding: 52px 0; }

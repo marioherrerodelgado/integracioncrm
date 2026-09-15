@@ -2,6 +2,34 @@ const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".main-nav");
 
+const navigationItems = [
+  ["/servicios/", "Servicios", "services"],
+  ["/servicios/zoho/", "Zoho", "zoho"],
+  ["/consultoria-centros-formacion/", "Centros de formación", "education"],
+  ["/sobre-nosotros/", "Sobre nosotros", "about"],
+  ["/auditoria-crm-gratis.html", "Auditoría gratis", "audit"],
+  ["/#como-funciona", "Cómo trabajamos", "process"]
+];
+
+if (navigation) {
+  const path = window.location.pathname;
+  const activeSection = path === "/servicios/zoho/"
+    ? "zoho"
+    : path === "/consultoria-centros-formacion/"
+      ? "education"
+      : path === "/sobre-nosotros/"
+        ? "about"
+        : path === "/auditoria-crm-gratis.html"
+          ? "audit"
+          : path.startsWith("/servicios/")
+            ? "services"
+            : "";
+
+  navigation.innerHTML = navigationItems
+    .map(([href, label, section]) => `<a href="${href}"${section === activeSection ? ' aria-current="page"' : ""}>${label}</a>`)
+    .join("") + '<a class="button button-small" href="/reservar-reunion.html">Reservar reunión</a>';
+}
+
 const updateHeader = () => header?.classList.toggle("scrolled", window.scrollY > 12);
 updateHeader();
 window.addEventListener("scroll", updateHeader, { passive: true });

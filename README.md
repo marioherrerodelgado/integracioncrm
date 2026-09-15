@@ -6,11 +6,14 @@ Sitio web estático de [integracioncrm.com](https://integracioncrm.com), prepara
 
 - Portada con servicios y formulario de auditoría
 - Páginas SEO para Zoho CRM, automatización, integraciones API y reporting
+- Solución específica para centros de FP, academias y entidades de formación con URLs limpias
 - Auditoría CRM gratuita
 - Solicitud de reunión por Google Meet o Microsoft Teams
 - Sitemap XML, metadatos sociales y datos estructurados JSON-LD
 
 Los formularios envían a `/api/contacto` mediante una Pages Function. La función puede guardar cada solicitud en Supabase y enviar un aviso por email; si el envío automático no está configurado, usa `mailto:` como alternativa.
+
+Las páginas nuevas usan rutas limpias con `index.html` dentro de cada carpeta, por ejemplo `/consultoria-centros-formacion/`. No es necesario mostrar la extensión `.html` en la URL.
 
 ## Guardar formularios en Supabase
 

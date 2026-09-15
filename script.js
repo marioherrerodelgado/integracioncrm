@@ -244,8 +244,7 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
       form.reset();
       return;
     } catch {
-      if (status) status.textContent = "El envío automático aún no está disponible. Abriendo tu correo con la solicitud preparada…";
-      window.location.href = `mailto:info@integracioncrm.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (status) status.textContent = "No se pudo enviar la solicitud. Revisa la conexión e inténtalo de nuevo.";
     } finally {
       if (submitButton) submitButton.disabled = false;
     }

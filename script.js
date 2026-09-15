@@ -2,34 +2,6 @@ const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".main-nav");
 
-const navigationItems = [
-  ["/servicios/", "Servicios", "services"],
-  ["/servicios/zoho/", "Zoho", "zoho"],
-  ["/consultoria-centros-formacion/", "Centros de formación", "education"],
-  ["/sobre-nosotros/", "Sobre nosotros", "about"],
-  ["/auditoria-crm-gratis.html", "Auditoría gratis", "audit"],
-  ["/#como-funciona", "Cómo trabajamos", "process"]
-];
-
-if (navigation) {
-  const path = window.location.pathname;
-  const activeSection = path === "/servicios/zoho/"
-    ? "zoho"
-    : path === "/consultoria-centros-formacion/"
-      ? "education"
-      : path === "/sobre-nosotros/"
-        ? "about"
-        : path === "/auditoria-crm-gratis.html"
-          ? "audit"
-          : path.startsWith("/servicios/")
-            ? "services"
-            : "";
-
-  navigation.innerHTML = navigationItems
-    .map(([href, label, section]) => `<a href="${href}"${section === activeSection ? ' aria-current="page"' : ""}>${label}</a>`)
-    .join("") + '<a class="button button-small" href="/reservar-reunion.html">Reservar reunión</a>';
-}
-
 const updateHeader = () => header?.classList.toggle("scrolled", window.scrollY > 12);
 updateHeader();
 window.addEventListener("scroll", updateHeader, { passive: true });
@@ -188,52 +160,28 @@ timeOptions?.querySelectorAll(".time-option").forEach((button, index) => {
   if (index === 0) button.click();
 });
 
-const fieldLabels = {
-  nombre: "Nombre",
-  email: "Email",
-  telefono: "Teléfono",
-  empresa: "Empresa",
-  crm: "CRM actual",
-  objetivo: "Objetivo o problema",
-  plataforma: "Plataforma",
-  fecha: "Fecha preferida",
-  hora: "Hora preferida"
-};
-
 document.querySelectorAll("[data-mail-form]").forEach((form) => {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const trap = form.querySelector("[name='website']");
+    const trap = form.querySelector("[name='_gotcha']");
     if (trap?.value) return;
 
-    if (meetingDateInput && !meetingDateInput.value) {
-      meetingDateInput.setCustomValidity("Selecciona una fecha.");
-      meetingDateInput.reportValidity();
-      return;
-    }
-    if (meetingTimeInput && !meetingTimeInput.value) {
-      meetingTimeInput.setCustomValidity("Selecciona una hora.");
-      meetingTimeInput.reportValidity();
+    const status = form.querySelector("[data-form-status]");
+    const missing = (meetingDateInput && !meetingDateInput.value && "una fecha")
+      || (meetingTimeInput && !meetingTimeInput.value && "una hora");
+    if (missing) {
+      if (status) status.textContent = `Selecciona ${missing} para continuar.`;
+      (meetingDateInput?.value ? timeOptions : calendarDays)?.scrollIntoView({ block: "center" });
       return;
     }
 
     const data = new FormData(form);
-    const lines = [];
-    for (const [key, value] of data.entries()) {
-      if (!value || key === "website") continue;
-      lines.push(`${fieldLabels[key] || key}: ${value}`);
-    }
-
-    const requestType = form.dataset.formType || "Consulta web";
-    const subject = `${requestType} — ${data.get("nombre") || "Nueva solicitud"}`;
-    const body = [`Nueva solicitud desde integracioncrm.com`, "", ...lines, "", "La fecha y hora quedan pendientes de confirmación."].join("\n");
-    const status = form.querySelector("[data-form-status]");
+    data.set("tipo", form.dataset.formType || "Consulta web");
     const submitButton = form.querySelector("button[type='submit']");
     if (status) status.textContent = "Enviando solicitud…";
     if (submitButton) submitButton.disabled = true;
 
     try {
-      data.set("tipo", requestType);
       const response = await fetch(form.action, {
         method: "POST",
         headers: { Accept: "application/json" },

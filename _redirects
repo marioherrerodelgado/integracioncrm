@@ -1,0 +1,11 @@
+# URLs antiguas con extension .html -> URLs limpias (301 permanente)
+/auditoria-crm-gratis.html                  /auditoria-crm-gratis/                  301
+/reservar-reunion.html                      /reservar-reunion/                      301
+/recursos/automatizacion-crm-guia.html      /recursos/automatizacion-crm-guia/      301
+/servicios/implementacion-zoho-crm.html     /servicios/implementacion-zoho-crm/     301
+/servicios/automatizacion-crm.html          /servicios/automatizacion-crm/          301
+/servicios/integraciones-api.html           /servicios/integraciones-api/           301
+/servicios/datos-reporting-crm.html         /servicios/datos-reporting-crm/         301
+/servicios/integracion-whatsapp-crm.html    /servicios/integracion-whatsapp-crm/    301
+/servicios/integracion-telefonia-crm.html   /servicios/integracion-telefonia-crm/   301
+/servicios/migracion-crm.html               /servicios/migracion-crm/               301

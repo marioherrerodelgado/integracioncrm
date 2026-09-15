@@ -1,0 +1,10 @@
+# Ficheros del repositorio que no deben publicarse como assets estaticos.
+.assetsignore
+.gitignore
+.wrangler
+README.md
+wrangler.jsonc
+worker.js
+functions
+supabase
+node_modules

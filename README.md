@@ -21,14 +21,17 @@ Las URLs antiguas con `.html` redirigen con **301** desde [`_redirects`](_redire
 Al añadir una página hay que actualizar a la vez: el `<link rel="canonical">`,
 [`sitemap.xml`](sitemap.xml) y el menú (ver abajo).
 
-## Navegación
+## Navegacion y pie
 
 El menú es **HTML estático e idéntico en las 21 páginas**, con `aria-current="page"`
 en el enlace de la sección activa. No lo genera JavaScript: hacerlo provocaba un salto
 visual al cargar y dejaba el menú vacío sin JS.
 
-Para cambiar el menú hay que editarlo en todas las páginas a la vez (el bloque
-`<nav id="main-nav" class="main-nav" aria-label="Navegación principal">…</nav>`).
+El pie es igualmente identico en todas las paginas e incluye los enlaces a las tres
+paginas legales.
+
+Para cambiar el menu o el pie hay que editarlos en todas las paginas a la vez (los bloques
+`<nav id="main-nav" …>…</nav>` y `<footer class="site-footer">…</footer>`).
 
 ## Formularios
 
@@ -80,11 +83,23 @@ Reproduce redirecciones, cabeceras de [`_headers`](_headers), página 404 y el e
 `/api/contacto`. Un servidor estático simple (`python3 -m http.server`) no reproduce nada
 de eso.
 
+## Paginas legales
+
+Titular: Mario Herrero Delgado · NIF 05959518B · Avenida Guadalajara 26, 28032 Madrid ·
+info@integracioncrm.com. Estos datos aparecen en [`/aviso-legal/`](aviso-legal/index.html)
+y [`/privacidad/`](privacidad/index.html); si cambian, hay que actualizarlos en ambas.
+
+- [`/aviso-legal/`](aviso-legal/index.html) — art. 10 LSSI-CE.
+- [`/privacidad/`](privacidad/index.html) — RGPD y LOPDGDD. Declara Formspree y Cloudflare
+  como encargados y la transferencia internacional a EE. UU.
+- [`/cookies/`](cookies/index.html) — la web no instala cookies, por eso no hay banner.
+  **Si se añade analítica, hay que actualizar esta página e implantar consentimiento previo.**
+
+Los tres formularios incluyen una casilla de consentimiento obligatoria (`name="consentimiento"`)
+con enlace a `/privacidad/`.
+
 ## Pendiente
 
-- [ ] Aviso legal, política de privacidad y política de cookies (requiere NIF, titular,
-      domicilio y email oficial)
-- [ ] Casilla de consentimiento obligatoria en los tres formularios, con enlace a `/privacidad/`
 - [ ] Imagen `og:image` (ninguna página tiene una: las tarjetas sociales salen vacías)
 - [ ] Cloudflare Web Analytics, Google Search Console, SPF/DKIM/DMARC
 - [ ] `Content-Security-Policy` y `Strict-Transport-Security` en `_headers`

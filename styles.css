@@ -379,3 +379,14 @@ body.modal-open { overflow: hidden; }
 /* Pie de pagina */
 .footer-links { display: grid; gap: 7px; text-align: right; }
 @media (max-width: 720px) { .footer-links { text-align: left; } }
+
+/* Banner de consentimiento de cookies */
+.cookie-banner { position: fixed; z-index: 60; left: 20px; right: 20px; bottom: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; max-width: 920px; margin: 0 auto; padding: 20px 24px; color: white; background: var(--ink); border-radius: 17px; box-shadow: 0 22px 60px rgba(7,17,31,.3); }
+.cookie-banner p { margin: 0; flex: 1; min-width: 260px; color: #c2cedb; font-size: 13px; line-height: 1.55; }
+.cookie-banner a { color: var(--mint); font-weight: 700; text-decoration: underline; }
+.cookie-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+/* Rechazar debe ser tan accesible como aceptar: mismo tamano y misma jerarquia. */
+.cookie-actions .button { padding: 11px 22px; font-size: 14px; }
+.button-ghost { color: white; background: transparent; border: 1px solid #40546b; }
+.button-ghost:hover { border-color: var(--mint-dark); }
+@media (max-width: 620px) { .cookie-banner { left: 12px; right: 12px; bottom: 12px; padding: 18px; } .cookie-actions { width: 100%; } .cookie-actions .button { flex: 1; } }

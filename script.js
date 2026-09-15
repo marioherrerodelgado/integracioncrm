@@ -198,3 +198,90 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
     }
   });
 });
+
+/* Consentimiento de cookies y analitica.
+   El art. 22.2 de la LSSI-CE exige consentimiento previo para las cookies de
+   analitica. Por eso gtag.js NO se carga hasta que la persona acepta: sin
+   aceptacion no se descarga el script ni se instala ninguna cookie. */
+const ANALYTICS_ID = "G-HBV9Z3WRQR";
+const CONSENT_KEY = "icrm-consent";
+
+const readConsent = () => { try { return localStorage.getItem(CONSENT_KEY); } catch { return null; } };
+const saveConsent = (value) => { try { localStorage.setItem(CONSENT_KEY, value); } catch { /* modo privado */ } };
+
+const loadAnalytics = () => {
+  if (window.__icrmAnalytics) return;
+  window.__icrmAnalytics = true;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() { window.dataLayer.push(arguments); };
+  // Consent Mode v2: solo analitica. Nada de publicidad ni perfilado.
+  gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "granted"
+  });
+  gtag("js", new Date());
+  gtag("config", ANALYTICS_ID);
+  const tag = document.createElement("script");
+  tag.async = true;
+  tag.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}`;
+  document.head.appendChild(tag);
+};
+
+const clearAnalyticsCookies = () => {
+  const host = location.hostname;
+  const domains = ["", `; domain=${host}`, `; domain=.${host}`];
+  document.cookie.split(";").forEach((entry) => {
+    const name = entry.split("=")[0].trim();
+    if (!/^_ga/.test(name)) return;
+    domains.forEach((domain) => {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domain}`;
+    });
+  });
+};
+
+const buildBanner = () => {
+  const banner = document.createElement("section");
+  banner.className = "cookie-banner";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-label", "Consentimiento de cookies");
+  banner.innerHTML = '<p>Usamos cookies de Google Analytics para saber qué páginas se visitan. '
+    + 'Solo se instalan si las aceptas y puedes cambiar de opinión cuando quieras. '
+    + '<a href="/cookies/">Más información</a>.</p>'
+    + '<div class="cookie-actions">'
+    + '<button type="button" class="button button-ghost" data-consent="rejected">Rechazar</button>'
+    + '<button type="button" class="button button-light" data-consent="granted">Aceptar</button>'
+    + '</div>';
+  banner.querySelectorAll("[data-consent]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const choice = button.dataset.consent;
+      saveConsent(choice);
+      banner.remove();
+      if (choice === "granted") loadAnalytics();
+      else clearAnalyticsCookies();
+    });
+  });
+  document.body.appendChild(banner);
+};
+
+const consent = readConsent();
+if (consent === "granted") loadAnalytics();
+else if (consent !== "rejected") buildBanner();
+
+// Permite revocar o volver a dar el consentimiento desde /cookies/.
+document.querySelectorAll("[data-consent-reset]").forEach((button) => {
+  button.addEventListener("click", () => {
+    try { localStorage.removeItem(CONSENT_KEY); } catch { /* modo privado */ }
+    clearAnalyticsCookies();
+    document.querySelector(".cookie-banner")?.remove();
+    buildBanner();
+  });
+});
+
+document.querySelectorAll("[data-consent-state]").forEach((element) => {
+  const current = readConsent();
+  element.textContent = current === "granted" ? "aceptadas"
+    : current === "rejected" ? "rechazadas"
+    : "sin decidir";
+});

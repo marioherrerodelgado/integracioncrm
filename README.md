@@ -92,14 +92,32 @@ y [`/privacidad/`](privacidad/index.html); si cambian, hay que actualizarlos en 
 - [`/aviso-legal/`](aviso-legal/index.html) — art. 10 LSSI-CE.
 - [`/privacidad/`](privacidad/index.html) — RGPD y LOPDGDD. Declara Formspree y Cloudflare
   como encargados y la transferencia internacional a EE. UU.
-- [`/cookies/`](cookies/index.html) — la web no instala cookies, por eso no hay banner.
-  **Si se añade analítica, hay que actualizar esta página e implantar consentimiento previo.**
+- [`/cookies/`](cookies/index.html) — detalla las cookies de Google Analytics y el
+  mecanismo de consentimiento.
 
 Los tres formularios incluyen una casilla de consentimiento obligatoria (`name="consentimiento"`)
 con enlace a `/privacidad/`.
 
+## Analitica
+
+Google Analytics 4 (`G-HBV9Z3WRQR`) con **consentimiento previo**, en `script.js`.
+
+`gtag.js` **no se descarga** hasta que la persona pulsa «Aceptar»: sin aceptacion no hay
+peticion a Google ni cookie alguna (art. 22.2 LSSI-CE). Al rechazar o revocar se eliminan
+las cookies `_ga*` ya instaladas. Los usos publicitarios de Consent Mode v2
+(`ad_storage`, `ad_user_data`, `ad_personalization`) quedan denegados siempre.
+
+La decision se guarda en `localStorage` bajo `icrm-consent` (`granted` / `rejected`) y se
+puede cambiar desde `/cookies/` con `[data-consent-reset]`.
+
+> ⚠️ Verificar Search Console **por DNS o por meta tag**, nunca por Google Analytics: el
+> rastreador no ve el snippet porque solo se inyecta tras el consentimiento.
+
+Si se cambia el ID de medicion hay que actualizarlo en `script.js` (`ANALYTICS_ID`) y en
+el nombre de cookie `_ga_<ID>` documentado en `/cookies/`.
+
 ## Pendiente
 
 - [ ] Imagen `og:image` (ninguna página tiene una: las tarjetas sociales salen vacías)
-- [ ] Cloudflare Web Analytics, Google Search Console, SPF/DKIM/DMARC
+- [ ] Google Search Console (verificar por DNS), SPF/DKIM/DMARC
 - [ ] `Content-Security-Policy` y `Strict-Transport-Security` en `_headers`

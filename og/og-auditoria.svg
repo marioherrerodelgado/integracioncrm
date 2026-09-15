@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="80%" cy="35%" r="55%"><stop offset="0" stop-color="#29c782" stop-opacity=".18"/><stop offset="1" stop-color="#07111f" stop-opacity="0"/></radialGradient>
+    <style>
+      .bg{fill:#07111f}.glow{fill:url(#glow)}.mint{fill:#29c782}.pale{fill:#86f7c0}.ink{fill:#07111f}.white{fill:#f5f7f4}.muted{fill:#a7b2bf}
+      .brand{font:700 31px 'Avenir Next',Inter,'Nimbus Sans',Arial,sans-serif;letter-spacing:-1px}.title{font:700 68px 'Avenir Next',Inter,'Nimbus Sans',Arial,sans-serif;letter-spacing:-2.7px}.sub{font:400 25px 'Avenir Next',Inter,'Nimbus Sans',Arial,sans-serif;letter-spacing:.2px}.domain{font:700 22px 'Avenir Next',Inter,'Nimbus Sans',Arial,sans-serif;letter-spacing:1px}.tag{font:700 17px 'Avenir Next',Inter,'Nimbus Sans',Arial,sans-serif;letter-spacing:2px}
+      .line{fill:none;stroke:#86f7c0;stroke-width:3}.line2{fill:none;stroke:#717bff;stroke-width:3}.ghost{fill:none;stroke:#f5f7f4;stroke-opacity:.08;stroke-width:1}
+    </style>
+    <g id="mark"><rect width="54" height="54" rx="14" class="pale"/><rect x="12" y="12" width="12" height="12" rx="2" class="ink"/><rect x="30" y="30" width="12" height="12" rx="2" class="ink"/><path d="M24 18c12 0 12 12 12 12M18 24c0 12 12 12 12 12" fill="none" stroke="#07111f" stroke-width="4" stroke-linecap="round"/></g>
+    <g id="network"><circle cx="0" cy="0" r="116" class="ghost"/><circle cx="0" cy="0" r="176" class="ghost"/><rect x="-125" y="-74" width="94" height="94" rx="24" fill="#86f7c0"/><rect x="45" y="68" width="94" height="94" rx="24" fill="#717bff"/><path d="M-31-27C48-27-15 115 45 115" class="line"/><path d="M-78 20C-78 114 48 21 92 68" class="line2"/><circle cx="-31" cy="-27" r="6" class="white"/><circle cx="45" cy="115" r="6" class="white"/></g>
+  </defs>
+  <rect width="1200" height="630" class="bg"/><rect width="1200" height="630" class="glow"/>
+  <g transform="translate(300 68)"><use href="#mark"/><text x="72" y="38" class="brand white">Integración<tspan class="mint">CRM</tspan></text></g>
+    <text x="300" y="207" class="tag mint">DIAGNÓSTICO SIN COMPROMISO</text>
+    <text x="300" y="292" class="title white"><tspan x="300">Auditoría CRM</tspan><tspan x="300" dy="78" class="mint">gratuita</tspan></text>
+    <text x="300" y="455" class="sub muted">Procesos  ·  Automatización  ·  Datos  ·  Oportunidades</text>
+    <text x="300" y="562" class="domain white">integracioncrm.com</text>
+    <g transform="translate(970 302)"><use href="#network"/></g>
+    <rect x="60" y="606" width="1080" height="2" class="mint" opacity=".6"/>
+</svg>

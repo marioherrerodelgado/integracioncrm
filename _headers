@@ -15,3 +15,6 @@
 
 /404.html
   X-Robots-Tag: noindex
+
+/og/*
+  Cache-Control: public, max-age=2592000

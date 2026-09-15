@@ -63,7 +63,10 @@ export async function onRequestPost({ request, env }) {
 
   let input;
   try {
-    input = await request.json();
+    const contentType = request.headers.get("content-type") || "";
+    input = contentType.includes("application/json")
+      ? await request.json()
+      : Object.fromEntries(await request.formData());
   } catch {
     return json({ ok: false, error: "Formato no válido" }, 400);
   }

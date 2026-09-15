@@ -47,7 +47,7 @@ svg { display: block; }
 .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: var(--ink); background: var(--mint); border-radius: 10px; }
 .brand-mark svg { width: 24px; fill: currentColor; }
 .brand-mark svg path:last-child { fill: none; stroke: currentColor; stroke-width: 2; }
-.main-nav { display: flex; align-items: center; gap: 32px; font-size: 14px; font-weight: 600; }
+.main-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 600; }
 .main-nav > a:not(.button) { color: #3b4959; transition: color .2s ease; }
 .main-nav > a:not(.button):hover { color: var(--ink); }
 .menu-toggle { display: none; }

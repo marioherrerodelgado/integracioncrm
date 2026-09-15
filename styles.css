@@ -278,6 +278,18 @@ svg { display: block; }
   .related-grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 1100px) {
+  .nav-wrap { height: 68px; }
+  .menu-toggle { width: 42px; height: 42px; display: grid; place-content: center; gap: 6px; padding: 0; background: white; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+  .menu-toggle span:not(.sr-only) { width: 19px; height: 2px; background: var(--ink); transition: transform .2s ease; }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(4px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
+  .main-nav { position: absolute; inset: 68px 20px auto; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 12px; background: rgba(255,255,255,.98); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+  .main-nav.open { display: flex; }
+  .main-nav > a:not(.button) { padding: 13px 10px; }
+  .main-nav .button { margin-top: 6px; }
+}
+
 @media (max-width: 760px) {
   .container { width: min(100% - 28px, 1160px); }
   .nav-wrap { height: 68px; }

@@ -7,6 +7,11 @@
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    // Sin binding, env.ASSETS es undefined y el Worker lanza 1101 (HTTP 500)
+    // en toda ruta que no corresponda a un asset existente.
+    "binding": "ASSETS",
+    // Sirve 404.html con status 404 en lugar de dejar caer la peticion al Worker.
+    "not_found_handling": "404-page"
   }
 }

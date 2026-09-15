@@ -55,6 +55,51 @@ document.querySelectorAll("[data-copy]").forEach((button) => {
   });
 });
 
+const infoModal = document.querySelector("[data-info-modal]");
+const modalTitle = infoModal?.querySelector("#info-modal-title");
+const modalBody = infoModal?.querySelector("[data-modal-body]");
+const modalSource = infoModal?.querySelector("[data-modal-source]");
+const reiniciaSummaries = {
+  "#": "Agencia Reinicia presenta un ecosistema de servicios y herramientas para acompañar proyectos de transformación digital, CRM y negocio.",
+  "/servicio/consultoria-crm/": "La consultoría CRM parte del proceso comercial, los datos y las necesidades del equipo para diseñar una solución que se pueda utilizar y medir.",
+  "/servicio/consultoria-erp/": "La consultoría ERP conecta la gestión operativa y administrativa con una arquitectura de datos y procesos más ordenada.",
+  "/agencia-zoho-partner-oficial/zoho-crm/": "Zoho CRM centraliza oportunidades, clientes, tareas y automatizaciones para dar continuidad al proceso comercial.",
+  "/agencia-zoho-partner-oficial/zoho-one/": "Zoho One reúne aplicaciones para ventas, operaciones, marketing, soporte, finanzas y colaboración dentro de un mismo ecosistema.",
+  "/agencia-zoho-partner-oficial/zoho-analytics/": "Zoho Analytics permite consolidar datos y crear cuadros de mando para analizar actividad, rendimiento y evolución del negocio.",
+  "/agencia-zoho-partner-oficial/zoho-books/": "Zoho Books organiza la gestión financiera, facturación y operaciones relacionadas con clientes y servicios.",
+  "/agencia-zoho-partner-oficial/zoho-forms/": "Zoho Forms facilita la captura estructurada de información y su conexión con procesos y aplicaciones del ecosistema.",
+  "/agencia-zoho-partner-oficial/zoho-campaigns/": "Zoho Campaigns ayuda a segmentar contactos y automatizar comunicaciones relacionadas con el ciclo de marketing.",
+  "/agencia-zoho-partner-oficial/zoho-sign/": "Zoho Sign permite gestionar documentos y firmas electrónicas dentro de un flujo digital trazable.",
+  "/servicio/desarrollo-de-api-zoho-crm/": "Las integraciones mediante API y webhooks conectan Zoho con otras aplicaciones, automatizando el intercambio de datos y eventos.",
+  "/casos-exito/lider-system-whatsapp-business-api-zoho-crm/": "Caso de integración de WhatsApp Business API con Zoho CRM para relacionar conversaciones y gestión comercial.",
+  "/casos-exito/breezom-digitalizacion-funnel-inmobiliario-zoho/": "Caso de digitalización de un funnel inmobiliario con Zoho para ordenar captación, seguimiento y conversión.",
+  "/categoria-casos/crm-erp/": "Categoría de casos de CRM y ERP con proyectos de digitalización, automatización y mejora de procesos."
+};
+
+const closeInfoModal = () => {
+  if (!infoModal) return;
+  infoModal.hidden = true;
+  document.body.classList.remove("modal-open");
+};
+
+document.querySelectorAll("a[href*='agenciareinicia.com']").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (!infoModal || !modalTitle || !modalBody || !modalSource) return;
+    event.preventDefault();
+    const source = new URL(link.href).pathname || "/";
+    modalTitle.textContent = link.closest(".related-card")?.querySelector("strong")?.textContent || link.textContent.trim();
+    modalBody.textContent = reiniciaSummaries[source] || "Referencia profesional relacionada con consultoría, CRM, ERP o transformación digital.";
+    modalSource.href = link.href;
+    infoModal.hidden = false;
+    document.body.classList.add("modal-open");
+  });
+});
+
+infoModal?.querySelectorAll("[data-modal-close]").forEach((element) => element.addEventListener("click", closeInfoModal));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeInfoModal();
+});
+
 const meetingDateInput = document.querySelector("[data-meeting-date]");
 const meetingTimeInput = document.querySelector("[data-meeting-time]");
 const calendarDays = document.querySelector("[data-calendar-days]");

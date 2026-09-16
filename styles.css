@@ -77,7 +77,7 @@ svg { display: block; }
 .hero-trust { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 36px; color: #5c6a79; font-size: 13px; font-weight: 600; }
 .hero-trust i { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 4px; color: #087847; background: rgba(41,199,130,.13); border-radius: 50%; font-style: normal; }
 
-.hero-visual { position: relative; min-height: 470px; padding: 38px 34px; background: linear-gradient(145deg, #0a1727, #101f32); border: 1px solid rgba(255,255,255,.08); border-radius: 20px; box-shadow: var(--shadow); }
+.hero-visual { position: relative; min-height: 500px; padding: 38px 34px; background: linear-gradient(145deg, #0a1727, #101f32); border: 1px solid rgba(255,255,255,.08); border-radius: 20px; box-shadow: var(--shadow); }
 .hero-visual::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 80% 10%, rgba(134,247,192,.13), transparent 35%); }
 .visual-label { position: relative; margin-bottom: 25px; color: #8da0b4; font-size: 11px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .flow-card { position: relative; z-index: 2; display: flex; align-items: center; gap: 13px; padding: 16px; color: white; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; box-shadow: 0 15px 30px rgba(0,0,0,.12); backdrop-filter: blur(10px); }
@@ -305,7 +305,7 @@ svg { display: block; }
   .hero-lead { font-size: 17px; }
   .hero-actions { align-items: flex-start; flex-direction: column; gap: 18px; }
   .hero-trust { flex-direction: column; gap: 10px; }
-  .hero-visual { min-height: 450px; padding: 28px 20px; border-radius: 20px; }
+  .hero-visual { min-height: 480px; padding: 28px 20px; border-radius: 20px; }
   .flow-card-small { width: calc(50% - 25px); }
   .flow-card-left { left: 20px; }
   .flow-card-right { right: 20px; }
@@ -766,3 +766,45 @@ body { background: none; }
 @media (max-width: 900px) { .panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .panel-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .panel, .panel::after { transition: border-color .16s ease; } .panel:hover { transform: none; box-shadow: none; } }
+
+/* La ilustración del hero en móvil.
+   En escritorio las piezas van posicionadas de forma absoluta sobre un lienzo
+   de altura fija. En pantallas estrechas eso rompe en cuanto una tarjeta crece:
+   aquí pasa a flujo normal, que se adapta a cualquier contenido. */
+@media (max-width: 720px) {
+  .hero-visual { min-height: 0; display: grid; gap: 12px; padding: 22px 18px; }
+  .hero-visual .visual-label { margin-bottom: 0; }
+  .flow-card-main, .activity-card, .flow-line-one { position: static; }
+  .flow-card-small { position: static; width: auto; min-height: 0; }
+  .flow-card-small .flow-icon { display: grid; }
+  .flow-line-one { height: 26px; width: 2px; margin: 0 auto; }
+  .hero-visual .pareja { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .activity-card { left: auto; right: auto; bottom: auto; }
+}
+
+/* El cajón del menú con un desplegable abierto puede superar la altura de la
+   pantalla en móviles bajos. Se limita y se le da scroll propio, para que el
+   último enlace siempre sea alcanzable. */
+@media (max-width: 1180px) {
+  .main-nav.open { max-height: calc(100dvh - 92px); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .main-nav.open::-webkit-scrollbar { width: 4px; }
+  .main-nav.open::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+}
+
+/* Diagrama vertical para móvil.
+   En horizontal el diagrama mide 620px: en un móvil de 375 solo se ve la
+   mitad y hay que arrastrarlo, lo que anula su sentido. */
+.flow-vertical { display: none; width: 100%; max-width: 340px; margin: 0 auto; height: auto; overflow: visible; }
+@media (max-width: 720px) {
+  .flow-diagram { display: none; }
+  .flow-vertical { display: block; }
+  .flow-scroll { overflow: visible; }
+}
+.flow-vertical .flow-node text { font-size: 13px; }
+.flow-vertical .flow-core text { font-size: 23px; }
+.flow-vertical .flow-core text.flow-sub { font-size: 12px; }
+.flow-vertical .punto { fill: var(--mint-dark); }
+.flow-vertical .flow-line path { animation: viaje 1.6s linear infinite; }
+.flow-vertical .flow-line path:nth-child(2n) { animation-delay: -.3s; }
+.flow-vertical .flow-line path:nth-child(3n) { animation-delay: -.6s; }
+@media (prefers-reduced-motion: reduce) { .flow-vertical .flow-line path { animation: none !important; } }

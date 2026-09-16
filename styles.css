@@ -516,14 +516,14 @@ body { font-size: 17px; line-height: 1.65; }
 
 /* --- Las tarjetas pasan a filas numeradas --- */
 .services-grid { grid-template-columns: 1fr; gap: 0; counter-reset: ficha; border-top: 1px solid var(--line); }
-.service-tile { counter-increment: ficha; display: grid; grid-template-columns: 78px minmax(0, 1fr) 190px; gap: 9px 32px; align-items: start;
+.service-tile { counter-increment: ficha; display: grid; grid-template-columns: 78px minmax(0, 1fr) 150px; gap: 9px 32px; align-items: start;
   min-height: 0; padding: 40px 0; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; }
 .service-tile:hover { transform: none; box-shadow: none; background: rgba(41,199,130,.035); }
 .service-tile::before { grid-column: 1; grid-row: 1 / span 2; content: counter(ficha, decimal-leading-zero); color: var(--mint-dark); font: 600 13px/1.5 var(--mono); letter-spacing: .06em; }
 .service-tile .feature-icon { display: none; }
 .service-tile h2, .service-tile h3 { grid-column: 2; grid-row: 1; max-width: none; margin: 0; font-size: 26px; letter-spacing: -.035em; }
 .service-tile p { grid-column: 2; grid-row: 2; max-width: 66ch; margin: 0; font-size: 16px; }
-.service-tile .card-link { position: static; grid-column: 3; grid-row: 1 / span 2; align-self: start; color: var(--muted); font-size: 13px; font-weight: 600; text-align: right; }
+.service-tile .card-link { position: static; grid-column: 3; grid-row: 1 / span 2; align-self: start; color: var(--muted); font-size: 13px; font-weight: 600; text-align: right; white-space: nowrap; }
 .service-tile:hover .card-link { color: var(--mint-dark); }
 @media (max-width: 860px) {
   .service-tile { grid-template-columns: 54px minmax(0, 1fr); gap: 8px 18px; padding: 32px 0; }

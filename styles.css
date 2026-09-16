@@ -563,3 +563,64 @@ body { font-size: 17px; line-height: 1.65; }
 .flow-card-small strong { font-size: 12.5px; }
 .flow-card-small small { font-size: 10.5px; line-height: 1.35; }
 .hero-visual .flow-card { font-size: 13px; }
+
+/* ===========================================================
+   MOVIMIENTO
+   Solo se anima lo que explica algo o confirma una acción.
+   Las curvas salen de valores conocidos, no inventados.
+   =========================================================== */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* --- El dato viaja por el diagrama ---------------------------
+   Propósito: explicación. Es lo único que la animación aporta
+   aquí: ver que el dato entra por los canales, pasa por el CRM
+   y sale hacia el resto. Marcha constante -> linear.
+   Se escalona para que las ocho líneas no latan al unísono. */
+@keyframes viaje { to { stroke-dashoffset: -10; } }
+.flow-diagram .flow-line path { animation: viaje 1.6s linear infinite; }
+.flow-diagram .flow-line path:nth-child(2) { animation-delay: -.2s; }
+.flow-diagram .flow-line path:nth-child(3) { animation-delay: -.4s; }
+.flow-diagram .flow-line path:nth-child(4) { animation-delay: -.6s; }
+.flow-diagram .flow-line path:nth-child(5) { animation-delay: -.15s; }
+.flow-diagram .flow-line path:nth-child(6) { animation-delay: -.35s; }
+.flow-diagram .flow-line path:nth-child(7) { animation-delay: -.55s; }
+.flow-diagram .flow-line path:nth-child(8) { animation-delay: -.75s; }
+
+@keyframes latido { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
+.flow-diagram .flow-dot circle { animation: latido 2.8s var(--ease-in-out) infinite; }
+.flow-diagram .flow-dot circle:nth-child(2) { animation-delay: -.35s; }
+.flow-diagram .flow-dot circle:nth-child(3) { animation-delay: -.7s; }
+.flow-diagram .flow-dot circle:nth-child(4) { animation-delay: -1.05s; }
+.flow-diagram .flow-dot circle:nth-child(5) { animation-delay: -1.4s; }
+.flow-diagram .flow-dot circle:nth-child(6) { animation-delay: -1.75s; }
+.flow-diagram .flow-dot circle:nth-child(7) { animation-delay: -2.1s; }
+.flow-diagram .flow-dot circle:nth-child(8) { animation-delay: -2.45s; }
+
+/* --- Filas de servicio: confirmación, no espectáculo ---------
+   Nivel hover -> solo imperceptible y rápido. 140ms. */
+.service-tile { transition: background-color .14s ease; }
+.service-tile .card-link { transition: color .14s ease, transform .14s ease; }
+@media (hover: hover) and (pointer: fine) {
+  .service-tile:hover .card-link { transform: translateX(3px); }
+}
+
+/* --- Barras del hero: entrada única al cargar ---------------- */
+@keyframes barra { from { opacity: 0; transform: scaleY(.35); } to { opacity: 1; transform: scaleY(1); } }
+.activity-chart i { transform-origin: bottom; animation: barra .42s var(--ease-out) both; }
+.activity-chart i:nth-child(2) { animation-delay: .06s; }
+.activity-chart i:nth-child(3) { animation-delay: .12s; }
+.activity-chart i:nth-child(4) { animation-delay: .18s; }
+.activity-chart i:nth-child(5) { animation-delay: .24s; }
+.activity-chart i:nth-child(6) { animation-delay: .30s; }
+.activity-chart i:nth-child(7) { animation-delay: .36s; }
+
+/* --- Sin movimiento si el sistema lo pide -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .flow-diagram .flow-line path,
+  .flow-diagram .flow-dot circle,
+  .activity-chart i { animation: none !important; }
+  .flow-diagram .flow-dot circle { opacity: 1; }
+}

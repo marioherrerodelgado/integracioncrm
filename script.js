@@ -264,3 +264,47 @@ if (seccionesConTono.length && "IntersectionObserver" in window) {
   }, { threshold: [0, .15, .35, .55, .75, 1] });
   seccionesConTono.forEach((s) => vigia.observe(s));
 }
+
+/* Aparición al entrar en pantalla.
+   La clase se añade desde aquí y no en el HTML: si este script no llega a
+   ejecutarse, el contenido se ve con normalidad en lugar de quedar invisible.
+   Se anima una sola vez y con desfase dentro de cada grupo. */
+const gruposQueAparecen = [
+  ".services-grid > .service-tile",
+  ".modulos-grid > .pieza",
+  ".piezas > .pieza",
+  ".modulo-grid > .modulo",
+  ".garantias > .garantia",
+  ".stat-band > div",
+  ".pilares > li",
+  ".number-list > li",
+  ".check-list > li",
+  ".caso-pasos > li",
+  ".faq-list > details",
+  ".section-heading",
+  ".caso-cifra",
+  ".flow-figure"
+];
+
+const candidatos = [...new Set(gruposQueAparecen.flatMap((s) => [...document.querySelectorAll(s)]))];
+
+if (candidatos.length && "IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  // El desfase se calcula por posición dentro del grupo, no global.
+  const posicion = new Map();
+  candidatos.forEach((el) => {
+    const hermanos = [...(el.parentElement?.children || [])].filter((h) => candidatos.includes(h));
+    posicion.set(el, Math.min(hermanos.indexOf(el), 6));
+    el.classList.add("aparece", "aparece-on");
+  });
+
+  const vigia = new IntersectionObserver((entradas) => {
+    entradas.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.style.transitionDelay = `${posicion.get(e.target) * 60}ms`;
+      e.target.classList.add("visible");
+      vigia.unobserve(e.target);
+    });
+  }, { threshold: .12, rootMargin: "0px 0px -8% 0px" });
+
+  candidatos.forEach((el) => vigia.observe(el));
+}

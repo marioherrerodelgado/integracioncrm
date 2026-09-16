@@ -47,7 +47,7 @@ svg { display: block; }
 .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: var(--ink); background: var(--mint); border-radius: 14px; }
 .brand-mark svg { width: 24px; fill: currentColor; }
 .brand-mark svg path:last-child { fill: none; stroke: currentColor; stroke-width: 2; }
-.main-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 600; }
+.main-nav { display: flex; align-items: center; gap: 15px; font-size: 14px; font-weight: 600; }
 .main-nav > a:not(.button) { color: #3b4959; transition: color .2s ease; }
 .main-nav > a:not(.button):hover { color: var(--ink); }
 .menu-toggle { display: none; }
@@ -277,7 +277,7 @@ svg { display: block; }
   .related-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1180px) {
   .nav-wrap { height: 68px; }
   .menu-toggle { width: 42px; height: 42px; display: grid; place-content: center; gap: 6px; padding: 0; background: white; border: 1px solid var(--line); border-radius: 14px; cursor: pointer; }
   .menu-toggle span:not(.sr-only) { width: 19px; height: 2px; background: var(--ink); transition: transform .2s ease; }
@@ -696,3 +696,25 @@ body { background: none; }
 [data-tono="oscuro"] .logo-cloud span { color: #c3d2e0; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }
 [data-tono="oscuro"] .logo-cloud span svg { color: var(--mint); }
 @media (prefers-reduced-motion: reduce) { html { transition: none; } }
+
+/* Pastilla en el enlace activo del menú */
+.main-nav > a:not(.button) { padding: 7px 12px; border-radius: 999px; white-space: nowrap; transition: color .16s ease, background-color .16s ease; }
+.main-nav > a[aria-current="page"] { color: var(--ink); background: rgba(41,199,130,.14); }
+@media (hover: hover) and (pointer: fine) {
+  .main-nav > a:not(.button):hover { background: rgba(7,17,31,.05); }
+  .main-nav > a[aria-current="page"]:hover { background: rgba(41,199,130,.2); }
+}
+[data-tono="oscuro"] .main-nav > a[aria-current="page"] { background: rgba(134,247,192,.16); }
+
+/* Aparición al entrar en pantalla.
+   La clase la pone JavaScript: sin él no se oculta nada, que es el fallo que
+   ya tuvimos con data-reveal. Movimiento corto y una sola vez. */
+.aparece { opacity: 0; transform: translateY(16px); }
+.aparece-on { transition: opacity .55s var(--ease-out), transform .55s var(--ease-out); }
+.aparece.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .aparece { opacity: 1; transform: none; }
+  .aparece-on { transition: opacity .3s ease; }
+}
+
+.main-nav > .button { white-space: nowrap; }

@@ -489,11 +489,6 @@ svg { display: block; }
 @media (max-width: 720px) { .statement { padding: 68px 0; } }
 
 /* Retrato */
-.retrato { display: grid; grid-template-columns: 190px 1fr; gap: 30px; align-items: start; margin-bottom: 30px; }
-.retrato img { width: 190px; height: 190px; border-radius: 20px; border: 1px solid var(--line); object-fit: cover; }
-.retrato p { margin: 0; }
-.retrato .cargo { margin-top: 10px; color: var(--muted); font-size: 14px; }
-@media (max-width: 620px) { .retrato { grid-template-columns: 1fr; gap: 20px; } .retrato img { width: 150px; height: 150px; } }
 .quien { display: flex; align-items: center; gap: 14px; margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.14); }
 .quien img { width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; }
 .quien b { display: block; color: white; font-family: var(--display); font-size: 14px; }
@@ -917,3 +912,28 @@ body { background: none; }
   -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 40%, transparent 100%);
   mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 40%, transparent 100%); }
 [data-tono="oscuro"] > * { position: relative; z-index: 1; }
+
+/* Sobre nosotros: foto en la cabecera y qué hacemos */
+.sobre-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: center; }
+.sobre-hero h1 { max-width: 15ch; font-size: clamp(40px, 4.9vw, 66px); }
+.sobre-foto { position: relative; margin: 0; }
+.sobre-foto img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 24px; box-shadow: var(--shadow); }
+.sobre-foto figcaption { position: absolute; left: 16px; right: 16px; bottom: 16px; display: grid; gap: 2px; padding: 12px 15px; background: rgba(255,255,255,.9); border-radius: 14px; backdrop-filter: blur(10px); }
+.sobre-foto figcaption b { color: var(--ink); font-size: 15px; }
+.sobre-foto figcaption span { color: var(--muted); font-size: 12.5px; line-height: 1.4; }
+
+.que-hacemos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.que-hacemos a { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; padding: 18px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 16px; transition: border-color .18s ease, transform .2s var(--ease-out); }
+.que-hacemos svg { grid-row: 1 / span 2; width: 40px; height: 40px; padding: 9px; color: var(--mint-dark); background: rgba(41,199,130,.1); border-radius: 11px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
+.que-hacemos b { color: var(--ink); font-size: 15.5px; line-height: 1.3; }
+.que-hacemos b::after { content: " →"; color: var(--mint-dark); }
+.que-hacemos span { margin-top: 4px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+@media (hover: hover) and (pointer: fine) { .que-hacemos a:hover { border-color: var(--mint-dark); transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .que-hacemos a { transition: border-color .18s ease; } .que-hacemos a:hover { transform: none; } }
+
+@media (max-width: 860px) {
+  .sobre-hero-grid { grid-template-columns: 1fr; gap: 34px; }
+  .sobre-foto { order: -1; width: min(280px, 100%); }
+  .sobre-hero h1 { max-width: none; font-size: clamp(38px, 10vw, 58px); }
+}
+@media (max-width: 600px) { .que-hacemos { grid-template-columns: 1fr; } }

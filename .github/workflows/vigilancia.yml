@@ -1,0 +1,129 @@
+# Vigilancia de integracioncrm.com
+# Cada 10 minutos comprueba que la web responde. Si algo falla abre una
+# incidencia (llega por email a quien vigila el repositorio) y la cierra sola
+# cuando la web se recupera: un aviso al caer y otro al volver, no uno cada 10 min.
+#
+# Limitación: se comprueba desde servidores de GitHub. Un bloqueo que solo afecte
+# a un operador español (como el de Vodafone) no se detecta desde aquí.
+#
+# Prueba manual: pestaña Actions → "Vigilancia de la web" → Run workflow
+# (con "simular" activado abre una incidencia de prueba; la siguiente ejecución normal la cierra).
+
+name: Vigilancia de la web
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      simular:
+        description: "Simular una caída para probar el aviso"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: vigilancia
+  cancel-in-progress: false
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Comprobar la web
+        id: comprobar
+        continue-on-error: true
+        env:
+          SIMULAR: ${{ inputs.simular }}
+        run: |
+          set -u
+          BASE="https://integracioncrm.com"
+          : > /tmp/fallos.md
+
+          # nombre, url, código esperado, texto que debe aparecer (opcional)
+          comprobar() {
+            local nombre="$1" url="$2" esperado="$3" texto="${4:-}" codigo="000"
+            for intento in 1 2 3; do
+              codigo=$(curl -sS -m 25 -A "VigilanciaIntegracionCRM/1.0" -o /tmp/cuerpo -w "%{http_code}" "$url" 2>/tmp/error) || codigo="000"
+              if [ "$codigo" = "$esperado" ] && { [ -z "$texto" ] || grep -qF "$texto" /tmp/cuerpo; }; then
+                echo "✅ $nombre ($codigo)"; return 0
+              fi
+              [ "$intento" -lt 3 ] && sleep 20
+            done
+            local detalle="HTTP $codigo, se esperaba $esperado"
+            [ "$codigo" = "$esperado" ] && [ -n "$texto" ] && detalle="responde, pero falta el texto «$texto»"
+            [ "$codigo" = "000" ] && detalle="sin respuesta ($(head -c 160 /tmp/error))"
+            echo "❌ $nombre: $detalle"
+            echo "- **$nombre** — $detalle · $url" >> /tmp/fallos.md
+          }
+
+          redirige() {
+            local nombre="$1" url="$2" destino="$3" resultado=""
+            for intento in 1 2 3; do
+              resultado=$(curl -sS -m 25 -o /dev/null -w "%{http_code} %{redirect_url}" "$url" 2>/dev/null) || resultado="000"
+              [ "$resultado" = "301 $destino" ] && { echo "✅ $nombre"; return 0; }
+              [ "$intento" -lt 3 ] && sleep 20
+            done
+            echo "❌ $nombre: $resultado"
+            echo "- **$nombre** — obtenido «$resultado», se esperaba «301 $destino»" >> /tmp/fallos.md
+          }
+
+          comprobar "Portada" "$BASE/" 200 "IntegraciónCRM"
+          comprobar "CRM para centros de formación" "$BASE/consultoria-centros-formacion/" 200 "CRM para centros de formación"
+          comprobar "Blog" "$BASE/blog/" 200 "Blog de CRM"
+          comprobar "Sitemap" "$BASE/sitemap.xml" 200 "<urlset"
+          comprobar "Hoja de estilos" "$BASE/styles.css" 200
+          redirige "Redirección desde www" "https://www.integracioncrm.com/" "$BASE/"
+
+          fin=$(echo | openssl s_client -servername integracioncrm.com -connect integracioncrm.com:443 2>/dev/null | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)
+          if [ -n "$fin" ]; then
+            dias=$(( ( $(date -d "$fin" +%s) - $(date +%s) ) / 86400 ))
+            if [ "$dias" -lt 10 ]; then
+              echo "❌ Certificado: caduca en $dias días"; echo "- **Certificado HTTPS** — caduca en $dias días ($fin)" >> /tmp/fallos.md
+            else
+              echo "✅ Certificado ($dias días)"
+            fi
+          else
+            echo "❌ Certificado: no se pudo leer"; echo "- **Certificado HTTPS** — no se pudo leer" >> /tmp/fallos.md
+          fi
+
+          if [ "${SIMULAR:-false}" = "true" ]; then
+            echo "- **Simulación** — incidencia de prueba lanzada a mano. La próxima comprobación normal la cerrará." >> /tmp/fallos.md
+          fi
+
+          [ ! -s /tmp/fallos.md ]
+
+      - name: Abrir o cerrar la incidencia
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RESULTADO: ${{ steps.comprobar.outcome }}
+          DUENO: ${{ github.repository_owner }}
+        run: |
+          gh label create web-caida --color d73a4a --description "Aviso automático de la vigilancia" --force >/dev/null
+          abierta=$(gh issue list --label web-caida --state open --json number --jq '.[0].number // empty')
+          ahora=$(TZ=Europe/Madrid date '+%d/%m/%Y a las %H:%M')
+          if [ "$RESULTADO" = "failure" ]; then
+            if [ -z "$abierta" ]; then
+              {
+                echo "@$DUENO la vigilancia ha detectado problemas en **integracioncrm.com** el $ahora (hora de Madrid)."
+                echo
+                cat /tmp/fallos.md
+                echo
+                echo "Cada comprobación se repitió 3 veces antes de avisar. Esta incidencia se cerrará sola cuando la web vuelva a responder bien."
+                echo
+                echo "Detalle de la ejecución: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              } > /tmp/aviso.md
+              gh issue create --label web-caida --title "🔴 integracioncrm.com tiene problemas" --body-file /tmp/aviso.md
+            else
+              echo "Ya hay una incidencia abierta (#$abierta); no se repite el aviso."
+            fi
+          elif [ -n "$abierta" ]; then
+            gh issue close "$abierta" --comment "✅ La web vuelve a responder con normalidad ($ahora, hora de Madrid)."
+          else
+            echo "Todo correcto."
+          fi

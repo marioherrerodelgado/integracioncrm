@@ -17,3 +17,9 @@
 # Portal retirado de momento (temporal, puede volver)
 /portal-gestion-academica/ /consultoria-centros-formacion/ 302
 /portal-gestion-academica /consultoria-centros-formacion/ 302
+
+# Recursos pasa a ser el blog
+/recursos/ /blog/ 301
+/recursos /blog/ 301
+/recursos/automatizacion-crm-guia/ /blog/automatizacion-crm-guia/ 301
+/recursos/automatizacion-crm-guia /blog/automatizacion-crm-guia/ 301

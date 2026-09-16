@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Checklist: ¿está tu centro de formación listo para un CRM?</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif; color: #07111f; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.pagina { width: 210mm; height: 297mm; padding: 15mm 18mm 22mm; position: relative; page-break-after: always; overflow: hidden; }
+.pagina:last-child { page-break-after: auto; }
+.pie { position: absolute; left: 18mm; right: 18mm; bottom: 10mm; display: flex; justify-content: space-between; font-size: 8.5pt; color: #7a8795; border-top: 1px solid #dce3df; padding-top: 3mm; }
+.portada { background: #081426; color: white; display: flex; flex-direction: column; }
+.portada img { height: 13mm; width: auto; align-self: flex-start; }
+.portada .centro { margin-top: auto; }
+.etiqueta { font-size: 9pt; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: #2DE6A6; margin: 0 0 6mm; }
+.portada h1 { font-size: 38pt; line-height: 1.02; letter-spacing: -.045em; margin: 0 0 8mm; font-weight: 800; }
+.portada h1 em { font-style: normal; color: #2DE6A6; }
+.portada p.lead { font-size: 13pt; line-height: 1.5; color: #b8c6d4; max-width: 150mm; margin: 0; }
+.portada .centro { margin-bottom: 16mm; }
+.portada .como { margin-top: 14mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+.portada .como div { border-top: 1px solid rgba(255,255,255,.2); padding-top: 4mm; font-size: 10pt; line-height: 1.45; color: #b8c6d4; }
+.portada .como b { display: block; color: white; font-size: 11pt; margin-bottom: 1.5mm; }
+.portada .pie { color: #7f92a6; border-color: rgba(255,255,255,.15); }
+h2 { font-size: 14pt; letter-spacing: -.02em; margin: 0 0 1.5mm; display: flex; align-items: baseline; gap: 3mm; }
+h2 span { font-size: 9pt; color: #0f7a4d; font-weight: 800; letter-spacing: .12em; }
+.bloque { margin-bottom: 5mm; }
+.bloque > p { margin: 0 0 1.5mm; font-size: 10pt; color: #5b6b7a; }
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+td { padding: 1.7mm 0; border-bottom: 1px solid #e3e9e5; vertical-align: top; line-height: 1.4; }
+td.n { width: 8mm; color: #0f7a4d; font-weight: 800; }
+td.op { width: 40mm; text-align: right; white-space: nowrap; color: #7a8795; font-size: 8.5pt; }
+.caja { display: inline-block; width: 3.4mm; height: 3.4mm; border: 1.2px solid #9aa8b5; border-radius: 1mm; vertical-align: -0.6mm; margin: 0 1mm 0 3mm; }
+.cabecera { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6mm; }
+.cabecera img { height: 8mm; }
+.cabecera p { margin: 0; font-size: 8.5pt; color: #7a8795; }
+.resultado { display: grid; gap: 3mm; margin: 4mm 0 7mm; }
+.resultado div { border: 1px solid #dce3df; border-radius: 3mm; padding: 3.5mm 5mm; }
+.resultado b { display: block; font-size: 12pt; margin-bottom: 1.5mm; }
+.resultado p { margin: 0; font-size: 10pt; line-height: 1.5; color: #3b4a5a; }
+.resultado .r1 { border-left: 4px solid #2DE6A6; } .resultado .r2 { border-left: 4px solid #f2b705; } .resultado .r3 { border-left: 4px solid #e4572e; }
+.pasos { counter-reset: p; margin: 0; padding: 0; list-style: none; }
+.pasos li { counter-increment: p; position: relative; padding: 0 0 3.5mm 11mm; font-size: 10.5pt; line-height: 1.5; color: #3b4a5a; }
+.pasos li::before { content: counter(p); position: absolute; left: 0; top: 0; width: 7mm; height: 7mm; border-radius: 50%; background: #081426; color: #2DE6A6; font-weight: 800; font-size: 9pt; display: grid; place-items: center; }
+.pasos b { color: #07111f; }
+.contacto { margin-top: 5mm; background: #081426; color: white; border-radius: 4mm; padding: 6mm 7mm; }
+.contacto h3 { margin: 0 0 2mm; font-size: 16pt; letter-spacing: -.02em; }
+.contacto p { margin: 0; color: #b8c6d4; font-size: 10.5pt; line-height: 1.5; }
+.contacto a { color: #2DE6A6; font-weight: 700; text-decoration: none; }
+h3.tit { font-size: 20pt; letter-spacing: -.03em; margin: 0 0 2mm; }
+</style></head><body>
+
+<section class="pagina portada">
+  <img src="/brand/integracioncrm/logos/integracioncrm_logo_dark.svg" alt="IntegraciónCRM">
+  <div class="centro">
+    <p class="etiqueta">Checklist gratuito · Centros de formación</p>
+    <h1>¿Está tu centro de formación <em>listo para un CRM?</em></h1>
+    <p class="lead">25 preguntas para saber dónde se pierden hoy alumnos, datos y horas de trabajo, y qué conviene resolver antes de elegir herramienta o pedir presupuesto.</p>
+    <div class="como">
+      <div><b>1. Responde</b>Marca cada pregunta con sí, a medias o no. Con sinceridad: nadie más lo va a ver.</div>
+      <div><b>2. Cuenta</b>Suma las respuestas «no» y «a medias». Cada una es un punto de fuga.</div>
+      <div><b>3. Interpreta</b>En la última página tienes qué significa tu resultado y por dónde empezar.</div>
+    </div>
+  </div>
+  <div class="pie"><span>integracioncrm.com</span><span>info@integracioncrm.com</span></div>
+</section>
+
+<section class="pagina">
+  <div class="cabecera"><img src="/brand/integracioncrm/logos/integracioncrm_logo_primary.svg" alt="IntegraciónCRM"><p>Checklist CRM para centros de formación</p></div>
+  <div class="bloque"><h2><span>BLOQUE 1</span> Captación de interesados</h2><p>Desde que alguien pregunta por un curso hasta que habla con un asesor.</p><table>
+    <tr><td class="n">1</td><td>Sabemos por qué canal ha llegado cada interesado (web, WhatsApp, teléfono, portal, campaña).</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">2</td><td>Todos los interesados quedan registrados en un mismo sitio, sin copiarlos a mano.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">3</td><td>Un interesado nuevo recibe respuesta el mismo día, también si escribe en fin de semana.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">4</td><td>Cada interesado tiene una persona responsable asignada desde el primer momento.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">5</td><td>Si alguien no contesta, hay un seguimiento programado que no depende de la memoria de nadie.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+  </table></div>
+  <div class="bloque"><h2><span>BLOQUE 2</span> Admisión y matrícula</h2><p>Del «me interesa» al alumno matriculado y con acceso.</p><table>
+    <tr><td class="n">6</td><td>Sabemos qué documentación le falta a cada candidato sin abrir carpetas ni correos.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">7</td><td>Matricular no obliga a escribir los mismos datos en más de un sistema.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">8</td><td>La matrícula o el contrato se firman online.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">9</td><td>El estado de pago de cada alumno se consulta en un solo sitio y está al día.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">10</td><td>El alta en la plataforma de formación (Moodle u otra) se hace sin intervención manual.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+  </table></div>
+  <div class="bloque"><h2><span>BLOQUE 3</span> Durante la formación</h2><p>Mientras el alumno está cursando.</p><table>
+    <tr><td class="n">11</td><td>La asistencia, presencial y online, queda registrada en un único sistema.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">12</td><td>Detectamos a los alumnos en riesgo de abandono antes de que abandonen.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">13</td><td>Cada docente ve solo la información que necesita de sus grupos.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">14</td><td>Las comunicaciones con cada alumno (correo, WhatsApp, llamadas) quedan en su ficha.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">15</td><td>Las incidencias tienen responsable, plazo y seguimiento.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+  </table></div>
+  <div class="pie"><span>integracioncrm.com</span><span>Página 2 de 4</span></div>
+</section>
+
+<section class="pagina">
+  <div class="cabecera"><img src="/brand/integracioncrm/logos/integracioncrm_logo_primary.svg" alt="IntegraciónCRM"><p>Checklist CRM para centros de formación</p></div>
+  <div class="bloque"><h2><span>BLOQUE 4</span> Justificación y cierre</h2><p>Lo que hay que tener listo cuando termina el curso.</p><table>
+    <tr><td class="n">16</td><td>El expediente de cada alumno está completo sin reconstruirlo al final.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">17</td><td>La documentación de formación bonificada o subvencionada tiene sus plazos controlados.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">18</td><td>Los certificados y diplomas se generan sin trabajo manual.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">19</td><td>Las encuestas de satisfacción se envían y se recogen solas.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">20</td><td>Los antiguos alumnos, con su consentimiento, siguen disponibles para ofrecerles nueva formación.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+  </table></div>
+  <div class="bloque"><h2><span>BLOQUE 5</span> Datos y dirección</h2><p>Lo que permite decidir con información fiable.</p><table>
+    <tr><td class="n">21</td><td>Cada alumno aparece una sola vez en nuestros sistemas, sin duplicados.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">22</td><td>Dirección recibe sus informes mensuales sin que nadie los prepare a mano.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">23</td><td>Conocemos la conversión de interesado a matriculado por canal y por curso.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">24</td><td>Los permisos de acceso a datos personales están definidos por perfil.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+    <tr><td class="n">25</td><td>Si una persona clave se va, el proceso sigue funcionando porque no depende de lo que sabe.</td><td class="op">Sí<i class="caja"></i> A medias<i class="caja"></i> No<i class="caja"></i></td></tr>
+  </table></div>
+  <div class="pie"><span>integracioncrm.com</span><span>Página 3 de 4</span></div>
+</section>
+
+<section class="pagina">
+  <div class="cabecera"><img src="/brand/integracioncrm/logos/integracioncrm_logo_primary.svg" alt="IntegraciónCRM"><p>Checklist CRM para centros de formación</p></div>
+  <h3 class="tit">Qué significa tu resultado</h3>
+  <p style="margin:0;font-size:10.5pt;color:#5b6b7a">Suma las respuestas «no» y «a medias».</p>
+  <div class="resultado">
+    <div class="r1"><b>De 0 a 5 · Buena base</b><p>El proceso está bastante ordenado. Lo más rentable suele ser automatizar los puntos que quedan y mejorar los informes para dirección, sin grandes cambios de herramienta.</p></div>
+    <div class="r2"><b>De 6 a 12 · Margen claro de mejora</b><p>Hay fugas en varias etapas. Un CRM bien adaptado a vuestro proceso resolvería buena parte de ellas. Conviene priorizar el bloque con más respuestas negativas y empezar por ahí.</p></div>
+    <div class="r3"><b>13 o más · El problema es de proceso</b><p>Antes de elegir herramienta, dibujad el recorrido del alumno de principio a fin. Implantar un CRM sin ese paso suele trasladar el desorden a un sistema nuevo y más caro.</p></div>
+  </div>
+  <h3 class="tit" style="font-size:16pt;margin-bottom:5mm">Por dónde empezar</h3>
+  <ol class="pasos">
+    <li><b>Elige un solo bloque.</b> El que tenga más respuestas negativas y más impacto en ingresos, que casi siempre es captación o matrícula.</li>
+    <li><b>Dibuja ese tramo del proceso.</b> Quién interviene, qué datos se piden, dónde se copian y dónde se pierden.</li>
+    <li><b>Define qué cambiaría.</b> Un resultado medible: responder el mismo día, no escribir dos veces la matrícula, saber qué documentación falta.</li>
+    <li><b>Solo entonces, mira herramientas.</b> Con el proceso claro, sabrás qué pedir en cada demo y podrás comparar con criterio.</li>
+  </ol>
+  <div class="contacto">
+    <h3>¿Lo revisamos juntos?</h3>
+    <p>En IntegraciónCRM implantamos y adaptamos CRM para centros de formación: FP, academias, certificados de profesionalidad y formación bonificada. Revisamos tu resultado contigo en un diagnóstico gratuito y sin compromiso.<br><br><a href="https://integracioncrm.com/auditoria-crm-gratis/">integracioncrm.com/auditoria-crm-gratis</a> · <a href="mailto:info@integracioncrm.com">info@integracioncrm.com</a></p>
+  </div>
+  <div class="pie"><span>integracioncrm.com</span><span>Página 4 de 4</span></div>
+</section>
+</body></html>

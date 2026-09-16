@@ -143,6 +143,14 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
         body: data
       });
       if (!response.ok) throw new Error("Automatic delivery unavailable");
+      // Formularios de descarga: al enviarse, se muestra el enlace al archivo
+      const descarga = form.dataset.descarga && document.querySelector(form.dataset.descarga);
+      if (descarga) {
+        form.hidden = true;
+        descarga.hidden = false;
+        descarga.querySelector("a")?.focus();
+        return;
+      }
       if (status) status.textContent = "Solicitud recibida. Te contactaremos para confirmar los siguientes pasos. ✓";
       form.reset();
       return;
@@ -159,6 +167,8 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
    analitica. Por eso gtag.js NO se carga hasta que la persona acepta: sin
    aceptacion no se descarga el script ni se instala ninguna cookie. */
 const ANALYTICS_ID = "G-HBV9Z3WRQR";
+// Microsoft Clarity (mapas de calor). Vacío = desactivado: no se carga nada.
+const CLARITY_ID = "";
 const CONSENT_KEY = "icrm-consent";
 
 const readConsent = () => { try { return localStorage.getItem(CONSENT_KEY); } catch { return null; } };
@@ -182,6 +192,18 @@ const loadAnalytics = () => {
   tag.async = true;
   tag.src = `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}`;
   document.head.appendChild(tag);
+  loadClarity();
+};
+
+const loadClarity = () => {
+  if (!CLARITY_ID || window.clarity) return;
+  window.clarity = function clarity() { (window.clarity.q = window.clarity.q || []).push(arguments); };
+  const tag = document.createElement("script");
+  tag.async = true;
+  tag.src = `https://www.clarity.ms/tag/${CLARITY_ID}`;
+  document.head.appendChild(tag);
+  // Solo se carga tras aceptar: se le comunica el consentimiento expresamente
+  window.clarity("consent");
 };
 
 const clearAnalyticsCookies = () => {
@@ -189,7 +211,7 @@ const clearAnalyticsCookies = () => {
   const domains = ["", `; domain=${host}`, `; domain=.${host}`];
   document.cookie.split(";").forEach((entry) => {
     const name = entry.split("=")[0].trim();
-    if (!/^_ga/.test(name)) return;
+    if (!/^(_ga|_clck|_clsk)/.test(name)) return;
     domains.forEach((domain) => {
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domain}`;
     });
@@ -201,7 +223,8 @@ const buildBanner = () => {
   banner.className = "cookie-banner";
   banner.setAttribute("role", "dialog");
   banner.setAttribute("aria-label", "Consentimiento de cookies");
-  banner.innerHTML = '<p>Usamos cookies de Google Analytics para saber qué páginas se visitan. '
+  const herramientas = CLARITY_ID ? "Google Analytics y Microsoft Clarity" : "Google Analytics";
+  banner.innerHTML = `<p>Usamos cookies de ${herramientas} para saber qué páginas se visitan y cómo se usan. `
     + 'Solo se instalan si las aceptas y puedes cambiar de opinión cuando quieras. '
     + '<a href="/cookies/">Más información</a>.</p>'
     + '<div class="cookie-actions">'
@@ -315,7 +338,7 @@ if (candidatos.length && "IntersectionObserver" in window && !window.matchMedia(
    es lo que hace que funcione también con teclado y en táctil. */
 const conSubmenu = [...document.querySelectorAll(".tiene-sub")];
 if (conSubmenu.length) {
-  const escritorio = () => window.matchMedia("(min-width: 1181px)").matches;
+  const escritorio = () => window.matchMedia("(min-width: 1200px)").matches;
 
   const cerrar = (item) => {
     item.classList.remove("abierto");
@@ -736,4 +759,18 @@ if (objetivo && !objetivo.value) {
     objetivo.value = flujo;
     objetivo.closest(".field")?.scrollIntoView({ block: "center", behavior: "smooth" });
   }
+}
+
+/* Botón de WhatsApp. Se inserta desde aquí para que esté en todas las páginas,
+   también en las del blog, sin repetir el marcado en cada HTML. */
+if (!document.querySelector(".whatsapp")) {
+  const whatsapp = document.createElement("a");
+  whatsapp.className = "whatsapp";
+  whatsapp.href = "https://wa.me/marioxherrero";
+  whatsapp.target = "_blank";
+  whatsapp.rel = "noopener noreferrer";
+  whatsapp.setAttribute("aria-label", "Escríbenos por WhatsApp al usuario @marioxherrero (se abre en una ventana nueva)");
+  whatsapp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-whatsapp"/></svg>'
+    + '<span aria-hidden="true">WhatsApp<small>@marioxherrero</small></span>';
+  document.body.appendChild(whatsapp);
 }

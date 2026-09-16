@@ -271,6 +271,7 @@ if (seccionesConTono.length && "IntersectionObserver" in window) {
    Se anima una sola vez y con desfase dentro de cada grupo. */
 const gruposQueAparecen = [
   ".services-grid > .service-tile",
+  ".panel-grid > .panel",
   ".modulos-grid > .pieza",
   ".piezas > .pieza",
   ".modulo-grid > .modulo",
@@ -308,3 +309,84 @@ if (candidatos.length && "IntersectionObserver" in window && !window.matchMedia(
 
   candidatos.forEach((el) => vigia.observe(el));
 }
+
+/* Menú desplegable.
+   Se abre al pasar el ratón en escritorio y al pulsar en cualquier sitio, que
+   es lo que hace que funcione también con teclado y en táctil. */
+const conSubmenu = [...document.querySelectorAll(".tiene-sub")];
+if (conSubmenu.length) {
+  const escritorio = () => window.matchMedia("(min-width: 1181px)").matches;
+
+  const cerrar = (item) => {
+    item.classList.remove("abierto");
+    const boton = item.querySelector(".sub-toggle");
+    boton.setAttribute("aria-expanded", "false");
+    item.querySelector(".submenu").hidden = true;
+  };
+  const cerrarTodos = (salvo) => conSubmenu.forEach((i) => { if (i !== salvo) cerrar(i); });
+
+  const abrir = (item) => {
+    cerrarTodos(item);
+    item.classList.add("abierto");
+    item.querySelector(".sub-toggle").setAttribute("aria-expanded", "true");
+    item.querySelector(".submenu").hidden = false;
+  };
+
+  conSubmenu.forEach((item) => {
+    const boton = item.querySelector(".sub-toggle");
+    const panel = item.querySelector(".submenu");
+
+    boton.addEventListener("click", (e) => {
+      e.preventDefault();
+      item.classList.contains("abierto") ? cerrar(item) : abrir(item);
+    });
+
+    // En escritorio basta con acercar el ratón; un pequeño retardo al salir
+    // evita que se cierre al cruzar el hueco entre el botón y el panel.
+    let temporizador;
+    item.addEventListener("mouseenter", () => {
+      if (!escritorio()) return;
+      clearTimeout(temporizador);
+      abrir(item);
+    });
+    item.addEventListener("mouseleave", () => {
+      if (!escritorio()) return;
+      temporizador = setTimeout(() => cerrar(item), 180);
+    });
+
+    // El foco saliendo del grupo lo cierra: es lo que espera quien navega con tabulador
+    item.addEventListener("focusout", (e) => {
+      if (!item.contains(e.relatedTarget)) cerrar(item);
+    });
+    panel.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { cerrar(item); boton.focus(); }
+    });
+    boton.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { cerrar(item); boton.focus(); }
+      if (e.key === "ArrowDown") { e.preventDefault(); abrir(item); panel.querySelector("a")?.focus(); }
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".tiene-sub")) cerrarTodos(null);
+  });
+}
+
+/* Barra de progreso de lectura.
+   Se anima con transform, que no obliga al navegador a recalcular la página
+   en cada píxel de scroll. */
+const barra = document.createElement("div");
+barra.className = "progreso";
+document.body.appendChild(barra);
+let pendiente = false;
+const pintarProgreso = () => {
+  const alto = document.documentElement.scrollHeight - window.innerHeight;
+  barra.style.transform = `scaleX(${alto > 0 ? Math.min(window.scrollY / alto, 1) : 0})`;
+  pendiente = false;
+};
+window.addEventListener("scroll", () => {
+  if (pendiente) return;
+  pendiente = true;
+  requestAnimationFrame(pintarProgreso);
+}, { passive: true });
+pintarProgreso();

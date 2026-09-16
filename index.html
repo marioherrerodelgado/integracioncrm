@@ -149,15 +149,20 @@
         <div class="container">
           <div class="section-heading">
             <p class="eyebrow">Monta tu flujo</p>
-            <h2>Marca lo que ya usas y te enseñamos cómo quedaría.</h2>
-            <p>No hace falta que sepas nada técnico. Elige por dónde te entran los contactos, qué CRM usas y qué tiene que pasar después.</p>
+            <h2>Dinos tu sector y lo que usas. Te enseñamos qué le pasaría a tu próximo cliente.</h2>
+            <p>No hace falta saber nada técnico. Elige tu sector y te marcamos lo habitual; después cámbialo a tu gusto y dale a probar el flujo.</p>
           </div>
 
           <div class="monta" data-monta>
             <div class="monta-elige">
+              <fieldset class="monta-sector">
+                <legend>Tu sector</legend>
+                <div class="fichas"><label class="ficha ficha-sector"><input type="radio" name="monta-sector" data-sector="formacion" value="Formación y educación" checked/><span>Formación y educación</span></label><label class="ficha ficha-sector"><input type="radio" name="monta-sector" data-sector="inmobiliario" value="Inmobiliario"/><span>Inmobiliario</span></label><label class="ficha ficha-sector"><input type="radio" name="monta-sector" data-sector="salud" value="Salud y estética"/><span>Salud y estética</span></label><label class="ficha ficha-sector"><input type="radio" name="monta-sector" data-sector="b2b" value="Servicios B2B"/><span>Servicios B2B</span></label><label class="ficha ficha-sector"><input type="radio" name="monta-sector" data-sector="hosteleria" value="Hostelería y eventos"/><span>Hostelería y eventos</span></label><label class="ficha ficha-sector"><input type="radio" name="monta-sector" data-sector="deporte" value="Deporte y ocio"/><span>Deporte y ocio</span></label><label class="ficha ficha-sector"><input type="radio" name="monta-sector" data-sector="otro" value="Otro sector"/><span>Otro sector</span></label></div>
+                <p class="monta-aviso" data-aviso aria-live="polite"></p>
+              </fieldset>
               <fieldset>
                 <legend>Por dónde te entran</legend>
-                <div class="fichas"><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Formularios web" data-ico="formularios" checked/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-formularios"/></svg><span>Formularios web</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="WhatsApp" data-ico="whatsapp" checked/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-whatsapp"/></svg><span>WhatsApp</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Llamadas" data-ico="telefonia"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-telefonia"/></svg><span>Llamadas</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Correo" data-ico="email"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-email"/></svg><span>Correo</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Redes y anuncios" data-ico="web"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-web"/></svg><span>Redes y anuncios</span></label></div>
+                <div class="fichas"><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Formularios web" data-ico="formularios"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-formularios"/></svg><span>Formularios web</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="WhatsApp" data-ico="whatsapp"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-whatsapp"/></svg><span>WhatsApp</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Llamadas" data-ico="telefonia"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-telefonia"/></svg><span>Llamadas</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Correo" data-ico="email"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-email"/></svg><span>Correo</span></label><label class="ficha"><input type="checkbox" data-grupo="entrada" value="Redes y anuncios" data-ico="web"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-web"/></svg><span>Redes y anuncios</span></label></div>
               </fieldset>
               <fieldset>
                 <legend>Tu CRM</legend>
@@ -165,19 +170,30 @@
               </fieldset>
               <fieldset>
                 <legend>Qué debe pasar después</legend>
-                <div class="fichas"><label class="ficha"><input type="checkbox" data-grupo="salida" value="Campus virtual" data-ico="moodle"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-moodle"/></svg><span>Campus virtual</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Cobros y pagos" data-ico="stripe"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-stripe"/></svg><span>Cobros y pagos</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Facturación" data-ico="factura"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-factura"/></svg><span>Facturación</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Firma de contratos" data-ico="titulo"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-titulo"/></svg><span>Firma de contratos</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Agenda y reuniones" data-ico="calendario"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-calendario"/></svg><span>Agenda y reuniones</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Informes" data-ico="datos" checked/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-datos"/></svg><span>Informes</span></label></div>
+                <div class="fichas"><label class="ficha"><input type="checkbox" data-grupo="salida" value="Agenda y citas" data-ico="calendario"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-calendario"/></svg><span>Agenda y citas</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Firma online" data-ico="titulo"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-titulo"/></svg><span>Firma online</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Cobros y pagos" data-ico="stripe"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-stripe"/></svg><span>Cobros y pagos</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Facturación" data-ico="factura"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-factura"/></svg><span>Facturación</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Campus o área privada" data-ico="moodle"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-moodle"/></svg><span>Campus o área privada</span></label><label class="ficha"><input type="checkbox" data-grupo="salida" value="Informes" data-ico="datos"/><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-datos"/></svg><span>Informes</span></label></div>
               </fieldset>
             </div>
 
             <div class="monta-resultado">
               <div class="monta-barra">
                 <p class="monta-titulo">Tu flujo quedaría así</p>
-                <p class="monta-cuenta" data-cuenta aria-live="polite"></p>
+                <p class="monta-cuenta" data-cuenta></p>
+                <button class="monta-probar" type="button" data-probar><span aria-hidden="true">▶</span> Probar el flujo</button>
               </div>
               <div class="monta-mapa" data-mapa role="img" aria-label="Diagrama del flujo seleccionado"></div>
+              <div class="monta-historia">
+                <div>
+                  <p class="monta-subtitulo" data-historia-titulo>Qué le pasa al lead</p>
+                  <ol class="recorrido" data-recorrido></ol>
+                </div>
+                <aside class="propuestas">
+                  <p class="monta-subtitulo">Además te propondríamos</p>
+                  <ul data-propuestas></ul>
+                </aside>
+              </div>
               <div class="monta-pie">
-                <a class="button" href="/auditoria-crm-gratis/" data-enviar>Que lo revisemos contigo</a>
-                <small class="monta-nota">Se abrirá el formulario con tu selección ya escrita. No enviamos nada hasta que lo revises.</small>
+                <a class="button button-light" href="/auditoria-crm-gratis/" data-enviar>Que lo revisemos contigo</a>
+                <small class="monta-nota">Es un ejemplo orientativo. Se abrirá el formulario con tu selección ya escrita y no enviamos nada hasta que lo revises.</small>
               </div>
             </div>
           </div>
@@ -299,35 +315,6 @@
 
 
       
-      <section data-tono="claro" id="casos" class="section cases">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Un caso real</p>
-            <h2>Qué cambia cuando el proceso se ordena.</h2>
-            <p>Un centro de formación profesional. Proyecto propio, cliente anonimizado.</p>
-          </div>
-          <div class="caso">
-            <div class="caso-cifra">
-              <strong>30<span>%</span></strong>
-              <small>menos tiempo de gestión</small>
-            </div>
-            <ol class="caso-pasos">
-              <li>
-                <b>Antes</b>
-                <p>Las solicitudes llegaban por web, teléfono y correo, y cada una acababa en un sitio distinto. Las admisiones vivían en hojas de cálculo que solo una persona sabía mantener.</p>
-              </li>
-              <li>
-                <b>Qué hicimos</b>
-                <p>Unificamos la entrada de solicitudes, conectamos el CRM con la gestión académica y la facturación, y automatizamos el seguimiento, la documentación y los avisos internos.</p>
-              </li>
-              <li>
-                <b>Después</b>
-                <p>Una sola ficha por alumno, trazabilidad desde la primera consulta hasta la matrícula, e informes en los que la dirección confía porque los datos ya no están duplicados.</p>
-              </li>
-            </ol>
-          </div>
-        </div>
-      </section>
 
       <section data-tono="claro" id="auditoria" class="section audit-section">
         <div class="container form-layout">

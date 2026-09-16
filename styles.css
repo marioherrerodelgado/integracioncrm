@@ -634,15 +634,6 @@ body { font-size: 17px; line-height: 1.65; }
 }
 
 /* Caso real, en clave editorial: la cifra manda, sin tarjeta */
-.caso { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 64px; align-items: start; }
-.caso-cifra strong { display: block; color: var(--ink); font: 800 clamp(76px, 10vw, 128px)/.88 var(--display); letter-spacing: -.06em; }
-.caso-cifra strong span { color: var(--mint-dark); font-size: .46em; }
-.caso-cifra small { display: block; margin-top: 14px; max-width: 200px; color: var(--muted); font-size: 15px; line-height: 1.5; }
-.caso-pasos { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-.caso-pasos li { padding: 26px 0; border-bottom: 1px solid var(--line); }
-.caso-pasos b { display: block; margin-bottom: 7px; color: var(--mint-dark); font: 800 11.5px/1 var(--body); letter-spacing: .15em; text-transform: uppercase; }
-.caso-pasos p { margin: 0; max-width: 64ch; color: var(--muted); font-size: 16.5px; line-height: 1.66; }
-@media (max-width: 860px) { .caso { grid-template-columns: 1fr; gap: 34px; } .caso-cifra small { max-width: none; } }
 
 /* --- Tarjetas: elevación al pasar por encima ------------------
    Nivel hover, así que imperceptible y rápido: 1,4% de escala y
@@ -696,13 +687,8 @@ body { background: none; }
 [data-tono="oscuro"] { color: white; }
 [data-tono="oscuro"] h2, [data-tono="oscuro"] h3, [data-tono="oscuro"] strong { color: white; }
 [data-tono="oscuro"] .section-heading > p:last-child,
-[data-tono="oscuro"] .caso-pasos p,
-[data-tono="oscuro"] .caso-cifra small,
 [data-tono="oscuro"] .integration-note { color: #9eafc0; }
 [data-tono="oscuro"] .eyebrow { color: #8fa1b4; }
-[data-tono="oscuro"] .caso-pasos,
-[data-tono="oscuro"] .caso-pasos li { border-color: rgba(255,255,255,.14); }
-[data-tono="oscuro"] .caso-cifra strong { color: white; }
 [data-tono="oscuro"] .logo-cloud span { color: #c3d2e0; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }
 [data-tono="oscuro"] .logo-cloud span svg { color: var(--mint); }
 @media (prefers-reduced-motion: reduce) { html { transition: none; } }
@@ -823,6 +809,8 @@ body { background: none; }
 .monta { display: grid; gap: 26px; }
 .monta-elige { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; align-items: start; }
 .monta fieldset { margin: 0; padding: 0; border: 0; }
+.monta-sector { grid-column: 1 / -1; }
+.monta-aviso { min-height: 1.5em; margin: 10px 0 0; color: var(--mint-dark); font-size: 13px; font-weight: 600; }
 .monta legend { padding: 0 0 12px; color: var(--ink); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .fichas { display: flex; flex-wrap: wrap; gap: 8px; }
 .ficha { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px 9px 11px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 999px; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: color .14s ease, background-color .14s ease, border-color .14s ease; }
@@ -834,8 +822,9 @@ body { background: none; }
 @media (hover: hover) and (pointer: fine) { .ficha:hover { border-color: #c1cec6; } }
 
 .monta-resultado { padding: 22px; background: var(--ink); border-radius: 20px; }
-.monta-barra { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 20px; margin-bottom: 16px; }
-.monta-titulo { margin: 0; color: #8fa1b4; font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.monta-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-bottom: 16px; }
+.monta-barra .monta-cuenta { margin-right: auto; }
+.monta-titulo, .monta-subtitulo { margin: 0; color: #8fa1b4; font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .monta-cuenta { margin: 0; color: #9eafc0; font-size: 13px; }
 .monta-cuenta b { color: var(--mint); font-family: var(--mono); }
 
@@ -860,12 +849,44 @@ body { background: none; }
 .nodo-nucleo .nodo-ico svg { width: 18px; height: 18px; color: var(--ink); }
 .nodo-vacio { margin: 0; color: #7f92a6; font-size: 12.5px; }
 
+/* Botón «Probar el flujo» y estados de ejecución de los nodos */
+.monta-probar { display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; color: var(--mint); background: rgba(134,247,192,.08); border: 1px solid rgba(134,247,192,.4); border-radius: 999px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: background-color .16s ease, border-color .16s ease, opacity .16s ease; }
+.monta-probar span { font-size: 10px; }
+.monta-probar:disabled { opacity: .55; cursor: default; }
+.monta-probar[hidden] { display: none; }
+@media (hover: hover) and (pointer: fine) { .monta-probar:not(:disabled):hover { background: rgba(134,247,192,.16); border-color: var(--mint); } }
+
+.nodo { position: relative; transition: border-color .2s var(--ease-out), box-shadow .2s var(--ease-out), background-color .2s var(--ease-out); }
+.nodo-paso { position: absolute; top: -8px; left: -8px; display: grid; place-items: center; width: 19px; height: 19px; color: #9eafc0; background: #0d1a2b; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; font-family: var(--mono); font-size: 10px; font-style: normal; font-weight: 700; line-height: 1; transition: color .2s var(--ease-out), background-color .2s var(--ease-out), border-color .2s var(--ease-out); }
+.nodo.foco, .nodo.activo { border-color: var(--mint); box-shadow: 0 0 0 4px rgba(134,247,192,.16), 0 10px 22px rgba(4,10,20,.38); }
+.nodo-nucleo.foco, .nodo-nucleo.activo { box-shadow: 0 0 0 4px rgba(134,247,192,.3), 0 14px 30px rgba(41,199,130,.3); }
+.nodo.activo .nodo-paso, .nodo.hecho .nodo-paso { color: var(--ink); background: var(--mint); border-color: var(--mint); }
+.nodo.hecho .nodo-paso { font-size: 0; }
+.nodo.hecho .nodo-paso::after { content: "✓"; font-size: 11px; }
+
+/* Recorrido del lead y propuestas del sector */
+.monta-historia { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 22px 34px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.14); }
+.monta-subtitulo { margin-bottom: 14px; }
+.recorrido { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.recorrido li { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); column-gap: 12px; padding: 9px 10px 9px 6px; border-radius: 12px; transition: background-color .2s var(--ease-out); }
+.recorrido li::before { content: attr(data-paso); grid-row: 1 / span 2; display: grid; place-items: center; width: 24px; height: 24px; color: #9eafc0; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; font-family: var(--mono); font-size: 11px; font-weight: 700; transition: color .2s var(--ease-out), background-color .2s var(--ease-out), border-color .2s var(--ease-out); }
+.recorrido li b { grid-column: 2; color: white; font-size: 14px; }
+.recorrido li p { grid-column: 2; margin: 2px 0 0; color: #9eafc0; font-size: 13.5px; line-height: 1.55; }
+.recorrido li.activo { background: rgba(134,247,192,.08); }
+.recorrido li.activo::before, .recorrido li.hecho::before { color: var(--ink); background: var(--mint); border-color: var(--mint); }
+.recorrido li.hecho::before { content: "✓"; }
+@media (hover: hover) and (pointer: fine) { .recorrido li:hover { background: rgba(255,255,255,.04); } }
+.propuestas { align-self: start; padding: 18px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; }
+.propuestas ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.propuestas li { position: relative; padding-left: 24px; color: #dbe6f0; font-size: 13.5px; line-height: 1.5; }
+.propuestas li::before { content: "+"; position: absolute; left: 0; top: -1px; color: var(--mint); font-family: var(--mono); font-size: 16px; font-weight: 700; }
+
 .monta-pie { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.14); }
 .monta-pie .button { flex: none; }
 .monta-nota { flex: 1 1 260px; color: #7f92a6; font-size: 11.5px; line-height: 1.5; }
 
 @media (prefers-reduced-motion: reduce) { .pulso { display: none; } }
-@media (max-width: 980px) { .monta-elige { grid-template-columns: 1fr; gap: 22px; } }
+@media (max-width: 980px) { .monta-elige { grid-template-columns: 1fr; gap: 22px; } .monta-historia { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
   .lienzo { grid-template-columns: 1fr; gap: 30px; padding: 22px 14px; }
   .col { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }

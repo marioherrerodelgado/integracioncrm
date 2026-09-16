@@ -399,16 +399,138 @@ if (monta) {
   const mapa = monta.querySelector("[data-mapa]");
   const cuenta = monta.querySelector("[data-cuenta]");
   const enviar = monta.querySelector("[data-enviar]");
+  const aviso = monta.querySelector("[data-aviso]");
+  const recorrido = monta.querySelector("[data-recorrido]");
+  const propuestas = monta.querySelector("[data-propuestas]");
+  const tituloHistoria = monta.querySelector("[data-historia-titulo]");
+  const probar = monta.querySelector("[data-probar]");
   const quieto = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* Un caso de ejemplo por sector: quién llega, qué busca, quién lo atiende,
+     qué se marca por defecto y cómo se cuenta cada paso en su vocabulario. */
+  const SECTORES = {
+    formacion: {
+      nombre: "formación", persona: "Laura", busca: "un curso", rol: "un asesor académico", dato: "el curso que le interesa",
+      entrada: ["Formularios web", "WhatsApp", "Redes y anuncios"], salida: ["Firma online", "Cobros y pagos", "Campus o área privada", "Informes"],
+      pasos: {
+        "Agenda y citas": "Reserva una llamada con su asesor en la agenda, sin correos de ida y vuelta.",
+        "Firma online": "Firma la matrícula desde el móvil y pasa de lead a alumna.",
+        "Cobros y pagos": "Paga la matrícula o el primer plazo, y el CRM lo sabe al momento.",
+        "Facturación": "La factura se emite sola con sus datos y los del curso.",
+        "Campus o área privada": "Recibe su acceso al campus virtual ya matriculada en su curso.",
+        "Informes": "Cuenta en el informe de matrículas por curso y por campaña."
+      },
+      propuestas: ["Aviso al asesor si un lead lleva 48 horas sin contacto.", "Recordatorio automático de la documentación que falta para matricularse.", "Seguimiento de alumnos que no entran al campus la primera semana."]
+    },
+    inmobiliario: {
+      nombre: "inmobiliario", persona: "Javier", busca: "un piso en venta", rol: "el agente de la zona", dato: "la vivienda y su presupuesto",
+      entrada: ["Formularios web", "Llamadas", "WhatsApp"], salida: ["Agenda y citas", "Firma online", "Informes"],
+      pasos: {
+        "Agenda y citas": "Reserva la visita al piso y le llega un recordatorio el día antes.",
+        "Firma online": "Firma la reserva o las arras online sin pasar por la oficina.",
+        "Cobros y pagos": "Paga la señal y queda registrada en la operación.",
+        "Facturación": "Se factura la comisión en cuanto la operación se marca como cerrada.",
+        "Campus o área privada": "Sigue el estado de su operación desde un área privada.",
+        "Informes": "Cuenta en el informe de qué portal trae visitas que acaban en venta."
+      },
+      propuestas: ["Cruce automático de lo que busca cada comprador con las viviendas que entran.", "Mensaje de seguimiento automático después de cada visita.", "Aviso al propietario con las visitas y el interés de su vivienda."]
+    },
+    salud: {
+      nombre: "salud y estética", persona: "Marta", busca: "un tratamiento", rol: "recepción", dato: "el tratamiento que le interesa",
+      entrada: ["WhatsApp", "Llamadas", "Redes y anuncios"], salida: ["Agenda y citas", "Cobros y pagos", "Informes"],
+      pasos: {
+        "Agenda y citas": "Elige hueco para la primera cita y recibe el recordatorio por WhatsApp.",
+        "Firma online": "Firma el consentimiento antes de llegar, no en la sala de espera.",
+        "Cobros y pagos": "Paga el tratamiento o el bono online.",
+        "Facturación": "La factura se emite sola al cerrar la cita.",
+        "Campus o área privada": "Consulta sus citas y sus documentos en un área privada.",
+        "Informes": "Cuenta en el informe de qué canal llena la agenda y qué tratamientos se repiten."
+      },
+      propuestas: ["Recordatorio de cita por WhatsApp para que no se quede el hueco vacío.", "Aviso cuando toca la siguiente sesión o la revisión.", "Encuesta automática después del tratamiento."]
+    },
+    b2b: {
+      nombre: "servicios B2B", persona: "Carlos", busca: "un presupuesto para su empresa", rol: "un comercial", dato: "su empresa y lo que necesita",
+      entrada: ["Formularios web", "Correo", "Llamadas"], salida: ["Agenda y citas", "Firma online", "Facturación", "Informes"],
+      pasos: {
+        "Agenda y citas": "Agenda la reunión de diagnóstico directamente en el calendario del comercial.",
+        "Firma online": "Firma la propuesta online y la oportunidad pasa a ganada.",
+        "Cobros y pagos": "Paga el anticipo y el proyecto arranca.",
+        "Facturación": "La factura sale del CRM con los datos de la propuesta, sin copiarlos.",
+        "Campus o área privada": "Sigue el avance del proyecto desde un portal de cliente.",
+        "Informes": "Cuenta en el informe de cuánto tarda cada oportunidad en cerrarse."
+      },
+      propuestas: ["Puntuación de leads para saber a quién llamar primero.", "Propuesta generada desde la oportunidad con un clic.", "Aviso si una oportunidad lleva días parada."]
+    },
+    hosteleria: {
+      nombre: "hostelería y eventos", persona: "Ana", busca: "un evento para 40 personas", rol: "el responsable de eventos", dato: "la fecha y el número de personas",
+      entrada: ["Formularios web", "WhatsApp", "Correo"], salida: ["Agenda y citas", "Cobros y pagos", "Facturación"],
+      pasos: {
+        "Agenda y citas": "Su fecha queda bloqueada en la agenda para que no se duplique.",
+        "Firma online": "Firma las condiciones del evento y el menú elegido.",
+        "Cobros y pagos": "Paga la señal y la reserva queda confirmada.",
+        "Facturación": "La factura sale sola después del evento.",
+        "Campus o área privada": "Revisa menú, horarios y cambios desde un enlace privado.",
+        "Informes": "Cuenta en el informe de qué eventos se confirman y cuáles se caen."
+      },
+      propuestas: ["Presupuesto de evento con plantilla generado desde el CRM.", "Recordatorio automático si la señal no se paga a tiempo.", "Petición de reseña automática al día siguiente del evento."]
+    },
+    deporte: {
+      nombre: "deporte y ocio", persona: "Pablo", busca: "una plaza en el campus de verano para su hija", rol: "coordinación", dato: "el turno y la edad",
+      entrada: ["Redes y anuncios", "Formularios web", "WhatsApp"], salida: ["Firma online", "Cobros y pagos", "Informes"],
+      pasos: {
+        "Agenda y citas": "Reserva plaza en el turno que prefiere.",
+        "Firma online": "Firma la inscripción y las autorizaciones desde el móvil.",
+        "Cobros y pagos": "Paga la inscripción o la cuota mensual por domiciliación.",
+        "Facturación": "La factura llega sola cada mes.",
+        "Campus o área privada": "Ve horarios, avisos y fotos en el área de familias.",
+        "Informes": "Cuenta en el informe de plazas ocupadas por turno."
+      },
+      propuestas: ["Lista de espera que avisa sola cuando se libera una plaza.", "Cobro recurrente de cuotas con aviso si un pago falla.", "Comunicaciones a las familias por grupo o turno."]
+    },
+    otro: {
+      nombre: "tu sector", persona: "Tu próximo cliente", busca: "información", rol: "la persona adecuada del equipo", dato: "lo que necesita",
+      entrada: ["Formularios web", "WhatsApp"], salida: ["Agenda y citas", "Informes"],
+      pasos: {
+        "Agenda y citas": "Reserva una reunión y recibe el recordatorio.",
+        "Firma online": "Firma el contrato online.",
+        "Cobros y pagos": "Paga online y el pago queda en su ficha.",
+        "Facturación": "La factura se emite sola con sus datos.",
+        "Campus o área privada": "Accede a un área privada con su información.",
+        "Informes": "Cuenta en el informe de qué canal trae los clientes que acaban comprando."
+      },
+      propuestas: ["Respuesta automática en minutos a cada contacto nuevo.", "Aviso si un lead se queda sin seguimiento.", "Informe de qué canal trae clientes y cuál solo trae curiosos."]
+    }
+  };
+
+  const LLEGA = {
+    "Formularios web": "rellena el formulario de la web pidiendo información sobre",
+    "WhatsApp": "escribe por WhatsApp preguntando por",
+    "Llamadas": "llama preguntando por",
+    "Correo": "manda un correo pidiendo información sobre",
+    "Redes y anuncios": "deja sus datos en un anuncio de redes sociales sobre"
+  };
+
+  // Cómo se nombra cada canal dentro de una frase
+  const CANAL = {
+    "Formularios web": "el formulario web",
+    "WhatsApp": "WhatsApp",
+    "Llamadas": "teléfono",
+    "Correo": "correo",
+    "Redes y anuncios": "un anuncio en redes"
+  };
+
+  const escapar = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const lista = (xs) => xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} y ${xs[xs.length - 1]}`;
 
   const marcados = (grupo) => [...monta.querySelectorAll(`input[data-grupo="${grupo}"]:checked`)]
     .map((i) => ({ txt: i.value, ico: i.dataset.ico }));
+  const sectorActual = () => monta.querySelector("input[data-sector]:checked")?.dataset.sector || "otro";
 
-  const nodo = ({ txt, ico }, clase = "") =>
-    `<div class="nodo ${clase}"><span class="nodo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-${ico}"/></svg></span><b>${txt}</b></div>`;
+  const nodo = ({ txt, ico }, paso, clase = "") =>
+    `<div class="nodo ${clase}" data-nodo-paso="${paso}"><i class="nodo-paso" aria-hidden="true">${paso}</i><span class="nodo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-${ico}"/></svg></span><b>${escapar(txt)}</b></div>`;
 
-  const columna = (lado, etiqueta, piezas) => `<div class="col" data-lado="${lado}"><p class="col-tit">${etiqueta}</p>`
-    + (piezas.length ? piezas.map((p) => nodo(p)).join("") : '<p class="nodo-vacio">Marca una opción.</p>')
+  const columna = (lado, etiqueta, piezas, paso) => `<div class="col" data-lado="${lado}"><p class="col-tit">${etiqueta}</p>`
+    + (piezas.length ? piezas.map((p, i) => nodo(p, typeof paso === "function" ? paso(i) : paso)).join("") : '<p class="nodo-vacio">Marca una opción.</p>')
     + "</div>";
 
   /* Los cables se calculan midiendo los nodos ya pintados: su posición depende
@@ -477,38 +599,121 @@ if (monta) {
     svg.innerHTML = cables + pulsos + puertos;
   };
 
+  let ejecucion = 0;
+
+  const limpiarEjecucion = () => {
+    ejecucion += 1;
+    monta.querySelectorAll(".activo, .hecho").forEach((el) => el.classList.remove("activo", "hecho"));
+    probar.disabled = false;
+  };
+
   const pintar = () => {
+    limpiarEjecucion();
+    const sector = SECTORES[sectorActual()];
     const entrada = marcados("entrada");
     const crm = marcados("crm");
     const salida = marcados("salida");
     const nucleo = crm.length ? crm[0] : { txt: "Tu CRM", ico: "crm" };
+    const primerPasoSalida = entrada.length ? 3 : 2;
 
     mapa.innerHTML = '<div class="lienzo"><svg class="cables" aria-hidden="true"></svg>'
-      + columna("entrada", "Entra por", entrada)
-      + `<div class="col col-centro" data-lado="nucleo"><p class="col-tit">Se ordena en</p>${nodo(nucleo, "nodo-nucleo")}</div>`
-      + columna("salida", "Y dispara", salida)
+      + columna("entrada", "Entra por", entrada, 1)
+      + `<div class="col col-centro" data-lado="nucleo"><p class="col-tit">Se ordena en</p>${nodo(nucleo, entrada.length ? 2 : 1, "nodo-nucleo")}</div>`
+      + columna("salida", "Y dispara", salida, (i) => primerPasoSalida + i)
       + "</div>";
+
+    // El recorrido: un lead de ejemplo contado paso a paso con el vocabulario del sector
+    const quien = sector.persona;
+    const pasos = [];
+    if (entrada.length) {
+      const otros = entrada.slice(1).map((e) => CANAL[e.txt]);
+      pasos.push({
+        titulo: `Llega por ${CANAL[entrada[0].txt]}`,
+        texto: `${quien} ${LLEGA[entrada[0].txt]} ${sector.busca}.`
+          + (otros.length ? ` Si llegara por ${lista(otros)}, haría exactamente el mismo camino.` : "")
+      });
+    }
+    const respuesta = entrada.some((e) => e.txt === "WhatsApp") ? "un WhatsApp" : "un correo";
+    pasos.push({
+      titulo: crm.length && nucleo.txt !== "Aún no tengo" ? `Se ordena en ${nucleo.txt}` : "Se ordena en el CRM",
+      texto: (crm.length && nucleo.txt !== "Aún no tengo" ? `Se crea su ficha en ${nucleo.txt}` : "Se crea su ficha en el CRM que elijamos contigo")
+        + ` con ${sector.dato}, apuntando por dónde llegó, sin copiar nada a mano y sin duplicados. Se asigna ${sector.rol.startsWith("el ") ? "al " + sector.rol.slice(3) : "a " + sector.rol}`
+        + ` y ${quien === "Tu próximo cliente" ? "el cliente" : quien} recibe ${respuesta} en unos minutos.`
+    });
+    salida.forEach((s) => pasos.push({ titulo: s.txt, texto: sector.pasos[s.txt] }));
+
+    tituloHistoria.textContent = sector.persona === "Tu próximo cliente" ? "Qué le pasa al lead" : `Qué le pasa a ${quien}`;
+    recorrido.innerHTML = pasos.map((p, i) =>
+      `<li data-paso="${i + 1}"><b>${escapar(p.titulo)}</b><p>${escapar(p.texto)}</p></li>`).join("");
+    propuestas.innerHTML = sector.propuestas.map((p) => `<li>${escapar(p)}</li>`).join("");
 
     // Cada canal de entrada y cada destino es una conexión con el CRM
     const conexiones = entrada.length + salida.length;
-    const automaticas = Math.max(conexiones - 1, 0);
-    cuenta.innerHTML = conexiones
-      ? `<b>${conexiones}</b> conexiones · <b>${automaticas}</b> sin que nadie las toque`
-      : "Marca alguna opción para ver tu flujo.";
+    cuenta.innerHTML = conexiones ? `<b>${conexiones}</b> conexiones · <b>${pasos.length}</b> pasos` : "";
+    probar.hidden = !pasos.length;
 
     const resumen = [
+      `Sector: ${monta.querySelector("input[data-sector]:checked")?.value || "Otro"}.`,
       entrada.length ? `Nos entran contactos por: ${entrada.map((e) => e.txt).join(", ")}.` : "",
       crm.length ? `CRM: ${crm[0].txt}.` : "",
       salida.length ? `Queremos que después ocurra: ${salida.map((e) => e.txt).join(", ")}.` : ""
     ].filter(Boolean).join(" ");
 
-    mapa.setAttribute("aria-label", resumen || "Marca alguna opción para ver tu flujo.");
+    mapa.setAttribute("aria-label", resumen);
     enviar.href = "/auditoria-crm-gratis/?flujo=" + encodeURIComponent(resumen);
 
     requestAnimationFrame(cablear);
   };
 
-  monta.addEventListener("change", pintar);
+  // Al elegir sector se marca lo habitual en él; después cada uno lo cambia a su gusto
+  const aplicarSector = () => {
+    const sector = SECTORES[sectorActual()];
+    monta.querySelectorAll('input[data-grupo="entrada"]').forEach((i) => { i.checked = sector.entrada.includes(i.value); });
+    monta.querySelectorAll('input[data-grupo="salida"]').forEach((i) => { i.checked = sector.salida.includes(i.value); });
+    aviso.textContent = sectorActual() === "otro"
+      ? "Hemos marcado lo más común. Cámbialo como quieras."
+      : `Hemos marcado lo habitual en ${sector.nombre}. Cámbialo como quieras.`;
+  };
+
+  /* «Probar el flujo»: enciende los pasos en orden, como al ejecutar un flujo en n8n */
+  const ejecutar = async () => {
+    limpiarEjecucion();
+    const turno = ejecucion;
+    const pasos = [...recorrido.children];
+    probar.disabled = true;
+    const espera = (ms) => new Promise((r) => setTimeout(r, quieto.matches ? 0 : ms));
+    for (const li of pasos) {
+      if (turno !== ejecucion) return;
+      const n = li.dataset.paso;
+      const nodos = mapa.querySelectorAll(`[data-nodo-paso="${n}"]`);
+      li.classList.add("activo");
+      nodos.forEach((el) => el.classList.add("activo"));
+      await espera(1100);
+      if (turno !== ejecucion) return;
+      li.classList.replace("activo", "hecho");
+      nodos.forEach((el) => el.classList.replace("activo", "hecho"));
+    }
+    probar.disabled = false;
+  };
+
+  // Pasar por un paso del recorrido resalta su nodo en el diagrama
+  const resaltar = (e) => {
+    const li = e.target.closest?.("li[data-paso]");
+    mapa.querySelectorAll(".foco").forEach((el) => el.classList.remove("foco"));
+    if (li && e.type !== "mouseleave") {
+      mapa.querySelectorAll(`[data-nodo-paso="${li.dataset.paso}"]`).forEach((el) => el.classList.add("foco"));
+    }
+  };
+  recorrido.addEventListener("mouseover", resaltar);
+  recorrido.addEventListener("mouseleave", resaltar);
+
+  monta.addEventListener("change", (e) => {
+    if (e.target.matches("input[data-sector]")) aplicarSector();
+    pintar();
+  });
+  probar.addEventListener("click", ejecutar);
+  aplicarSector();
+  aviso.textContent = "";
   pintar();
 
   if ("ResizeObserver" in window) {

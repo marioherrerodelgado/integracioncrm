@@ -123,7 +123,78 @@
     </div></section>
 
     
-    <section class="section"><div class="container">
+    
+    <section class="section" id="demo"><div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Demo</p>
+        <h2>Pruébalo aquí mismo.</h2>
+        <p>Las cuatro pantallas que más se usan a diario. Los filtros y las pestañas funcionan: los datos son de ejemplo, el comportamiento es el real.</p>
+      </div>
+
+      <div class="demo" data-demo>
+        <div class="demo-tabs" role="tablist" aria-label="Pantallas del portal">
+          <button role="tab" id="t-matriculas" aria-controls="p-matriculas" aria-selected="true" tabindex="0">Matrículas</button>
+          <button role="tab" id="t-leads" aria-controls="p-leads" aria-selected="false" tabindex="-1">Leads</button>
+          <button role="tab" id="t-oportunidades" aria-controls="p-oportunidades" aria-selected="false" tabindex="-1">Oportunidades</button>
+          <button role="tab" id="t-informes" aria-controls="p-informes" aria-selected="false" tabindex="-1">Informes</button>
+        </div>
+
+        <div class="demo-panel" role="tabpanel" id="p-matriculas" aria-labelledby="t-matriculas" tabindex="0">
+          <div class="demo-barra">
+            <div class="demo-filtros" role="group" aria-label="Filtrar matrículas">
+              <button data-filtro="todas" aria-pressed="true">Todas</button>
+              <button data-filtro="pendiente" aria-pressed="false">Con algo pendiente</button>
+              <button data-filtro="completa" aria-pressed="false">Completas</button>
+            </div>
+            <p class="demo-cuenta" aria-live="polite"><b data-cuenta>6</b> de 6 alumnos</p>
+          </div>
+          <div class="ui"><div class="ui-scroll"><table>
+            <thead><tr><th>Alumno</th><th>Formación</th><th>Estado</th><th>Firma</th><th>Campus</th></tr></thead>
+            <tbody data-tabla-matriculas><tr data-estado="completa"><td>Marta V. S.</td><td>Grado Superior DAM</td><td><span class="pill p-ok">Matriculada</span></td><td><span class="pill p-ok">Sí</span></td><td><span class="pill p-ok">Activo</span></td></tr><tr data-estado="pendiente"><td>Estrella M. N.</td><td>Certificado SSCS0208</td><td><span class="pill p-info">Inscrita</span></td><td><span class="pill p-no">No</span></td><td><span class="pill p-no">—</span></td></tr><tr data-estado="pendiente"><td>Rodolfo O. N.</td><td>Grado Medio SMR</td><td><span class="pill p-ok">Matriculado</span></td><td><span class="pill p-ok">Sí</span></td><td><span class="pill p-wait">Sin acceso</span></td></tr><tr data-estado="completa"><td>Nuria B. L.</td><td>Curso de Nóminas</td><td><span class="pill p-ok">Matriculada</span></td><td><span class="pill p-ok">Sí</span></td><td><span class="pill p-ok">Activo</span></td></tr><tr data-estado="pendiente"><td>Iván P. R.</td><td>Grado Superior ASIR</td><td><span class="pill p-wait">Admitido</span></td><td><span class="pill p-no">No</span></td><td><span class="pill p-no">—</span></td></tr><tr data-estado="completa"><td>Lucía T. G.</td><td>Certificado ADGD0208</td><td><span class="pill p-ok">Matriculada</span></td><td><span class="pill p-ok">Sí</span></td><td><span class="pill p-ok">Activo</span></td></tr></tbody>
+          </table></div></div>
+          <p class="demo-nota">Filtrar no recarga la página ni pierde el orden. En el portal real, además, se edita en la propia celda.</p>
+        </div>
+
+        <div class="demo-panel" role="tabpanel" id="p-leads" aria-labelledby="t-leads" tabindex="0" hidden>
+          <div class="demo-barra">
+            <p class="demo-cuenta"><b data-sin-asignar>1</b> lead sin asignar</p>
+            <button class="button button-small" data-asignar>Repartir a la bolsa</button>
+          </div>
+          <div class="ui"><div class="ui-scroll"><table>
+            <thead><tr><th>Entrada</th><th>Canal</th><th>Interés</th><th>Asesor</th><th>Estado</th></tr></thead>
+            <tbody data-tabla-leads><tr><td>Hoy 09:14</td><td>Formulario web</td><td>Grado Superior DAM</td><td>Alba G.</td><td><span class="pill p-ok">Contactado</span></td></tr><tr><td>Hoy 09:41</td><td>WhatsApp</td><td>Certificado ADGD0208</td><td>Almudena I.</td><td><span class="pill p-info">Nuevo</span></td></tr><tr><td>Hoy 10:02</td><td>Llamada</td><td>Grado Medio SMR</td><td>Ana María D.</td><td><span class="pill p-ok">Contactado</span></td></tr><tr><td>Hoy 10:30</td><td>Formulario web</td><td>Curso de Nóminas</td><td>Alba G.</td><td><span class="pill p-info">Nuevo</span></td></tr><tr><td>Hoy 11:05</td><td>WhatsApp</td><td>Grado Superior ASIR</td><td>Bolsa</td><td><span class="pill p-wait">Sin asignar</span></td></tr></tbody>
+          </table></div></div>
+          <p class="demo-nota">El reparto va al asesor con menos carga del día. Fuera de horario, a la bolsa. Pulsa el botón para ver qué pasa con el que está sin asignar.</p>
+        </div>
+
+        <div class="demo-panel" role="tabpanel" id="p-oportunidades" aria-labelledby="t-oportunidades" tabindex="0" hidden>
+          <ol class="embudo"><li><b>Interesado</b><div class="embudo-barra"><i style="width:88.4%"></i></div><span class="num">84</span></li><li><b>Contactado</b><div class="embudo-barra"><i style="width:65%"></i></div><span class="num">61</span></li><li><b>Documentación</b><div class="embudo-barra"><i style="width:39%"></i></div><span class="num">38</span></li><li><b>Contrato enviado</b><div class="embudo-barra"><i style="width:23.400000000000002%"></i></div><span class="num">22</span></li><li><b>Matriculado</b><div class="embudo-barra"><i style="width:44.2%"></i></div><span class="num">41</span></li></ol>
+          <p class="demo-nota">Cada etapa es un estado del alumno, no una etiqueta suelta: al mover a alguien se disparan las tareas y avisos que tengáis definidos.</p>
+        </div>
+
+        <div class="demo-panel" role="tabpanel" id="p-informes" aria-labelledby="t-informes" tabindex="0" hidden>
+          <div class="demo-barra">
+            <div class="demo-filtros" role="group" aria-label="Periodo del informe">
+              <button data-periodo="convocatoria" aria-pressed="true">Esta convocatoria</button><button data-periodo="mes" aria-pressed="false">Últimos 30 días</button><button data-periodo="semana" aria-pressed="false">Últimos 7 días</button>
+            </div>
+          </div>
+          <div class="informe">
+            <div class="informe-cifras">
+              <div><b data-total>1.471</b><span>matrículas</span></div>
+              <div><b data-leads>2.444</b><span>leads</span></div>
+              <div><b data-conv>60 %</b><span>conversión</span></div>
+            </div>
+            <div class="informe-grafico" role="img" aria-label="Evolución de matrículas por periodo" data-grafico>
+              <i style="--h:34%"></i><i style="--h:48%"></i><i style="--h:39%"></i><i style="--h:68%"></i><i style="--h:56%"></i><i style="--h:83%"></i><i style="--h:100%"></i>
+            </div>
+          </div>
+          <p class="demo-nota">Los números cuadran porque salen de una sola fuente. Cambia el periodo para ver cómo se recalcula.</p>
+        </div>
+      </div>
+      <p class="demo-aviso">Demo con datos de ejemplo. Los nombres son ficticios.</p>
+    </div></section>
+
+<section class="section"><div class="container">
       <div class="section-heading">
         <p class="eyebrow">Qué incluye</p>
         <h2>Diez módulos que ya vienen hechos.</h2>

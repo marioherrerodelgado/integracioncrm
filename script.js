@@ -240,3 +240,84 @@ document.querySelectorAll("[data-consent-state]").forEach((element) => {
     : current === "rejected" ? "rechazadas"
     : "sin decidir";
 });
+
+/* Demo interactiva del portal de gestión académica.
+   Pestañas accesibles con teclado, filtros que filtran de verdad y un
+   informe que recalcula. Los datos son de ejemplo; el comportamiento no. */
+const demo = document.querySelector("[data-demo]");
+if (demo) {
+  const pestanas = [...demo.querySelectorAll('[role="tab"]')];
+  const paneles = pestanas.map((t) => document.getElementById(t.getAttribute("aria-controls")));
+
+  const activar = (i, mover = true) => {
+    pestanas.forEach((t, n) => {
+      const activa = n === i;
+      t.setAttribute("aria-selected", String(activa));
+      t.tabIndex = activa ? 0 : -1;
+      paneles[n].hidden = !activa;
+    });
+    if (mover) pestanas[i].focus();
+  };
+
+  pestanas.forEach((t, i) => {
+    t.addEventListener("click", () => activar(i, false));
+    t.addEventListener("keydown", (e) => {
+      const salto = { ArrowRight: 1, ArrowLeft: -1, Home: -Infinity, End: Infinity }[e.key];
+      if (salto === undefined) return;
+      e.preventDefault();
+      const destino = salto === -Infinity ? 0 : salto === Infinity ? pestanas.length - 1
+        : (i + salto + pestanas.length) % pestanas.length;
+      activar(destino);
+    });
+  });
+
+  // Matrículas: el filtro oculta filas y actualiza el recuento
+  const filasMat = [...demo.querySelectorAll("[data-tabla-matriculas] tr")];
+  const cuenta = demo.querySelector("[data-cuenta]");
+  demo.querySelectorAll("[data-filtro]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const f = b.dataset.filtro;
+      demo.querySelectorAll("[data-filtro]").forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+      let visibles = 0;
+      filasMat.forEach((tr) => {
+        const mostrar = f === "todas" || tr.dataset.estado === f;
+        tr.hidden = !mostrar;
+        if (mostrar) visibles++;
+      });
+      cuenta.textContent = visibles;
+      cuenta.parentElement.lastChild.textContent = ` de ${filasMat.length} alumnos`;
+    });
+  });
+
+  // Leads: repartir el que está sin asignar
+  const botonAsignar = demo.querySelector("[data-asignar]");
+  botonAsignar?.addEventListener("click", () => {
+    const fila = [...demo.querySelectorAll("[data-tabla-leads] tr")].find((tr) => tr.textContent.includes("Sin asignar"));
+    if (!fila) return;
+    fila.cells[3].textContent = "Ana María D.";
+    fila.cells[4].innerHTML = '<span class="pill p-ok">Contactado</span>';
+    fila.classList.add("recien-asignado");
+    demo.querySelector("[data-sin-asignar]").textContent = "0";
+    botonAsignar.disabled = true;
+    botonAsignar.textContent = "Repartido ✓";
+  });
+
+  // Informes: recalcular cifras y gráfico
+  const periodos = {
+    convocatoria: { barras: [34, 48, 39, 68, 56, 83, 100], total: "1.471", leads: "2.444", conv: "60 %" },
+    mes: { barras: [52, 44, 61, 38, 72, 59, 88], total: "312", leads: "521", conv: "60 %" },
+    semana: { barras: [61, 39, 74, 52, 91, 46, 67], total: "74", leads: "118", conv: "63 %" }
+  };
+  demo.querySelectorAll("[data-periodo]").forEach((b) => {
+    b.addEventListener("click", () => {
+      const p = periodos[b.dataset.periodo];
+      demo.querySelectorAll("[data-periodo]").forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+      demo.querySelector("[data-total]").textContent = p.total;
+      demo.querySelector("[data-leads]").textContent = p.leads;
+      demo.querySelector("[data-conv]").textContent = p.conv;
+      demo.querySelectorAll("[data-grafico] i").forEach((barra, n) => {
+        barra.style.setProperty("--h", p.barras[n] + "%");
+      });
+    });
+  });
+}

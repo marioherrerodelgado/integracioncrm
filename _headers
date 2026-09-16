@@ -10,7 +10,7 @@
 /script.js
   Cache-Control: public, max-age=300, must-revalidate
 
-/favicon.svg
+/brand/*
   Cache-Control: public, max-age=604800
 
 /404.html

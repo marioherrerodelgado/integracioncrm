@@ -1,4 +1,4 @@
-# Integración CRM
+# IntegraciónCRM
 
 Sitio web estático de [integracioncrm.com](https://integracioncrm.com), desplegado en **Cloudflare Workers** con assets estáticos (`wrangler.jsonc`).
 

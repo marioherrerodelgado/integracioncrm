@@ -399,33 +399,101 @@ if (monta) {
   const mapa = monta.querySelector("[data-mapa]");
   const cuenta = monta.querySelector("[data-cuenta]");
   const enviar = monta.querySelector("[data-enviar]");
+  const quieto = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const marcados = (grupo) => [...monta.querySelectorAll(`input[data-grupo="${grupo}"]:checked`)]
     .map((i) => ({ txt: i.value, ico: i.dataset.ico }));
 
-  const chip = ({ txt, ico }, clase = "") =>
-    `<span class="monta-chip ${clase}"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-${ico}"/></svg>${txt}</span>`;
+  const nodo = ({ txt, ico }, clase = "") =>
+    `<div class="nodo ${clase}"><span class="nodo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-${ico}"/></svg></span><b>${txt}</b></div>`;
 
-  const fila = (etiqueta, piezas, clase) => piezas.length
-    ? `<div class="monta-fila"><b>${etiqueta}</b><div class="monta-chips">${piezas.map((p) => chip(p, clase)).join("")}</div></div>`
-    : `<div class="monta-fila"><b>${etiqueta}</b><p class="monta-vacio">Marca al menos una opción.</p></div>`;
+  const columna = (lado, etiqueta, piezas) => `<div class="col" data-lado="${lado}"><p class="col-tit">${etiqueta}</p>`
+    + (piezas.length ? piezas.map((p) => nodo(p)).join("") : '<p class="nodo-vacio">Marca una opción.</p>')
+    + "</div>";
+
+  /* Los cables se calculan midiendo los nodos ya pintados: su posición depende
+     del alto de cada columna y del ancho de pantalla, no se puede fijar en CSS. */
+  const cablear = () => {
+    const lienzo = mapa.querySelector(".lienzo");
+    const svg = lienzo && lienzo.querySelector(".cables");
+    const nucleo = lienzo && lienzo.querySelector(".nodo-nucleo");
+    if (!svg || !nucleo) return;
+
+    const base = lienzo.getBoundingClientRect();
+    if (!base.width) return;
+
+    const centro = nucleo.getBoundingClientRect();
+    const colEnt = lienzo.querySelector('[data-lado="entrada"]');
+    const colSal = lienzo.querySelector('[data-lado="salida"]');
+    const cEnt = colEnt.getBoundingClientRect();
+
+    // En móvil las columnas se apilan y los cables salen por abajo. Ahí se traza
+    // una sola línea troncal por bloque: una curva por nodo cruzaría los de al lado.
+    const horizontal = Math.abs((cEnt.left + cEnt.width / 2) - (centro.left + centro.width / 2)) > 40;
+
+    const fuentes = horizontal ? [...colEnt.querySelectorAll(".nodo")] : (colEnt.querySelector(".nodo") ? [colEnt] : []);
+    const destinos = horizontal ? [...colSal.querySelectorAll(".nodo")] : (colSal.querySelector(".nodo") ? [colSal] : []);
+
+    const ancla = (el, sale) => {
+      const r = el.getBoundingClientRect();
+      if (horizontal) {
+        return { x: (sale ? r.right : r.left) - base.left, y: r.top + r.height / 2 - base.top };
+      }
+      const nodos = el.classList.contains("nodo") ? [el] : [...el.querySelectorAll(".nodo")];
+      const borde = (sale ? nodos[nodos.length - 1] : nodos[0]).getBoundingClientRect();
+      return { x: r.left + r.width / 2 - base.left, y: (sale ? borde.bottom : borde.top) - base.top };
+    };
+
+    const curva = (a, b) => {
+      if (horizontal) {
+        const d = Math.max(Math.abs(b.x - a.x) * 0.5, 26);
+        return `M${a.x} ${a.y}C${a.x + d} ${a.y} ${b.x - d} ${b.y} ${b.x} ${b.y}`;
+      }
+      const d = Math.max(Math.abs(b.y - a.y) * 0.5, 20);
+      return `M${a.x} ${a.y}C${a.x} ${a.y + d} ${b.x} ${b.y - d} ${b.x} ${b.y}`;
+    };
+
+    let cables = "";
+    let puertos = "";
+    let pulsos = "";
+    let n = 0;
+
+    const unir = (desde, hasta) => {
+      const a = ancla(desde, true);
+      const b = ancla(hasta, false);
+      const d = curva(a, b);
+      cables += `<path class="cable" d="${d}"/>`;
+      puertos += `<circle class="puerto" cx="${a.x}" cy="${a.y}" r="3.5"/><circle class="puerto" cx="${b.x}" cy="${b.y}" r="3.5"/>`;
+      if (!quieto.matches) {
+        pulsos += `<path class="pulso" d="${d}" pathLength="100" style="animation-delay:${(n * -0.3).toFixed(2)}s"/>`;
+      }
+      n += 1;
+    };
+
+    fuentes.forEach((f) => unir(f, nucleo));
+    destinos.forEach((t) => unir(nucleo, t));
+
+    svg.setAttribute("viewBox", `0 0 ${Math.round(base.width)} ${Math.round(base.height)}`);
+    svg.innerHTML = cables + pulsos + puertos;
+  };
 
   const pintar = () => {
     const entrada = marcados("entrada");
     const crm = marcados("crm");
     const salida = marcados("salida");
+    const nucleo = crm.length ? crm[0] : { txt: "Tu CRM", ico: "crm" };
 
-    mapa.innerHTML = fila("Entra por", entrada)
-      + '<p class="monta-flecha" aria-hidden="true">↓</p>'
-      + fila("Se ordena en", crm, "nucleo")
-      + '<p class="monta-flecha" aria-hidden="true">↓</p>'
-      + fila("Y dispara", salida);
+    mapa.innerHTML = '<div class="lienzo"><svg class="cables" aria-hidden="true"></svg>'
+      + columna("entrada", "Entra por", entrada)
+      + `<div class="col col-centro" data-lado="nucleo"><p class="col-tit">Se ordena en</p>${nodo(nucleo, "nodo-nucleo")}</div>`
+      + columna("salida", "Y dispara", salida)
+      + "</div>";
 
     // Cada canal de entrada y cada destino es una conexión con el CRM
     const conexiones = entrada.length + salida.length;
     const automaticas = Math.max(conexiones - 1, 0);
     cuenta.innerHTML = conexiones
-      ? `<b>${conexiones}</b> conexiones, de las que <b>${automaticas}</b> pueden funcionar sin que nadie las toque.`
+      ? `<b>${conexiones}</b> conexiones · <b>${automaticas}</b> sin que nadie las toque`
       : "Marca alguna opción para ver tu flujo.";
 
     const resumen = [
@@ -433,11 +501,25 @@ if (monta) {
       crm.length ? `CRM: ${crm[0].txt}.` : "",
       salida.length ? `Queremos que después ocurra: ${salida.map((e) => e.txt).join(", ")}.` : ""
     ].filter(Boolean).join(" ");
+
+    mapa.setAttribute("aria-label", resumen || "Marca alguna opción para ver tu flujo.");
     enviar.href = "/auditoria-crm-gratis/?flujo=" + encodeURIComponent(resumen);
+
+    requestAnimationFrame(cablear);
   };
 
   monta.addEventListener("change", pintar);
   pintar();
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(cablear).observe(mapa);
+  } else {
+    let espera;
+    window.addEventListener("resize", () => {
+      clearTimeout(espera);
+      espera = setTimeout(cablear, 120);
+    });
+  }
 }
 
 /* Si se llega al formulario desde el generador, se rellena el objetivo con lo

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+    <defs>
+      <linearGradient id="ringGrad" x1="0%" y1="15%" x2="70%" y2="100%">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="100%" stop-color="#2DE6A6"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="256" height="256" rx="52" fill="#081426"/>
+    <rect x="61" y="74" width="142" height="112" rx="43"
+          fill="none" stroke="url(#ringGrad)" stroke-width="34"/>
+    <rect x="34" y="30" width="92" height="92" rx="20" fill="#FFFFFF"/>
+    <rect x="134" y="134" width="92" height="92" rx="20" fill="#2DE6A6"/>
+    </svg>

@@ -9,3 +9,7 @@
 /servicios/integracion-whatsapp-crm.html    /servicios/integracion-whatsapp-crm/    301
 /servicios/integracion-telefonia-crm.html   /servicios/integracion-telefonia-crm/   301
 /servicios/migracion-crm.html               /servicios/migracion-crm/               301
+
+# Rutas de favicon que navegadores y buscadores piden por defecto
+/favicon.ico /brand/integracioncrm/favicons/favicon_mint.ico 301
+/favicon.svg /brand/integracioncrm/favicons/favicon_mint.svg 301

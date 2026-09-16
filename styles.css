@@ -489,3 +489,77 @@ svg { display: block; }
 .quien img { width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; }
 .quien b { display: block; color: white; font-family: var(--display); font-size: 14px; }
 .quien span { display: block; margin-top: 2px; color: #9eafc0; font-size: 12.5px; }
+
+/* ===========================================================
+   EDITORIAL TÉCNICO
+   La tipografía manda; las cajas desaparecen. En lugar de
+   tarjetas con borde y sombra, reglas finas y numeración en
+   monoespaciada. Una IA por defecto rellena de tarjetas: esto
+   es lo contrario.
+   =========================================================== */
+:root { --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace; }
+
+/* --- Escala tipográfica más contrastada --- */
+body { font-size: 17px; line-height: 1.65; }
+.hero h1 { font-size: clamp(50px, 7.4vw, 92px); letter-spacing: -.06em; line-height: 1.02; }
+.page-hero h1 { font-size: clamp(44px, 6.8vw, 82px); letter-spacing: -.06em; line-height: 1.03; max-width: 16ch; }
+.section h2, .prose h2 { font-size: clamp(30px, 4.4vw, 52px); letter-spacing: -.05em; line-height: 1.08; }
+.hero-lead, .page-lead { font-size: 19px; line-height: 1.6; max-width: 62ch; }
+.prose > p, .prose-section > p { font-size: 17.5px; line-height: 1.72; max-width: 68ch; }
+
+/* --- Más aire --- */
+.section { padding: 148px 0; }
+.prose-section + .prose-section { margin-top: 86px; padding-top: 86px; }
+.section-heading { margin-bottom: 72px; }
+
+/* --- Eyebrow: etiqueta editorial, no píldora --- */
+.eyebrow { font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .16em; }
+.eyebrow span { width: 5px; height: 5px; box-shadow: none; }
+
+/* --- Las tarjetas pasan a filas numeradas --- */
+.services-grid { grid-template-columns: 1fr; gap: 0; counter-reset: ficha; border-top: 1px solid var(--line); }
+.service-tile { counter-increment: ficha; display: grid; grid-template-columns: 78px minmax(0, 1fr) 190px; gap: 9px 32px; align-items: start;
+  min-height: 0; padding: 40px 0; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; }
+.service-tile:hover { transform: none; box-shadow: none; background: rgba(41,199,130,.035); }
+.service-tile::before { grid-column: 1; grid-row: 1 / span 2; content: counter(ficha, decimal-leading-zero); color: var(--mint-dark); font: 600 13px/1.5 var(--mono); letter-spacing: .06em; }
+.service-tile .feature-icon { display: none; }
+.service-tile h2, .service-tile h3 { grid-column: 2; grid-row: 1; max-width: none; margin: 0; font-size: 26px; letter-spacing: -.035em; }
+.service-tile p { grid-column: 2; grid-row: 2; max-width: 66ch; margin: 0; font-size: 16px; }
+.service-tile .card-link { position: static; grid-column: 3; grid-row: 1 / span 2; align-self: start; color: var(--muted); font-size: 13px; font-weight: 600; text-align: right; }
+.service-tile:hover .card-link { color: var(--mint-dark); }
+@media (max-width: 860px) {
+  .service-tile { grid-template-columns: 54px minmax(0, 1fr); gap: 8px 18px; padding: 32px 0; }
+  .service-tile h2, .service-tile h3, .service-tile p { grid-column: 2; }
+  .service-tile::before { grid-row: 1; }
+  .service-tile .card-link { grid-column: 2; grid-row: 3; margin-top: 10px; text-align: left; }
+}
+
+/* --- Listas: sin cajas, con regla fina --- */
+.check-list { gap: 0; border-top: 1px solid var(--line); }
+.check-list li { padding: 14px 16px 14px 30px; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; font-size: 15.5px; font-weight: 500; }
+.check-list li::before { left: 2px; color: var(--mint-dark); font-weight: 700; }
+
+/* --- Pasos numerados: la numeración se hace grande --- */
+.number-list li { grid-template-columns: 62px 1fr; gap: 26px; padding: 28px 0; }
+.number-list li::before { font: 600 13px/1.5 var(--mono); letter-spacing: .06em; }
+.number-list strong { font-size: 19px; letter-spacing: -.02em; }
+.number-list p { font-size: 16px; line-height: 1.65; }
+
+/* --- Cifras y datos en monoespaciada --- */
+.stat-band b, .case-metric strong, .mini-proof { font-family: var(--mono); }
+.stat-band b { font-size: 34px; letter-spacing: -.03em; }
+.mini-proof { font-size: 12.5px; letter-spacing: .02em; }
+
+@media (max-width: 860px) {
+  .section { padding: 92px 0; }
+  .prose-section + .prose-section { margin-top: 58px; padding-top: 58px; }
+  .section-heading { margin-bottom: 48px; }
+  body { font-size: 16.5px; }
+}
+
+/* La ilustración del hero llevaba anchos fijos de 205px que dejaron de caber
+   al subir el cuerpo de 16 a 17px. Se hacen proporcionales al contenedor. */
+.flow-card-small { width: min(205px, calc(50% - 42px)); }
+.flow-card-small strong { font-size: 12.5px; }
+.flow-card-small small { font-size: 10.5px; line-height: 1.35; }
+.hero-visual .flow-card { font-size: 13px; }

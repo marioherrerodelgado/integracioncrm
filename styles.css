@@ -189,7 +189,8 @@ svg { display: block; }
 .aside-card .button { width: 100%; }
 .aside-card small { display: block; margin-top: 14px; color: #8495a8; text-align: center; }
 .related-services { padding-top: 0; }
-.related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+/* Tres columnas solo si caben tarjetas legibles; si no, pasa a dos o a una sola */
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
 .related-card { padding: 25px; background: white; border: 1px solid var(--line); border-radius: 14px; }
 .related-card strong { display: block; margin-bottom: 7px; font-family: var(--display); }
 .related-card p { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
@@ -508,6 +509,8 @@ body { font-size: 17px; line-height: 1.65; }
 .hero h1 { font-size: clamp(50px, 7.4vw, 92px); letter-spacing: -.06em; line-height: 1.02; }
 .page-hero h1 { font-size: clamp(44px, 6.8vw, 82px); letter-spacing: -.06em; line-height: 1.03; max-width: 16ch; }
 .section h2, .prose h2 { font-size: clamp(30px, 4.4vw, 52px); letter-spacing: -.05em; line-height: 1.08; }
+/* La regla anterior pisaba el titular de la tarjeta lateral (26px -> 52px) y lo desbordaba */
+.aside-card h2, .aside-card h3 { font-size: 26px; letter-spacing: -.035em; line-height: 1.15; }
 .hero-lead, .page-lead { font-size: 19px; line-height: 1.6; max-width: 62ch; }
 .prose > p, .prose-section > p { font-size: 17.5px; line-height: 1.72; max-width: 68ch; }
 

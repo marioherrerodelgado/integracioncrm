@@ -13,3 +13,7 @@
 # Rutas de favicon que navegadores y buscadores piden por defecto
 /favicon.ico /brand/integracioncrm/favicons/favicon_mint.ico 301
 /favicon.svg /brand/integracioncrm/favicons/favicon_mint.svg 301
+
+# Portal retirado de momento (temporal, puede volver)
+/portal-gestion-academica/ /consultoria-centros-formacion/ 302
+/portal-gestion-academica /consultoria-centros-formacion/ 302

@@ -673,3 +673,26 @@ body { font-size: 17px; line-height: 1.65; }
 /* Las dos tarjetas pequeñas del hero comparten fila: misma altura aunque un
    texto salte de línea. */
 .flow-card-small { min-height: 80px; }
+
+/* ===========================================================
+   FONDO QUE CAMBIA AL BAJAR
+   El color no vive en cada sección sino en la página, y se
+   transiciona. Así el cambio se percibe como un degradado al
+   hacer scroll y no como un corte entre bloques.
+   =========================================================== */
+html { background-color: var(--fondo, var(--paper)); transition: background-color .85s ease; }
+body { background: none; }
+[data-tono] { background: transparent; }
+[data-tono="oscuro"] { color: white; }
+[data-tono="oscuro"] h2, [data-tono="oscuro"] h3, [data-tono="oscuro"] strong { color: white; }
+[data-tono="oscuro"] .section-heading > p:last-child,
+[data-tono="oscuro"] .caso-pasos p,
+[data-tono="oscuro"] .caso-cifra small,
+[data-tono="oscuro"] .integration-note { color: #9eafc0; }
+[data-tono="oscuro"] .eyebrow { color: #8fa1b4; }
+[data-tono="oscuro"] .caso-pasos,
+[data-tono="oscuro"] .caso-pasos li { border-color: rgba(255,255,255,.14); }
+[data-tono="oscuro"] .caso-cifra strong { color: white; }
+[data-tono="oscuro"] .logo-cloud span { color: #c3d2e0; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }
+[data-tono="oscuro"] .logo-cloud span svg { color: var(--mint); }
+@media (prefers-reduced-motion: reduce) { html { transition: none; } }

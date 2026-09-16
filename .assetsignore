@@ -1,5 +1,7 @@
 # Ficheros del repositorio que no deben publicarse como assets estaticos.
 .assetsignore
+.git
+.playwright-mcp
 .gitignore
 .wrangler
 README.md
@@ -8,3 +10,4 @@ worker.js
 functions
 supabase
 node_modules
+docs

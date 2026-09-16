@@ -390,3 +390,63 @@ window.addEventListener("scroll", () => {
   requestAnimationFrame(pintarProgreso);
 }, { passive: true });
 pintarProgreso();
+
+/* Generador de flujo: el visitante marca lo que usa y se dibuja su caso.
+   El enlace final lleva la selección al formulario, de modo que la solicitud
+   llega ya sabiendo qué herramientas tiene delante. */
+const monta = document.querySelector("[data-monta]");
+if (monta) {
+  const mapa = monta.querySelector("[data-mapa]");
+  const cuenta = monta.querySelector("[data-cuenta]");
+  const enviar = monta.querySelector("[data-enviar]");
+
+  const marcados = (grupo) => [...monta.querySelectorAll(`input[data-grupo="${grupo}"]:checked`)]
+    .map((i) => ({ txt: i.value, ico: i.dataset.ico }));
+
+  const chip = ({ txt, ico }, clase = "") =>
+    `<span class="monta-chip ${clase}"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="/iconos.svg#i-${ico}"/></svg>${txt}</span>`;
+
+  const fila = (etiqueta, piezas, clase) => piezas.length
+    ? `<div class="monta-fila"><b>${etiqueta}</b><div class="monta-chips">${piezas.map((p) => chip(p, clase)).join("")}</div></div>`
+    : `<div class="monta-fila"><b>${etiqueta}</b><p class="monta-vacio">Marca al menos una opción.</p></div>`;
+
+  const pintar = () => {
+    const entrada = marcados("entrada");
+    const crm = marcados("crm");
+    const salida = marcados("salida");
+
+    mapa.innerHTML = fila("Entra por", entrada)
+      + '<p class="monta-flecha" aria-hidden="true">↓</p>'
+      + fila("Se ordena en", crm, "nucleo")
+      + '<p class="monta-flecha" aria-hidden="true">↓</p>'
+      + fila("Y dispara", salida);
+
+    // Cada canal de entrada y cada destino es una conexión con el CRM
+    const conexiones = entrada.length + salida.length;
+    const automaticas = Math.max(conexiones - 1, 0);
+    cuenta.innerHTML = conexiones
+      ? `<b>${conexiones}</b> conexiones, de las que <b>${automaticas}</b> pueden funcionar sin que nadie las toque.`
+      : "Marca alguna opción para ver tu flujo.";
+
+    const resumen = [
+      entrada.length ? `Nos entran contactos por: ${entrada.map((e) => e.txt).join(", ")}.` : "",
+      crm.length ? `CRM: ${crm[0].txt}.` : "",
+      salida.length ? `Queremos que después ocurra: ${salida.map((e) => e.txt).join(", ")}.` : ""
+    ].filter(Boolean).join(" ");
+    enviar.href = "/auditoria-crm-gratis/?flujo=" + encodeURIComponent(resumen);
+  };
+
+  monta.addEventListener("change", pintar);
+  pintar();
+}
+
+/* Si se llega al formulario desde el generador, se rellena el objetivo con lo
+   que la persona ya seleccionó en la portada. */
+const objetivo = document.querySelector("[data-mail-form] [name='objetivo']");
+if (objetivo && !objetivo.value) {
+  const flujo = new URLSearchParams(location.search).get("flujo");
+  if (flujo) {
+    objetivo.value = flujo;
+    objetivo.closest(".field")?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }
+}

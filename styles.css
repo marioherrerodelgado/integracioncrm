@@ -940,3 +940,13 @@ body { background: none; }
   .sobre-hero h1 { max-width: none; font-size: clamp(38px, 10vw, 58px); }
 }
 @media (max-width: 600px) { .que-hacemos { grid-template-columns: 1fr; } }
+
+/* Palabra clave dentro del H1 con el aspecto de la etiqueta superior:
+   Google la lee como parte del titular y el diseño no cambia. */
+.h1-clave { display: block; margin: 0 0 18px; color: #3a4c60; font: 800 11.5px/1.5 var(--body); letter-spacing: .17em; text-transform: uppercase; }
+
+/* Móviles muy estrechos (320px): palabras largas del H1 ("profesionalidad",
+   "WooCommerce") y cadenas sin espacios en textos legales se salían de la pantalla. */
+.page-hero h1, h2, h3 { overflow-wrap: break-word; hyphens: auto; }
+.prose, .faq-list, .related-card { overflow-wrap: break-word; }
+@media (max-width: 360px) { .page-hero h1 { font-size: 36px; } }

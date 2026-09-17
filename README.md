@@ -43,8 +43,9 @@ formulario hace un POST nativo al mismo endpoint, así que el envío nunca se pi
 - `_gotcha` es el honeypot antispam nativo de Formspree (funciona también sin JS).
 - `tipo` distingue de qué formulario procede cada solicitud.
 
-> ⚠️ Formspree es un proveedor estadounidense: la política de privacidad debe declarar
-> la transferencia internacional de datos y su base legal. **Pendiente.**
+> Formspree es un proveedor estadounidense. La política de privacidad ya lo declara como
+> encargado del tratamiento y ampara la transferencia internacional en el capítulo V del
+> RGPD (apartados 5 y 6 de `/privacidad/`).
 
 ## Endpoint propio `/api/contacto` (inactivo)
 
@@ -116,8 +117,21 @@ puede cambiar desde `/cookies/` con `[data-consent-reset]`.
 Si se cambia el ID de medicion hay que actualizarlo en `script.js` (`ANALYTICS_ID`) y en
 el nombre de cookie `_ga_<ID>` documentado en `/cookies/`.
 
+## Analitica
+
+- **Google Analytics 4** (`G-HBV9Z3WRQR`) y **Microsoft Clarity** (`yjy1ay15fi`, mapas de
+  calor y grabacion de la navegacion) se cargan **solo tras aceptar las cookies**
+  (`loadAnalytics` y `loadClarity` en [`script.js`](script.js)). Sin aceptar no se
+  descarga ningun script ni se instala ninguna cookie.
+- **Cloudflare Web Analytics** (sin cookies) mide todas las visitas, acepten o no.
+- Al cambiar cualquiera de los dos identificadores hay que actualizar tambien la tabla de
+  cookies de [`/cookies/`](cookies/index.html) y los encargados de [`/privacidad/`](privacidad/index.html).
+- **IndexNow**: `tools/indexnow.py` avisa a Bing y Yandex de las paginas cambiadas en cada
+  publicacion (lo lanza GitHub Actions). Google no admite IndexNow. Ver [`docs/BLOG.md`](docs/BLOG.md).
+  El archivo de clave de la raiz (`2510cb48…​.txt`) no se puede borrar ni renombrar.
+
 ## Pendiente
 
-- [ ] Imagen `og:image` (ninguna página tiene una: las tarjetas sociales salen vacías)
-- [ ] Google Search Console (verificar por DNS), SPF/DKIM/DMARC
-- [ ] `Content-Security-Policy` y `Strict-Transport-Security` en `_headers`
+- [ ] Los formularios no crean el lead en Zoho CRM: llegan solo por correo y a Formspree
+      (plan gratuito: 50 envios/mes y 30 dias de historial)
+- [ ] SPF/DKIM/DMARC del dominio

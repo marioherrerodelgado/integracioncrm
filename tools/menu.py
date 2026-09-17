@@ -16,7 +16,7 @@ FLECHA = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-
 MENU = [
     ("Servicios", [
         ("/crm-para-pymes/", "CRM para pymes"),
-        ("/servicios/zoho/", "Zoho CRM y Zoho One"),
+        ("/servicios/zoho/", "Aplicaciones Zoho"),
         ("/servicios/implementacion-zoho-crm/", "Implementación de Zoho CRM"),
         ("/servicios/automatizacion-crm/", "Automatización de procesos"),
         ("/servicios/integraciones-api/", "Integraciones API y webhooks"),
@@ -26,6 +26,8 @@ MENU = [
         ("/servicios/integracion-whatsapp-crm/", "WhatsApp con CRM"),
         ("/servicios/integracion-telefonia-crm/", "Telefonía con CRM"),
         ("/servicios/stripe-crm/", "Stripe y pagos"),
+        ("/servicios/formacion-zoho/", "Formación en Zoho"),
+        ("/servicios/soporte-zoho/", "Soporte y bolsas de horas"),
     ], ("/servicios/", "Ver todos los servicios →")),
     ("Integraciones", [
         ("/integraciones/zoho-google-calendar/", "Google Calendar"),

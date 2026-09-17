@@ -22,7 +22,8 @@ formacion = ["/consultoria-centros-formacion/", "/servicios/crm-academias-oposic
              "/servicios/integracion-moodle-crm/", "/servicios/integracion-zoom-crm/", "/checklist-crm-centros-formacion/"]
 servicios = ["/servicios/implementacion-zoho-crm/", "/servicios/zoho/", "/servicios/automatizacion-crm/", "/servicios/chatbots-crm/", "/servicios/integraciones-api/",
              "/servicios/datos-reporting-crm/", "/servicios/migracion-crm/", "/servicios/integracion-whatsapp-crm/",
-             "/servicios/integracion-telefonia-crm/", "/servicios/stripe-crm/"]
+             "/servicios/integracion-telefonia-crm/", "/servicios/stripe-crm/",
+             "/servicios/formacion-zoho/", "/servicios/soporte-zoho/", "/servicios/zoho-creator/", "/servicios/zoho-analytics/", "/servicios/zoho-books/", "/servicios/zoho-sign/", "/servicios/zoho-campaigns/", "/servicios/zoho-desk/", "/servicios/zoho-projects/", "/servicios/zoho-people/", "/servicios/zoho-inventory/", "/servicios/zoho-recruit/"]
 salto = "\n"
 texto = f"""# IntegraciónCRM
 

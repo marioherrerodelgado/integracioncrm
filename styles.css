@@ -1096,3 +1096,19 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 @media (min-width: 1200px) {
   .submenu { max-height: calc(100vh - 96px); overflow-y: auto; overscroll-behavior: contain; }
 }
+
+/* Bolsas de horas de soporte (/servicios/soporte-zoho/) */
+.planes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 215px), 1fr)); gap: 16px; margin-top: 28px; }
+.plan { position: relative; min-width: 0; display: flex; flex-direction: column; padding: 26px 22px 22px; background: white; border: 1px solid var(--line); border-radius: 20px; }
+.plan h3 { margin: 0; font: 750 22px/1.2 var(--display); letter-spacing: -.03em; }
+.plan-horas { margin: 10px 0 0; color: var(--ink); font: 800 30px/1 var(--display); letter-spacing: -.04em; }
+.plan-para { margin: 12px 0 0; font-size: 14px; }
+.plan .check-list { grid-template-columns: 1fr; gap: 8px; margin: 18px 0 22px; }
+.plan .check-list li { padding: 0 0 0 24px; background: none; border: 0; border-radius: 0; font-size: 14px; font-weight: 600; }
+.plan .check-list li::before { left: 0; }
+.plan .button { margin-top: auto; width: 100%; }
+.plan-destacado { color: white; background: var(--ink); border-color: var(--ink); }
+.prose .plan-destacado .plan-horas, .plan-destacado .check-list li::before { color: var(--mint); }
+.plan-destacado .plan-para, .prose .plan-destacado p { color: rgba(255,255,255,.72); }
+.plan-destacado .check-list li { color: white; }
+.plan-etiqueta { position: absolute; top: -12px; left: 22px; padding: 4px 11px; color: var(--ink); background: var(--mint); border-radius: 999px; font-size: 12px; font-weight: 800; }

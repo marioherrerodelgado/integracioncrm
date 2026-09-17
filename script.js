@@ -181,8 +181,9 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
    analitica. Por eso gtag.js NO se carga hasta que la persona acepta: sin
    aceptacion no se descarga el script ni se instala ninguna cookie. */
 const ANALYTICS_ID = "G-HBV9Z3WRQR";
-// Microsoft Clarity (mapas de calor). Vacío = desactivado: no se carga nada.
-const CLARITY_ID = "";
+// Microsoft Clarity (mapas de calor y grabación de la navegación).
+// Vacío = desactivado: no se carga nada. Se carga solo tras aceptar las cookies.
+const CLARITY_ID = "yjy1ay15fi";
 const CONSENT_KEY = "icrm-consent";
 
 const readConsent = () => { try { return localStorage.getItem(CONSENT_KEY); } catch { return null; } };

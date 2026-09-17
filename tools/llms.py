@@ -20,7 +20,7 @@ def rutas(patron):
 formacion = ["/consultoria-centros-formacion/", "/servicios/crm-academias-oposiciones/", "/servicios/crm-certificados-profesionalidad/",
              "/servicios/crm-formacion-subvencionada/", "/servicios/gestion-formacion-bonificada/", "/servicios/captacion-alumnos-centros-formacion/",
              "/servicios/integracion-moodle-crm/", "/servicios/integracion-zoom-crm/", "/checklist-crm-centros-formacion/"]
-servicios = ["/servicios/implementacion-zoho-crm/", "/servicios/zoho/", "/servicios/automatizacion-crm/", "/servicios/integraciones-api/",
+servicios = ["/servicios/implementacion-zoho-crm/", "/servicios/zoho/", "/servicios/automatizacion-crm/", "/servicios/chatbots-crm/", "/servicios/integraciones-api/",
              "/servicios/datos-reporting-crm/", "/servicios/migracion-crm/", "/servicios/integracion-whatsapp-crm/",
              "/servicios/integracion-telefonia-crm/", "/servicios/stripe-crm/"]
 salto = "\n"

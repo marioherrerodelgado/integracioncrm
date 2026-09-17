@@ -143,6 +143,7 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
         body: data
       });
       if (!response.ok) throw new Error("Automatic delivery unavailable");
+      medir("generate_lead", { tipo_formulario: form.dataset.formType || "Consulta web", pagina: location.pathname });
       // Formularios de descarga: al enviarse, se muestra el enlace al archivo
       const descarga = form.dataset.descarga && document.querySelector(form.dataset.descarga);
       if (descarga) {
@@ -204,6 +205,13 @@ const loadClarity = () => {
   document.head.appendChild(tag);
   // Solo se carga tras aceptar: se le comunica el consentimiento expresamente
   window.clarity("consent");
+};
+
+/* Conversiones. Solo se envía algo si la persona aceptó la analítica:
+   sin consentimiento gtag no existe y la llamada no hace nada. */
+const medir = (evento, datos = {}) => {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", evento, datos);
 };
 
 const clearAnalyticsCookies = () => {
@@ -774,3 +782,27 @@ if (!document.querySelector(".whatsapp")) {
     + '<span aria-hidden="true">WhatsApp<small>@marioxherrero</small></span>';
   document.body.appendChild(whatsapp);
 }
+
+/* Clics que indican intención de contacto. Delegado en el documento para cubrir
+   también lo que se crea después (botón de WhatsApp, generador de flujo). */
+document.addEventListener("click", (event) => {
+  const enlace = event.target.closest("a, button");
+  if (!enlace) return;
+  const seccion = enlace.closest("section[id], header, footer, aside")?.id
+    || enlace.closest("header, footer, aside")?.tagName.toLowerCase() || "contenido";
+  const href = enlace.getAttribute("href") || "";
+
+  if (enlace.classList.contains("whatsapp")) {
+    medir("click_whatsapp", { pagina: location.pathname });
+  } else if (href.startsWith("mailto:")) {
+    medir("click_email", { pagina: location.pathname, seccion });
+  } else if (enlace.matches("[data-copy]")) {
+    medir("copiar_email", { pagina: location.pathname, seccion });
+  } else if (/^\/(auditoria-crm-gratis|reservar-reunion|checklist-crm-centros-formacion)\//.test(href)) {
+    medir("click_cta", { destino: href.split("?")[0], texto: enlace.textContent.trim().slice(0, 60), pagina: location.pathname, seccion });
+  } else if (href.endsWith(".pdf")) {
+    medir("descarga_pdf", { archivo: href.split("/").pop(), pagina: location.pathname });
+  } else if (enlace.matches("[data-probar]")) {
+    medir("generador_probar", { sector: document.querySelector("input[data-sector]:checked")?.value || "" });
+  }
+});

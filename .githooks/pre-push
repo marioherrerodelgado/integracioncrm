@@ -1,0 +1,8 @@
+#!/bin/sh
+# Antes de publicar: comprobaciones estáticas de la web (unos segundos).
+# Si hay errores, el push se cancela. Para saltarlo en una urgencia: git push --no-verify
+python3 tools/comprobar.py || {
+  echo ""
+  echo "Push cancelado: corrige los errores de arriba antes de publicar."
+  exit 1
+}

@@ -1,4 +1,10 @@
+# Cabeceras de seguridad para todo el sitio.
+# CSP: solo se permiten los terceros que usa la web (Google Analytics, Microsoft Clarity,
+# Cloudflare Web Analytics y Formspree). Si se añade otro servicio, hay que incluirlo aquí.
+# 'unsafe-inline' solo en estilos: hay atributos style en el HTML y en lo que genera script.js.
 /*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://*.googletagmanager.com https://static.cloudflareinsights.com https://www.clarity.ms https://scripts.clarity.ms; connect-src 'self' https://formspree.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://cloudflareinsights.com https://*.clarity.ms https://c.bing.com; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://*.clarity.ms https://c.bing.com; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; frame-ancestors 'self'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()

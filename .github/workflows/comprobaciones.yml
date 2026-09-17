@@ -1,0 +1,44 @@
+# Comprobaciones de la web en cada publicación.
+# Cloudflare despliega en paralelo, así que esto no frena la publicación: avisa
+# por email (a quien hizo el push) si algo se ha roto, en unos 2-3 minutos.
+# El bloqueo previo real está en .githooks/pre-push (comprobaciones estáticas).
+
+name: Comprobaciones de la web
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  estaticas:
+    name: Estructura, enlaces, SEO y sitemap
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Comprobar
+        run: python3 tools/comprobar.py
+
+  navegador:
+    name: Navegador real (desbordes y errores)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Instalar navegador
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Comprobar
+        run: |
+          python3 -m http.server 8080 --bind 127.0.0.1 >/dev/null 2>&1 &
+          sleep 2
+          node tools/comprobar-navegador.mjs

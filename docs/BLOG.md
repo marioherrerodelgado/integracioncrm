@@ -66,3 +66,17 @@ y el `sitemap.xml` de toda la web.
   repositorio público tras 60 días sin actividad; publicar en el blog lo mantiene activo.
 - **Microsoft Clarity**: se activa poniendo el identificador del proyecto en `CLARITY_ID`
   (`script.js`) y actualizando la política de cookies.
+- **Comprobaciones antes de publicar**:
+  - `tools/comprobar.py` revisa estructura HTML, datos estructurados, enlaces internos, títulos,
+    descripciones, H1, canonical y sitemap. Se ejecuta solo antes de cada `git push`
+    (`.githooks/pre-push`) y cancela el push si hay errores. En un clon nuevo hay que activarlo con
+    `git config core.hooksPath .githooks`.
+  - En GitHub, `.github/workflows/comprobaciones.yml` repite esas comprobaciones y además abre todas
+    las páginas en un navegador real a 1440, 1024, 390 y 320 px buscando desbordes, texto cortado y
+    errores de JavaScript. Si algo falla, GitHub avisa por email.
+- **Cabeceras de seguridad** (`_headers`): la CSP solo permite Google Analytics, Microsoft Clarity,
+  Cloudflare Web Analytics y Formspree. Si se añade otro servicio externo (un vídeo, un calendario,
+  un chat), hay que añadir su dominio a la CSP o no funcionará.
+- **Conversiones en GA4** (solo con cookies aceptadas): `generate_lead` (formularios enviados),
+  `click_whatsapp`, `click_email`, `copiar_email`, `click_cta` (auditoría, reunión, checklist),
+  `descarga_pdf` y `generador_probar`.

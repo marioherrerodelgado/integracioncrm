@@ -1059,3 +1059,31 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 
 /* Los hijos de la rejilla de contenido no pueden ensanchar la columna (tablas en móvil) */
 .detail-layout > * { min-width: 0; }
+
+/* Zonas táctiles en móvil y pantallas táctiles (auditoría: enlaces de 16-20px de alto).
+   Se amplía el área pulsable con relleno y se compensa con márgenes negativos
+   para que el aspecto no cambie. */
+@media (max-width: 1199px), (pointer: coarse) {
+  .menu-toggle { width: 44px; height: 44px; }
+  .footer-links a { display: inline-block; padding: 12px 2px; margin: -12px 0; }
+  .footer-links p { line-height: 2.4; }
+  .breadcrumbs a { display: inline-block; padding: 12px 0; margin: -12px 0; }
+  .related-card > a { display: inline-block; padding: 12px 0; margin: -12px 0; }
+  .copy-button { min-height: 44px; padding: 12px 10px; }
+  .consent input { width: 22px; height: 22px; }
+}
+/* Campos a 16px: por debajo, iOS hace zoom al tocarlos */
+@media (max-width: 1024px) {
+  .field input, .field select, .field textarea { font-size: 16px; }
+}
+/* Texto mínimo legible en móvil y tableta */
+@media (max-width: 1024px) {
+  .form-note { font-size: 12.5px; }
+  .eyebrow, .h1-clave, .blog-card-meta { font-size: 12px !important; }
+}
+
+/* Preguntas frecuentes: el relleno pasa de la tarjeta a la pregunta para que
+   toda la tarjeta sea pulsable, sin cambiar el aspecto */
+.faq-list details { padding: 0; }
+.faq-list summary { padding: 20px 22px; }
+.faq-list details p { margin: 0; padding: 0 22px 20px; }

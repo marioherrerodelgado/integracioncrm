@@ -39,6 +39,14 @@ for (const ruta of paginas) {
         .filter((el) => !el.closest(".tabla, .table-scroll, [aria-hidden='true']"))
         .filter((el) => { const b = el.getBoundingClientRect(); return b.width && b.height && (b.right > vw + 1 || b.left < -1); });
       for (const el of textos.slice(0, 2)) out.push(`texto fuera de la pantalla: <${el.tagName.toLowerCase()}> "${el.textContent.trim().slice(0, 40)}"`);
+      // En móvil, campos con letra menor de 16px hacen que el iPhone haga zoom al tocarlos
+      if (vw < 800) {
+        for (const el of document.querySelectorAll("input:not([type=checkbox]):not([type=radio]):not([type=hidden]), select, textarea")) {
+          if (el.closest(".honeypot") || !el.getBoundingClientRect().width) continue;
+          const fs = parseFloat(getComputedStyle(el).fontSize);
+          if (fs < 16) out.push(`campo «${el.name || el.id}» a ${fs}px: el iPhone hará zoom (mínimo 16px)`);
+        }
+      }
       return out;
     });
     for (const f of fallos) problemas.push(`${actual}: ${f}`);

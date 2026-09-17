@@ -32,7 +32,7 @@ Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto 
 
 ## Empresa
 
-- [Sobre nosotros]({B}/sobre-nosotros/): el equipo, su enfoque de trabajo y la trayectoria de Mario Herrero Delgado (fundador y CEO; CTO y consultor senior de CRM).
+- [Sobre nosotros]({B}/sobre-nosotros/): el equipo, su enfoque de trabajo y la trayectoria de Mario Herrero Delgado (fundador y CEO; consultor senior de CRM).
 - [Servicios]({B}/servicios/): catálogo completo de servicios de CRM, integración y automatización.
 - [Auditoría CRM gratuita]({B}/auditoria-crm-gratis/): diagnóstico inicial sin coste.
 

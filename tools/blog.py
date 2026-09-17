@@ -212,7 +212,7 @@ def pagina_articulo(a, todos, cabecera, pie):
         f'<button type="button" data-compartir-copiar="{url_absoluta}">Copiar enlace</button></div>')
     autor = ('<aside class="autor-caja"><img src="/imagenes/mario-herrero-cara-160.jpg" width="160" height="160" alt="Mario Herrero Delgado" loading="lazy" decoding="async"/>'
         '<div><p class="eyebrow">Sobre el autor</p><p class="autor-nombre"><a href="/sobre-nosotros/">Mario Herrero Delgado</a></p>'
-        '<p>Fundador y CEO de IntegraciónCRM, CTO y consultor senior de CRM. Más de ocho años implantando Zoho, HubSpot y Salesforce, con especial experiencia en centros de formación.</p>'
+        '<p>Fundador y CEO de IntegraciónCRM y consultor senior de CRM. Más de ocho años implantando Zoho, HubSpot y Salesforce, con especial experiencia en centros de formación.</p>'
         '<p class="autor-enlaces"><a href="/sobre-nosotros/">Conocer al equipo</a> · <a href="https://www.linkedin.com/in/marioherrerod/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></div></aside>')
     servicios = ""
     if a["relacionados"]:

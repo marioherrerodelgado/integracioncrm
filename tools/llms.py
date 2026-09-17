@@ -37,6 +37,12 @@ Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto 
 - [Servicios]({B}/servicios/): catálogo completo de servicios de CRM, integración y automatización.
 - [CRM para pymes]({B}/crm-para-pymes/): cómo elegir e implantar un CRM en una pequeña o mediana empresa de cualquier sector.
 - [Consultor Zoho CRM en Madrid]({B}/consultor-zoho-crm-madrid/): implantación, Zoho One, Deluge e integraciones, con reuniones presenciales en Madrid y trabajo en remoto.
+- [Consultor Zoho CRM para Latinoamérica]({B}/consultor-zoho-crm-latam/): implantación, integraciones, formación y soporte de Zoho CRM y Zoho One en remoto para toda Latinoamérica.
+- [Consultor Zoho CRM para empresas de México]({B}/consultor-zoho-crm-mexico/): Zoho CRM y Zoho One en remoto, con facturación electrónica, moneda y protección de datos de México.
+- [Consultor Zoho CRM para empresas de Colombia]({B}/consultor-zoho-crm-colombia/): Zoho CRM y Zoho One en remoto, con facturación electrónica, moneda y protección de datos de Colombia.
+- [Consultor Zoho CRM para empresas de Chile]({B}/consultor-zoho-crm-chile/): Zoho CRM y Zoho One en remoto, con facturación electrónica, moneda y protección de datos de Chile.
+- [Consultor Zoho CRM para empresas de Perú]({B}/consultor-zoho-crm-peru/): Zoho CRM y Zoho One en remoto, con facturación electrónica, moneda y protección de datos de Perú.
+- [Consultor Zoho CRM para empresas de Argentina]({B}/consultor-zoho-crm-argentina/): Zoho CRM y Zoho One en remoto, con facturación electrónica, moneda y protección de datos de Argentina.
 - [Auditoría CRM gratuita]({B}/auditoria-crm-gratis/): diagnóstico inicial sin coste.
 
 ## Centros de formación

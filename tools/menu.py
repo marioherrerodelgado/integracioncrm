@@ -68,7 +68,7 @@ def seccion_de(url):
         return "Sectores"
     if url.startswith("/integraciones/"):
         return "Integraciones"
-    if url.startswith(("/servicios/", "/crm-para-pymes/", "/consultor-zoho-crm-madrid/")):
+    if url.startswith(("/servicios/", "/crm-para-pymes/", "/consultor-zoho-crm-madrid/", "/consultor-zoho-crm-")):
         return "Servicios"
     return None
 

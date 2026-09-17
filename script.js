@@ -41,6 +41,19 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("revealed"));
 }
 
+// Copiar el enlace de un artículo
+document.querySelectorAll("[data-compartir-copiar]").forEach((boton) => {
+  boton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(boton.dataset.compartirCopiar);
+      boton.textContent = "Enlace copiado ✓";
+    } catch {
+      boton.textContent = boton.dataset.compartirCopiar;
+    }
+    window.setTimeout(() => { boton.textContent = "Copiar enlace"; }, 2200);
+  });
+});
+
 document.querySelectorAll("[data-copy]").forEach((button) => {
   button.addEventListener("click", async (event) => {
     const currentButton = event.currentTarget;
@@ -792,7 +805,9 @@ document.addEventListener("click", (event) => {
     || enlace.closest("header, footer, aside")?.tagName.toLowerCase() || "contenido";
   const href = enlace.getAttribute("href") || "";
 
-  if (enlace.classList.contains("whatsapp")) {
+  if (enlace.dataset.compartir || enlace.hasAttribute("data-compartir-copiar")) {
+    medir("share", { method: enlace.dataset.compartir || "copiar_enlace", content_type: "articulo", item_id: location.pathname });
+  } else if (enlace.classList.contains("whatsapp")) {
     medir("click_whatsapp", { pagina: location.pathname });
   } else if (href.startsWith("mailto:")) {
     medir("click_email", { pagina: location.pathname, seccion });

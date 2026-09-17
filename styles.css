@@ -1038,3 +1038,17 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 .blog-card strong { margin-bottom: 10px; line-height: 1.25; }
 .blog-card strong a { font: 750 18px/1.25 var(--display); letter-spacing: -.02em; }
 .blog-card-meta { letter-spacing: .06em !important; }
+
+/* Blog: compartir y caja de autor */
+.compartir { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+.compartir p { margin: 0 8px 0 0; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.compartir a, .compartir button { padding: 8px 14px; color: var(--ink) !important; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 999px; font: 700 13px/1.2 var(--body); text-decoration: none !important; cursor: pointer; transition: border-color .16s ease, background-color .16s ease; }
+@media (hover: hover) and (pointer: fine) { .compartir a:hover, .compartir button:hover { border-color: var(--mint-dark); background: rgba(41,199,130,.08); } }
+.autor-caja { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 18px; align-items: start; margin-top: 28px; padding: 22px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 18px; }
+.autor-caja img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+.autor-caja .eyebrow { margin: 0 0 4px; }
+.autor-caja p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+.autor-caja .autor-nombre { margin-bottom: 6px; font: 750 19px/1.25 var(--display); }
+.autor-caja .autor-nombre a { color: var(--ink) !important; text-decoration: none !important; }
+.autor-caja .autor-enlaces { margin-top: 10px; font-size: 14px; }
+@media (max-width: 520px) { .autor-caja { grid-template-columns: 1fr; } }

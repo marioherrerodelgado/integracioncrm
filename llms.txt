@@ -1,0 +1,65 @@
+# IntegraciónCRM
+
+> Consultoría e integración de CRM en España, liderada por Mario Herrero Delgado. Implantamos y adaptamos Zoho CRM (también HubSpot y Salesforce), los conectamos con la web, WhatsApp, telefonía, pagos, facturación y plataformas de formación como Moodle, y automatizamos procesos comerciales y administrativos. Especialización en centros de formación: FP, academias, certificados de profesionalidad, formación bonificada (FUNDAE) y subvencionada.
+
+Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto (toda España). Diagnóstico inicial gratuito: https://integracioncrm.com/auditoria-crm-gratis/
+
+## Empresa
+
+- [Sobre nosotros](https://integracioncrm.com/sobre-nosotros/): el equipo, su enfoque de trabajo y la trayectoria de Mario Herrero Delgado (fundador y CEO; CTO y consultor senior de CRM).
+- [Servicios](https://integracioncrm.com/servicios/): catálogo completo de servicios de CRM, integración y automatización.
+- [Auditoría CRM gratuita](https://integracioncrm.com/auditoria-crm-gratis/): diagnóstico inicial sin coste.
+
+## Centros de formación
+
+- [CRM para centros de formación](https://integracioncrm.com/consultoria-centros-formacion/): CRM para centros de formación: captación, admisiones, matrículas, alumnos, Moodle y documentación conectados en un solo sistema. Diagnóstico gratuito.
+- [CRM para academias y centros de oposiciones](https://integracioncrm.com/servicios/crm-academias-oposiciones/): Gestiona matrículas, cuotas recurrentes, grupos, renovaciones y seguimiento de alumnos en academias y preparadores de oposiciones.
+- [CRM para certificados de profesionalidad](https://integracioncrm.com/servicios/crm-certificados-profesionalidad/): Gestiona alumnos, módulos formativos, asistencia, tutorías y documentación de certificados de profesionalidad en un sistema conectado y trazable.
+- [CRM para formación subvencionada](https://integracioncrm.com/servicios/crm-formacion-subvencionada/): Ordena convocatorias, expedientes, documentación y justificación de formación subvencionada con procesos trazables y plazos controlados.
+- [CRM para formación bonificada y FUNDAE](https://integracioncrm.com/servicios/gestion-formacion-bonificada/): Automatiza la gestión de formación bonificada y expedientes formativos con CRM, documentos, asistencia y seguimiento trazable para centros de formación.
+- [CRM para captación de alumnos y matrículas](https://integracioncrm.com/servicios/captacion-alumnos-centros-formacion/): Mejora la captación de alumnos en centros de FP y academias: centraliza leads, automatiza respuestas, organiza admisiones y mide el origen de cada matrícula.
+- [Integración de Moodle con CRM](https://integracioncrm.com/servicios/integracion-moodle-crm/): Integra Moodle con tu CRM para sincronizar alumnos, cursos, matrículas y actividad formativa, reduciendo tareas manuales en centros y academias.
+- [Integración de Zoom con CRM para formación](https://integracioncrm.com/servicios/integracion-zoom-crm/): Integra Zoom con tu CRM para relacionar sesiones, participantes y asistencia con cursos y alumnos en centros de formación.
+- [Checklist CRM para centros de formación (gratis)](https://integracioncrm.com/checklist-crm-centros-formacion/): Descarga gratis el checklist de 25 preguntas para saber si tu centro de formación está listo para un CRM y qué resolver antes de elegir herramienta.
+
+## CRM por sectores
+
+- [CRM por sectores: soluciones a medida](https://integracioncrm.com/sectores/): CRM adaptado a cada sector: centros de formación, inmobiliarias, clínicas de estética, hostelería, servicios B2B y centros deportivos. Diagnóstico gratuito.
+- [CRM para centros deportivos y campus](https://integracioncrm.com/sectores/crm-centros-deportivos/): CRM para centros deportivos, escuelas deportivas y ocio educativo: inscripciones, cuotas, grupos, listas de espera, autorizaciones y familias conectadas.
+- [CRM para clínicas de estética y salud](https://integracioncrm.com/sectores/crm-clinicas-estetica/): CRM para clínicas de estética y salud: leads, valoraciones, presupuestos, citas, recordatorios por WhatsApp y seguimiento de tratamientos conectados.
+- [CRM para hostelería, restaurantes y eventos](https://integracioncrm.com/sectores/crm-hosteleria-restauracion/): CRM para hostelería y restauración: eventos, grupos y empresas, presupuestos, señales, clientes recurrentes y reseñas conectados en un solo sistema.
+- [CRM para inmobiliarias a medida con Zoho](https://integracioncrm.com/sectores/crm-inmobiliarias/): CRM para inmobiliarias adaptado a tu agencia: leads de portales, demandas, visitas, propietarios y operaciones conectados en Zoho CRM y WhatsApp.
+- [CRM para empresas de servicios B2B](https://integracioncrm.com/sectores/crm-servicios-b2b/): CRM para empresas de servicios y venta consultiva: leads cualificados, oportunidades, propuestas, firma, facturación y una previsión de ventas fiable.
+
+## Servicios
+
+- [Implementación y consultoría Zoho CRM](https://integracioncrm.com/servicios/implementacion-zoho-crm/): Consultoría, implementación y optimización de Zoho CRM: módulos, pipelines, roles, automatizaciones Deluge, Zoho One y migración de datos.
+- [Consultoría Zoho CRM y Zoho One](https://integracioncrm.com/servicios/zoho/): Consultoría Zoho CRM, Zoho One, Analytics, Books, Forms, Campaigns, Sign e integraciones API. Experiencia en proyectos CRM, ERP y automatización.
+- [Automatización CRM y procesos comerciales](https://integracioncrm.com/servicios/automatizacion-crm/): Automatización de CRM y procesos comerciales: asignación de leads, seguimientos, workflows, Deluge, tareas, alertas y control del embudo.
+- [Integraciones CRM, API y webhooks](https://integracioncrm.com/servicios/integraciones-api/): Integraciones CRM mediante API y webhooks con Zoho, WhatsApp, Ringover, Vapi, formularios, LMS y aplicaciones internas. Datos sincronizados y trazables.
+- [Datos, migración y reporting CRM](https://integracioncrm.com/servicios/datos-reporting-crm/): Limpieza, normalización y migración de datos CRM, reporting SQL y cuadros de mando comerciales para trabajar con información fiable.
+- [Migración de CRM y datos](https://integracioncrm.com/servicios/migracion-crm/): Migración de CRM y datos desde Excel, HubSpot, Salesforce u otro sistema. Mapeo, limpieza, pruebas y carga controlada sin perder trazabilidad.
+- [Integración de WhatsApp con CRM](https://integracioncrm.com/servicios/integracion-whatsapp-crm/): Integra WhatsApp con tu CRM para centralizar conversaciones, asignar oportunidades y mantener el historial comercial sin copiar datos a mano.
+- [Integración de telefonía con CRM](https://integracioncrm.com/servicios/integracion-telefonia-crm/): Conecta telefonía y CRM para registrar llamadas, asignar contactos, medir tiempos de respuesta y dar contexto al equipo comercial.
+- [Integración de Stripe con CRM](https://integracioncrm.com/servicios/stripe-crm/): Conecta Stripe con tu CRM para vincular cada pago, cuota o matrícula a su ficha, detectar cobros fallidos y automatizar facturas y avisos.
+
+## Integraciones con Zoho CRM
+
+- [Integraciones CRM: Zoho con tus herramientas](https://integracioncrm.com/integraciones/): Integraciones de Zoho CRM con Google Calendar, Outlook, WordPress, WooCommerce, Mailchimp, Holded, Make y n8n, más migración desde HubSpot.
+- [Migrar de HubSpot a Zoho CRM](https://integracioncrm.com/integraciones/migrar-hubspot-a-zoho/): Migración de HubSpot a Zoho CRM con mapeo de campos, limpieza de datos, histórico conservado y pruebas antes de la carga definitiva.
+- [Integrar Zoho CRM con Google Calendar](https://integracioncrm.com/integraciones/zoho-google-calendar/): Sincroniza reuniones, disponibilidad y recordatorios entre Zoho CRM y Google Calendar sin duplicar eventos ni perder contexto del cliente.
+- [Integrar Zoho CRM con Holded](https://integracioncrm.com/integraciones/zoho-holded/): Conecta Zoho CRM con Holded para que presupuestos, facturas y cobros dejen de gestionarse dos veces y el comercial vea el estado real del cliente.
+- [Integrar Zoho CRM con Mailchimp](https://integracioncrm.com/integraciones/zoho-mailchimp/): Sincroniza contactos, segmentos y actividad de campañas entre Zoho CRM y Mailchimp sin listas desactualizadas ni bajas que reaparecen.
+- [Automatizar Zoho CRM con Make y n8n](https://integracioncrm.com/integraciones/zoho-make-n8n/): Conecta Zoho CRM con cientos de aplicaciones usando Make o n8n, con control de errores, reintentos y lógica propia sin desarrollar de cero.
+- [Integrar Zoho CRM con Outlook y Microsoft 365](https://integracioncrm.com/integraciones/zoho-outlook-365/): Conecta correo, calendario y contactos de Outlook y Microsoft 365 con Zoho CRM para que cada conversación quede registrada en su oportunidad.
+- [Integrar Zoho CRM con WooCommerce](https://integracioncrm.com/integraciones/zoho-woocommerce/): Conecta pedidos, clientes y productos de WooCommerce con Zoho CRM para relacionar cada compra con su cliente y su proceso comercial.
+- [Integrar Zoho CRM con WordPress](https://integracioncrm.com/integraciones/zoho-wordpress/): Conecta los formularios de tu WordPress con Zoho CRM para que cada lead entre completo, asignado y con su origen identificado.
+
+## Blog
+
+- [Guía de automatización CRM: por dónde empezar](https://integracioncrm.com/blog/automatizacion-crm-guia/): Guía práctica para automatizar un CRM: qué procesos priorizar, cuándo usar workflows, Deluge, Make, n8n o APIs y cómo medir si la automatización funciona.
+- [Automatizar matrículas en centros de formación](https://integracioncrm.com/blog/automatizar-matriculas-centro-formacion/): Cómo automatizar las matrículas de un centro de formación: documentación, firma, pago y alta en el campus sin copiar datos. Qué automatizar primero y qué no.
+- [Cómo elegir un CRM para un centro de formación](https://integracioncrm.com/blog/como-elegir-crm-centro-formacion/): Cómo elegir un CRM para un centro de formación: 12 preguntas sobre proceso, datos y herramientas que conviene responder antes de ver demos o pedir presupuesto.
+- [Cómo integrar Moodle con Zoho CRM](https://integracioncrm.com/blog/integrar-moodle-con-zoho-crm/): Cómo integrar Moodle con Zoho CRM: qué datos sincronizar y en qué dirección, cómo se conectan con los servicios web de Moodle y los errores que conviene evitar.
+- [Cómo pasar de Excel a un CRM sin perder datos](https://integracioncrm.com/blog/pasar-de-excel-a-crm/): Cómo pasar de Excel a un CRM sin perder datos: qué limpiar antes, cómo mapear columnas, qué hacer con duplicados e histórico y cómo comprobar que todo cuadra.
+- [Zoho CRM o HubSpot para un centro de formación](https://integracioncrm.com/blog/zoho-crm-vs-hubspot-centros-formacion/): Zoho CRM o HubSpot para un centro de formación: en qué destaca cada uno, qué no trae ninguno de serie y cómo decidir según el tamaño y el proceso del centro.

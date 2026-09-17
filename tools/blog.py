@@ -11,6 +11,7 @@ Ver blog/_fuentes/_plantilla.md y docs/BLOG.md. Genera:
   - sitemap.xml completo
 """
 import datetime, html, json, os, re, subprocess, sys
+from urllib.parse import quote
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FUENTES = os.path.join(RAIZ, "blog", "_fuentes")
@@ -150,13 +151,16 @@ def trozos_web():
 
 def cabeza(url, titulo, desc, ld, tipo_og="article", extra=""):
     og = titulo.split(" | ")[0]
+    # Imagen para redes propia (generada con tools/og.mjs) o la genérica si aún no existe
+    propia = "og/paginas/" + url.strip("/").replace("/", "-") + ".jpg"
+    imagen = f"{BASE}/{propia}" if os.path.isfile(os.path.join(RAIZ, propia)) else f"{BASE}/og/og-principal.png"
     return f'''<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content="{e(desc)}"/>
   <meta name="robots" content="index, follow, max-image-preview:large"/><meta name="theme-color" content="#07111f"/>
-  <meta property="og:title" content="{e(og)}"/><meta property="og:description" content="{e(desc)}"/><meta property="og:type" content="{tipo_og}"/><meta property="og:site_name" content="IntegraciónCRM"/><meta property="og:url" content="{BASE}{url}"/><meta property="og:image" content="{BASE}/og/og-principal.png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="{e(og)}"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="{BASE}/og/og-principal.png"/><meta property="og:locale" content="es_ES"/>{extra}
+  <meta property="og:title" content="{e(og)}"/><meta property="og:description" content="{e(desc)}"/><meta property="og:type" content="{tipo_og}"/><meta property="og:site_name" content="IntegraciónCRM"/><meta property="og:url" content="{BASE}{url}"/><meta property="og:image" content="{imagen}"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="{e(og)}"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="{imagen}"/><meta property="og:locale" content="es_ES"/>{extra}
   <link rel="canonical" href="{BASE}{url}"/><link rel="alternate" type="application/rss+xml" title="Blog de IntegraciónCRM" href="{BASE}/blog/feed.xml"/><link rel="icon" href="/brand/integracioncrm/favicons/favicon_mint.ico" sizes="32x32"/><link rel="icon" href="/brand/integracioncrm/favicons/favicon_mint.svg" type="image/svg+xml"/><link rel="apple-touch-icon" href="/brand/integracioncrm/favicons/apple-touch-icon_mint_180.png"/><link rel="stylesheet" href="/styles.css"/><noscript><style>[data-reveal]{{opacity:1;transform:none}}</style></noscript>
   <title>{e(titulo)}</title>
   <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False, separators=(",", ":"))}</script>
@@ -181,7 +185,7 @@ def pagina_articulo(a, todos, cabecera, pie):
     grafo = [{
         "@type": "BlogPosting", "headline": a["titulo"], "description": a["descripcion"], "url": BASE + url,
         "mainEntityOfPage": BASE + url, "datePublished": a["fecha"], "dateModified": a["actualizado"],
-        "author": AUTOR, "publisher": {"@id": f"{BASE}/#organization"}, "image": f"{BASE}/og/og-principal.png",
+        "author": AUTOR, "publisher": {"@id": f"{BASE}/#organization"}, "image": f"{BASE}/og/paginas/blog-{a['slug']}.jpg" if os.path.isfile(os.path.join(RAIZ, "og", "paginas", f"blog-{a['slug']}.jpg")) else f"{BASE}/og/og-principal.png",
         "articleSection": a["categoria"], "wordCount": a["palabras"], "inLanguage": "es"}, ld_migas]
     if a["faq"]:
         grafo.insert(1, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": r}} for q, r in a["faq"]]})
@@ -200,6 +204,16 @@ def pagina_articulo(a, todos, cabecera, pie):
     otros = [o for o in todos if o["slug"] != a["slug"]]
     otros.sort(key=lambda o: (o["categoria"] != a["categoria"], o["fecha"]), reverse=False)
     relacionados_blog = otros[:3]
+    url_absoluta = BASE + url
+    compartir = ('<div class="compartir"><p>Compartir</p>'
+        f'<a href="https://www.linkedin.com/sharing/share-offsite/?url={quote(url_absoluta, safe="")}" target="_blank" rel="noopener noreferrer" data-compartir="linkedin">LinkedIn</a>'
+        f'<a href="https://wa.me/?text={quote(a["titulo"] + " " + url_absoluta, safe="")}" target="_blank" rel="noopener noreferrer" data-compartir="whatsapp">WhatsApp</a>'
+        f'<a href="mailto:?subject={quote(a["titulo"])}&amp;body={quote(url_absoluta)}" data-compartir="email">Email</a>'
+        f'<button type="button" data-compartir-copiar="{url_absoluta}">Copiar enlace</button></div>')
+    autor = ('<aside class="autor-caja"><img src="/imagenes/mario-herrero-cara-160.jpg" width="160" height="160" alt="Mario Herrero Delgado" loading="lazy" decoding="async"/>'
+        '<div><p class="eyebrow">Sobre el autor</p><p class="autor-nombre"><a href="/sobre-nosotros/">Mario Herrero Delgado</a></p>'
+        '<p>Fundador y CEO de IntegraciónCRM, CTO y consultor senior de CRM. Más de ocho años implantando Zoho, HubSpot y Salesforce, con especial experiencia en centros de formación.</p>'
+        '<p class="autor-enlaces"><a href="/sobre-nosotros/">Conocer al equipo</a> · <a href="https://www.linkedin.com/in/marioherrerod/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></div></aside>')
     servicios = ""
     if a["relacionados"]:
         servicios = '<p class="articulo-servicios">Relacionado: ' + " · ".join(
@@ -212,6 +226,8 @@ def pagina_articulo(a, todos, cabecera, pie):
 {a["cuerpo_html"]}
 {faq}
 {servicios}
+{compartir}
+{autor}
     </article><aside class="aside-card"><p class="eyebrow light">IntegraciónCRM</p><h2>¿Hablamos de tu caso?</h2><p>Revisamos tu proceso y priorizamos una primera mejora realista.</p><a class="button button-light" href="/auditoria-crm-gratis/">Solicitar diagnóstico</a><small><a href="/checklist-crm-centros-formacion/">O descarga el checklist gratuito</a></small></aside></div></section>
     {('<section class="section"><div class="container"><div class="section-heading"><p class="eyebrow">Sigue leyendo</p><h2>Más del blog.</h2></div><div class="related-grid">' + "".join(tarjeta(o) for o in relacionados_blog) + "</div></div></section>") if relacionados_blog else ""}
   '''
@@ -315,6 +331,7 @@ def main():
     open(os.path.join(RAIZ, "blog", "feed.xml"), "w", encoding="utf-8").write(feed(publicados))
     n = sitemap({f"/blog/{a['slug']}/": a["actualizado"] for a in publicados})
     print(f"  ✓ /blog/ con {len(publicados)} artículos · feed.xml · sitemap con {n} URLs")
+    subprocess.run([sys.executable, os.path.join(RAIZ, "tools", "llms.py")], check=True)
     pendientes = [a["slug"] for a in todos if a not in publicados]
     if pendientes:
         print(f"  (sin publicar todavía: {', '.join(pendientes)})")

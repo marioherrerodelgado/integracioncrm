@@ -34,6 +34,8 @@ Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto 
 
 - [Sobre nosotros]({B}/sobre-nosotros/): el equipo, su enfoque de trabajo y la trayectoria de Mario Herrero Delgado (fundador y CEO; consultor senior de CRM).
 - [Servicios]({B}/servicios/): catálogo completo de servicios de CRM, integración y automatización.
+- [CRM para pymes]({B}/crm-para-pymes/): cómo elegir e implantar un CRM en una pequeña o mediana empresa de cualquier sector.
+- [Consultor Zoho CRM en Madrid]({B}/consultor-zoho-crm-madrid/): implantación, Zoho One, Deluge e integraciones, con reuniones presenciales en Madrid y trabajo en remoto.
 - [Auditoría CRM gratuita]({B}/auditoria-crm-gratis/): diagnóstico inicial sin coste.
 
 ## Centros de formación

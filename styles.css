@@ -1052,3 +1052,10 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 .autor-caja .autor-nombre a { color: var(--ink) !important; text-decoration: none !important; }
 .autor-caja .autor-enlaces { margin-top: 10px; font-size: 14px; }
 @media (max-width: 520px) { .autor-caja { grid-template-columns: 1fr; } }
+
+/* Enlaces dentro de párrafos y listas del contenido: antes no se distinguían del texto */
+.prose-section p a:not(.button):not(.text-link), .prose-section li p a:not(.button), .check-list li a { color: #0f7a4d; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) { .prose-section p a:not(.button):not(.text-link):hover, .check-list li a:hover { color: var(--ink); } }
+
+/* Los hijos de la rejilla de contenido no pueden ensanchar la columna (tablas en móvil) */
+.detail-layout > * { min-width: 0; }

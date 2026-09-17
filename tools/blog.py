@@ -331,6 +331,7 @@ def main():
     open(os.path.join(RAIZ, "blog", "feed.xml"), "w", encoding="utf-8").write(feed(publicados))
     n = sitemap({f"/blog/{a['slug']}/": a["actualizado"] for a in publicados})
     print(f"  ✓ /blog/ con {len(publicados)} artículos · feed.xml · sitemap con {n} URLs")
+    subprocess.run([sys.executable, os.path.join(RAIZ, "tools", "menu.py")], check=True)
     subprocess.run([sys.executable, os.path.join(RAIZ, "tools", "llms.py")], check=True)
     pendientes = [a["slug"] for a in todos if a not in publicados]
     if pendientes:

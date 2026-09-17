@@ -15,7 +15,7 @@ import datetime, html, json, os, re, subprocess, sys
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FUENTES = os.path.join(RAIZ, "blog", "_fuentes")
 BASE = "https://integracioncrm.com"
-AUTOR = {"@type": "Person", "@id": f"{BASE}/sobre-nosotros/#mario-herrero", "name": "Mario Herrero Delgado", "url": f"{BASE}/sobre-nosotros/"}
+AUTOR = {"@type": "Person", "@id": f"{BASE}/sobre-nosotros/#mario-herrero", "name": "Mario Herrero Delgado", "url": f"{BASE}/sobre-nosotros/", "image": f"{BASE}/imagenes/mario-herrero-480.jpg", "jobTitle": "CEO de IntegraciónCRM"}
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 e = html.escape
 
@@ -206,7 +206,7 @@ def pagina_articulo(a, todos, cabecera, pie):
             f'<a href="{u}">{e(nombre_de(u))}</a>' for u in a["relacionados"]) + "</p>"
 
     main = f'''<main id="contenido">
-    <section class="page-hero articulo-hero"><div class="container" data-reveal>{vis}<p class="eyebrow">{e(a["categoria"])}</p><h1>{e(a["titulo"])}</h1><p class="page-lead">{e(a["resumen"])}</p><div class="articulo-autor"><img src="/imagenes/mario-96.jpg" width="96" height="96" alt="" loading="lazy" decoding="async"/><p><a href="/sobre-nosotros/">Mario Herrero Delgado</a><span>{fecha_larga(a["fecha"])}{actualizado} · {a["minutos"]} min de lectura</span></p></div></div></section>
+    <section class="page-hero articulo-hero"><div class="container" data-reveal>{vis}<p class="eyebrow">{e(a["categoria"])}</p><h1>{e(a["titulo"])}</h1><p class="page-lead">{e(a["resumen"])}</p><div class="articulo-autor"><img src="/imagenes/mario-herrero-cara-96.jpg" width="96" height="96" alt="" loading="lazy" decoding="async"/><p><a href="/sobre-nosotros/">Mario Herrero Delgado</a><span>{fecha_larga(a["fecha"])}{actualizado} · {a["minutos"]} min de lectura</span></p></div></div></section>
     <section class="section articulo-seccion"><div class="container detail-layout"><article class="prose articulo">
 {indice}
 {a["cuerpo_html"]}

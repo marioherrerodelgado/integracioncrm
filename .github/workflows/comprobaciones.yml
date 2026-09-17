@@ -42,3 +42,26 @@ jobs:
           python3 -m http.server 8080 --bind 127.0.0.1 >/dev/null 2>&1 &
           sleep 2
           node tools/comprobar-navegador.mjs
+
+  indexnow:
+    name: Avisar a IndexNow (Bing, Yandex)
+    needs: [estaticas, navegador]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Esperar a que Cloudflare publique la clave
+        run: |
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -m 10 -w '%{http_code}' \
+              https://integracioncrm.com/2510cb48378189724e6948b73b1afca6.txt)
+            [ "$code" = "200" ] && exit 0
+            sleep 10
+          done
+          echo "La clave de IndexNow no responde; no se avisa."
+          exit 1
+      - name: Avisar de las páginas cambiadas
+        run: python3 tools/indexnow.py

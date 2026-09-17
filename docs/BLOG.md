@@ -80,3 +80,22 @@ y el `sitemap.xml` de toda la web.
 - **Conversiones en GA4** (solo con cookies aceptadas): `generate_lead` (formularios enviados),
   `click_whatsapp`, `click_email`, `copiar_email`, `click_cta` (auditoría, reunión, checklist),
   `descarga_pdf` y `generador_probar`.
+
+## Avisar a los buscadores (IndexNow)
+
+`tools/indexnow.py` avisa a **Bing, Yandex, Seznam y Naver** de las páginas nuevas o
+modificadas. Se ejecuta **solo** en GitHub después de cada publicación, así que no hay
+que hacer nada a mano.
+
+- `python3 tools/indexnow.py` → las páginas cambiadas en el último commit.
+- `python3 tools/indexnow.py --todas` → todas las del sitemap.
+- `python3 tools/indexnow.py --simular` → muestra qué enviaría, sin enviar.
+- `python3 tools/indexnow.py /una/url/` → solo esa.
+
+La clave está en el archivo `2510cb48378189724e6948b73b1afca6.txt` de la raíz. **No se
+puede borrar ni renombrar**: si desaparece, los avisos se rechazan.
+
+> **Google no admite IndexNow.** Sus páginas se descubren por el sitemap y los enlaces
+> internos, y las importantes se piden a mano en Search Console (Inspección de URLs →
+> Solicitar indexación). No existe forma automática y admitida de pedirle indexación.
+

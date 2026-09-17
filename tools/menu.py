@@ -33,6 +33,8 @@ MENU = [
         ("/integraciones/zoho-woocommerce/", "WooCommerce"),
         ("/integraciones/zoho-mailchimp/", "Mailchimp"),
         ("/integraciones/zoho-holded/", "Holded y facturación"),
+        ("/integraciones/zoho-ringover/", "Ringover (telefonía)"),
+        ("/blog/whatsapp-zoho-crm-woztell-sibila-eazybe/", "WhatsApp: Woztell, Sibila, Eazybe"),
         ("/integraciones/zoho-make-n8n/", "Make y n8n"),
         ("/integraciones/migrar-hubspot-a-zoho/", "Migrar de HubSpot a Zoho"),
     ], ("/integraciones/", "Ver todas las integraciones →")),

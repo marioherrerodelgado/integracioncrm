@@ -1087,3 +1087,7 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 .faq-list details { padding: 0; }
 .faq-list summary { padding: 20px 22px; }
 .faq-list details p { margin: 0; padding: 0 22px 20px; }
+
+/* Nota de fuente en páginas de herramientas de terceros */
+.nota-fuente { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
+.nota-fuente a { color: #0f7a4d; text-decoration: underline; text-underline-offset: 3px; }

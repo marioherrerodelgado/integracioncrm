@@ -49,13 +49,17 @@ Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto 
 
 - [Integraciones CRM: Zoho con tus herramientas](https://integracioncrm.com/integraciones/): Integraciones de Zoho CRM con Google Calendar, Outlook, WordPress, WooCommerce, Mailchimp, Holded, Make y n8n, más migración desde HubSpot.
 - [Migrar de HubSpot a Zoho CRM](https://integracioncrm.com/integraciones/migrar-hubspot-a-zoho/): Migración de HubSpot a Zoho CRM con mapeo de campos, limpieza de datos, histórico conservado y pruebas antes de la carga definitiva.
+- [WhatsApp Web y Zoho CRM con Eazybe](https://integracioncrm.com/integraciones/zoho-eazybe/): Conecta WhatsApp Web con Zoho CRM usando Eazybe: consulta y actualiza leads, tratos, notas y tareas desde WhatsApp y guarda las conversaciones en el CRM.
 - [Integrar Zoho CRM con Google Calendar](https://integracioncrm.com/integraciones/zoho-google-calendar/): Sincroniza reuniones, disponibilidad y recordatorios entre Zoho CRM y Google Calendar sin duplicar eventos ni perder contexto del cliente.
 - [Integrar Zoho CRM con Holded](https://integracioncrm.com/integraciones/zoho-holded/): Conecta Zoho CRM con Holded para que presupuestos, facturas y cobros dejen de gestionarse dos veces y el comercial vea el estado real del cliente.
 - [Integrar Zoho CRM con Mailchimp](https://integracioncrm.com/integraciones/zoho-mailchimp/): Sincroniza contactos, segmentos y actividad de campañas entre Zoho CRM y Mailchimp sin listas desactualizadas ni bajas que reaparecen.
 - [Automatizar Zoho CRM con Make y n8n](https://integracioncrm.com/integraciones/zoho-make-n8n/): Conecta Zoho CRM con cientos de aplicaciones usando Make o n8n, con control de errores, reintentos y lógica propia sin desarrollar de cero.
 - [Integrar Zoho CRM con Outlook y Microsoft 365](https://integracioncrm.com/integraciones/zoho-outlook-365/): Conecta correo, calendario y contactos de Outlook y Microsoft 365 con Zoho CRM para que cada conversación quede registrada en su oportunidad.
+- [Integrar Zoho CRM con Ringover](https://integracioncrm.com/integraciones/zoho-ringover/): Integra Ringover con Zoho CRM: llamadas con un clic, registro automático con duración y grabación, ficha del cliente al entrar la llamada y automatizaciones.
+- [WhatsApp e Instagram en Zoho CRM con Sibila](https://integracioncrm.com/integraciones/zoho-sibila/): Integra Sibila con Zoho CRM para gestionar WhatsApp, Instagram, Facebook Messenger y SMS desde las fichas de leads y contactos, sin cambiar de plataforma.
 - [Integrar Zoho CRM con WooCommerce](https://integracioncrm.com/integraciones/zoho-woocommerce/): Conecta pedidos, clientes y productos de WooCommerce con Zoho CRM para relacionar cada compra con su cliente y su proceso comercial.
 - [Integrar Zoho CRM con WordPress](https://integracioncrm.com/integraciones/zoho-wordpress/): Conecta los formularios de tu WordPress con Zoho CRM para que cada lead entre completo, asignado y con su origen identificado.
+- [WhatsApp en Zoho CRM con Woztell](https://integracioncrm.com/integraciones/zoho-woztell/): Conecta la API oficial de WhatsApp Business con Zoho CRM usando Woztell: leads desde conversaciones, mensajes desde la ficha, chatbots y campañas medidas.
 
 ## Blog
 
@@ -64,4 +68,5 @@ Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto 
 - [Cómo elegir un CRM para un centro de formación](https://integracioncrm.com/blog/como-elegir-crm-centro-formacion/): Cómo elegir un CRM para un centro de formación: 12 preguntas sobre proceso, datos y herramientas que conviene responder antes de ver demos o pedir presupuesto.
 - [Cómo integrar Moodle con Zoho CRM](https://integracioncrm.com/blog/integrar-moodle-con-zoho-crm/): Cómo integrar Moodle con Zoho CRM: qué datos sincronizar y en qué dirección, cómo se conectan con los servicios web de Moodle y los errores que conviene evitar.
 - [Cómo pasar de Excel a un CRM sin perder datos](https://integracioncrm.com/blog/pasar-de-excel-a-crm/): Cómo pasar de Excel a un CRM sin perder datos: qué limpiar antes, cómo mapear columnas, qué hacer con duplicados e histórico y cómo comprobar que todo cuadra.
+- [WhatsApp y Zoho CRM: Woztell, Sibila o Eazybe](https://integracioncrm.com/blog/whatsapp-zoho-crm-woztell-sibila-eazybe/): Cómo conectar WhatsApp con Zoho CRM: integración nativa, Woztell, Sibila o Eazybe. Diferencias entre API oficial, multicanal y WhatsApp Web y cuál elegir.
 - [Zoho CRM o HubSpot para un centro de formación](https://integracioncrm.com/blog/zoho-crm-vs-hubspot-centros-formacion/): Zoho CRM o HubSpot para un centro de formación: en qué destaca cada uno, qué no trae ninguno de serie y cómo decidir según el tamaño y el proceso del centro.

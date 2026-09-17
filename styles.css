@@ -1091,3 +1091,8 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 /* Nota de fuente en páginas de herramientas de terceros */
 .nota-fuente { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; line-height: 1.6; }
 .nota-fuente a { color: #0f7a4d; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Desplegables largos en escritorio: nunca por debajo del borde de la pantalla */
+@media (min-width: 1200px) {
+  .submenu { max-height: calc(100vh - 96px); overflow-y: auto; overscroll-behavior: contain; }
+}

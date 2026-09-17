@@ -34,6 +34,8 @@ MENU = [
         ("/integraciones/zoho-woocommerce/", "WooCommerce"),
         ("/integraciones/zoho-mailchimp/", "Mailchimp"),
         ("/integraciones/zoho-holded/", "Holded y facturación"),
+        ("/integraciones/zoho-forms/", "Zoho Forms"),
+        ("/integraciones/zoho-leadchain/", "Zoho LeadChain (anuncios)"),
         ("/integraciones/zoho-salesiq/", "Zoho SalesIQ (chatbots)"),
         ("/integraciones/zoho-ringover/", "Ringover (telefonía)"),
         ("/blog/whatsapp-zoho-crm-woztell-sibila-eazybe/", "WhatsApp: Woztell, Sibila, Eazybe"),

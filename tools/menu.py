@@ -58,6 +58,8 @@ MENU = [
         ("/sectores/crm-clinicas-estetica/", "Clínicas y estética"),
         ("/sectores/crm-hosteleria-restauracion/", "Hostelería y restauración"),
         ("/sectores/crm-servicios-b2b/", "Servicios B2B"),
+        ("/sectores/crm-asesorias-gestorias/", "Asesorías y gestorías"),
+        ("/sectores/crm-corredores-seguros/", "Corredores de seguros"),
         ("/sectores/crm-centros-deportivos/", "Centros deportivos"),
     ], ("/sectores/", "Ver todos los sectores →")),
 ]

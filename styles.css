@@ -912,14 +912,8 @@ body { background: none; }
 @media (max-width: 720px) { .audit-hero { padding-top: 96px; padding-bottom: 30px; } }
 .audit-hero .page-lead { max-width: 56ch; }
 
-/* La retícula también en la sección oscura: así deja de ser un detalle suelto
-   del hero y se lee como un elemento del sistema, no como un accidente. */
+/* La sección oscura, sin tramas: el fondo limpio y el degradado de entrada. */
 [data-tono="oscuro"] { position: relative; }
-[data-tono="oscuro"]::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
-  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 72px 72px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 40%, transparent 100%); }
 [data-tono="oscuro"] > * { position: relative; z-index: 1; }
 
 /* Sobre nosotros: foto en la cabecera y qué hacemos */
@@ -1124,10 +1118,25 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 
 /* Sección oscura: resplandor verde y un raíl que une los tres pasos, para que
    no sea solo una frase verde sobre negro. */
-.process { position: relative; overflow: hidden; }
+/* Entra y sale en degradado: el negro no aparece de golpe al hacer scroll.
+   El texto empieza por debajo del degradado, nunca encima. */
+.process { position: relative; overflow: hidden; padding-top: 210px; padding-bottom: 190px;
+  background: linear-gradient(180deg, var(--paper) 0, #0d1b2c 150px, var(--ink) 270px, var(--ink) calc(100% - 250px), #0d1b2c calc(100% - 130px), var(--paper) 100%); }
 .process::after { content: ""; position: absolute; top: -240px; right: -170px; width: 580px; height: 580px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(41,199,130,.20), transparent 70%); }
 .process-grid { position: relative; z-index: 1; }
 .steps { position: relative; }
 .steps::before { content: ""; position: absolute; left: 17px; top: 44px; bottom: 44px; width: 1px; background: linear-gradient(180deg, rgba(41,199,130,.5), rgba(41,199,130,.06)); }
 .steps li > span { position: relative; display: inline-grid; place-items: center; width: 35px; height: 35px; background: #0b1726; border: 1px solid rgba(41,199,130,.38); border-radius: 50%; }
 @media (max-width: 720px) { .steps::before { left: 17px; } }
+
+/* Las fichas del generador, con algo de vida: se levantan al pasar por encima,
+   dan un pequeño salto al marcarse y se hunden al pulsarlas. */
+@media (prefers-reduced-motion: no-preference) {
+  .ficha { transition: color .14s ease, background-color .14s ease, border-color .14s ease, transform .18s var(--ease-out), box-shadow .18s ease; }
+  .ficha:has(input:checked) { animation: fichaPop .34s cubic-bezier(.34, 1.4, .64, 1); }
+  .ficha:active { transform: scale(.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .ficha:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(7,17,31,.08); }
+  }
+  @keyframes fichaPop { 0% { transform: scale(.93); } 55% { transform: scale(1.05); } 100% { transform: scale(1); } }
+}

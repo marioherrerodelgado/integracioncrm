@@ -311,7 +311,10 @@ const gruposQueAparecen = [
   ".faq-list > details",
   ".section-heading",
   ".caso-cifra",
-  ".flow-figure"
+  ".flow-figure",
+  ".monta-elige fieldset",
+  ".monta-sector .ficha",
+  ".monta-elige fieldset:not(.monta-sector) .ficha"
 ];
 
 const candidatos = [...new Set(gruposQueAparecen.flatMap((s) => [...document.querySelectorAll(s)]))];

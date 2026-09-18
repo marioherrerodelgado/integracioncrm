@@ -680,7 +680,7 @@ body { font-size: 17px; line-height: 1.65; }
    transiciona. Así el cambio se percibe como un degradado al
    hacer scroll y no como un corte entre bloques.
    =========================================================== */
-html { background-color: var(--fondo, var(--paper)); transition: background-color .12s linear; }
+html { background-color: var(--fondo, var(--paper)); transition: background-color .85s ease; }
 body { background: none; }
 [data-tono] { background: transparent; }
 [data-tono="oscuro"] { color: white; }

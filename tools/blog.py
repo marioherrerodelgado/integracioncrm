@@ -250,7 +250,7 @@ def pagina_indice(todos, cabecera, pie):
     desc = "Artículos prácticos sobre CRM, Zoho, automatización e integraciones, con especial atención a centros de formación. Escritos por quien los implanta."
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "Blog", "name": "Blog de IntegraciónCRM", "url": BASE + url, "description": desc, "publisher": {"@id": f"{BASE}/#organization"},
-         "blogPost": [{"@type": "BlogPosting", "headline": a["titulo"], "url": f"{BASE}/blog/{a['slug']}/", "datePublished": a["fecha"]} for a in todos]},
+         "blogPost": [{"@type": "BlogPosting", "headline": a["titulo"], "description": a["descripcion"], "url": f"{BASE}/blog/{a['slug']}/", "mainEntityOfPage": f"{BASE}/blog/{a['slug']}/", "datePublished": a["fecha"], "dateModified": a["actualizado"], "author": AUTOR, "publisher": {"@id": f"{BASE}/#organization"}, "image": f"{BASE}/og/paginas/blog-{a['slug']}.jpg" if os.path.isfile(os.path.join(RAIZ, "og", "paginas", f"blog-{a['slug']}.jpg")) else f"{BASE}/og/og-principal.png"} for a in todos]},
         ld_migas]}
     categorias = sorted({a["categoria"] for a in todos})
     main = f'''<main id="contenido">

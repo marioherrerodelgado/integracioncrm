@@ -17,6 +17,7 @@ MENU = [
     ("Servicios", [
         ("/crm-para-pymes/", "CRM para pymes"),
         ("/servicios/zoho/", "Aplicaciones Zoho"),
+        ("/servicios/zoho-one/", "Zoho One"),
         ("/servicios/implementacion-zoho-crm/", "Implementación de Zoho CRM"),
         ("/servicios/automatizacion-crm/", "Automatización de procesos"),
         ("/servicios/integraciones-api/", "Integraciones API y webhooks"),
@@ -29,6 +30,8 @@ MENU = [
         ("/servicios/stripe-crm/", "Stripe y pagos"),
         ("/servicios/formacion-zoho/", "Formación en Zoho"),
         ("/servicios/soporte-zoho/", "Soporte y bolsas de horas"),
+        ("/servicios/zoho-verifactu/", "Verifactu con Zoho"),
+        ("/servicios/precios-zoho/", "Precios de Zoho"),
     ], ("/servicios/", "Ver todos los servicios →")),
     ("Integraciones", [
         ("/integraciones/zoho-google-workspace/", "Google Workspace"),

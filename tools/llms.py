@@ -20,7 +20,7 @@ def rutas(patron):
 formacion = ["/consultoria-centros-formacion/", "/servicios/crm-academias-oposiciones/", "/servicios/crm-certificados-profesionalidad/",
              "/servicios/crm-formacion-subvencionada/", "/servicios/gestion-formacion-bonificada/", "/servicios/captacion-alumnos-centros-formacion/",
              "/servicios/integracion-moodle-crm/", "/servicios/integracion-zoom-crm/", "/checklist-crm-centros-formacion/"]
-servicios = ["/servicios/implementacion-zoho-crm/", "/servicios/zoho/", "/servicios/automatizacion-crm/", "/servicios/chatbots-crm/", "/servicios/integraciones-api/", "/servicios/integracion-erp-crm/",
+servicios = ["/servicios/implementacion-zoho-crm/", "/servicios/zoho/", "/servicios/zoho-one/", "/servicios/precios-zoho/", "/servicios/zoho-verifactu/", "/servicios/automatizacion-crm/", "/servicios/chatbots-crm/", "/servicios/integraciones-api/", "/servicios/integracion-erp-crm/",
              "/servicios/datos-reporting-crm/", "/servicios/migracion-crm/", "/servicios/integracion-whatsapp-crm/",
              "/servicios/integracion-telefonia-crm/", "/servicios/stripe-crm/",
              "/servicios/formacion-zoho/", "/servicios/soporte-zoho/", "/servicios/zoho-creator/", "/servicios/zoho-analytics/", "/servicios/zoho-books/", "/servicios/zoho-sign/", "/servicios/zoho-campaigns/", "/servicios/zoho-desk/", "/servicios/zoho-projects/", "/servicios/zoho-people/", "/servicios/zoho-inventory/", "/servicios/zoho-recruit/"]
@@ -36,6 +36,7 @@ Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto 
 - [Sobre nosotros]({B}/sobre-nosotros/): el equipo, su enfoque de trabajo y la trayectoria de Mario Herrero Delgado (fundador y CEO; consultor senior de CRM).
 - [Servicios]({B}/servicios/): catálogo completo de servicios de CRM, integración y automatización.
 - [CRM para pymes]({B}/crm-para-pymes/): cómo elegir e implantar un CRM en una pequeña o mediana empresa de cualquier sector.
+- [Consultor de Zoho CRM y Zoho One]({B}/consultor-zoho-crm/): consultoría independiente de Zoho, sin revender licencias; diferencia entre partner y consultor.
 - [Consultor Zoho CRM en Madrid]({B}/consultor-zoho-crm-madrid/): implantación, Zoho One, Deluge e integraciones, con reuniones presenciales en Madrid y trabajo en remoto.
 - [Consultor Zoho CRM para Latinoamérica]({B}/consultor-zoho-crm-latam/): implantación, integraciones, formación y soporte de Zoho CRM y Zoho One en remoto para toda Latinoamérica.
 - [Consultor Zoho CRM para empresas de México]({B}/consultor-zoho-crm-mexico/): Zoho CRM y Zoho One en remoto, con facturación electrónica, moneda y protección de datos de México.

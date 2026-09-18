@@ -1173,7 +1173,9 @@ body:has(.cookie-banner) .cta-fijo, body:has(.main-nav.open) .cta-fijo { opacity
       color: transparent;
       animation: rellenaTexto linear both;
       animation-timeline: view();
-      animation-range: entry 25% cover 60%;
+      /* No empieza a rellenarse hasta que la frase está por el centro de la
+         pantalla: hasta entonces solo se leen las palabras verdes. */
+      animation-range: cover 40% cover 62%;
     }
     /* Las palabras verdes no se apagan nunca: son el ancla de la frase.
        El párrafo pequeño tampoco entra en el relleno. */

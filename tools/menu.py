@@ -80,6 +80,70 @@ def navegacion(url):
     partes.append('<a class="button button-small" href="/reservar-reunion/">Reservar reunión</a>')
     return '<nav id="main-nav" class="main-nav" aria-label="Navegación principal">' + "".join(partes) + "</nav>"
 
+
+# ── PIE ───────────────────────────────────────────────────────────────────
+# Cuatro columnas de enlaces más una franja inferior con lo legal. Igual que el
+# menú: se define aquí una sola vez y se reescribe en todas las páginas.
+COLUMNAS = [
+    ("Servicios", [
+        ("/servicios/implementacion-zoho-crm/", "Implementación de Zoho CRM"),
+        ("/servicios/automatizacion-crm/", "Automatización de procesos"),
+        ("/servicios/integraciones-api/", "Integraciones API"),
+        ("/servicios/integracion-erp-crm/", "ERP y CRM"),
+        ("/servicios/migracion-crm/", "Migración de CRM"),
+        ("/servicios/datos-reporting-crm/", "Datos y reporting"),
+        ("/servicios/", "Todos los servicios"),
+    ]),
+    ("Zoho", [
+        ("/servicios/zoho/", "Aplicaciones Zoho"),
+        ("/servicios/zoho-one/", "Zoho One"),
+        ("/servicios/precios-zoho/", "Precios de Zoho"),
+        ("/servicios/zoho-verifactu/", "Verifactu con Zoho"),
+        ("/servicios/formacion-zoho/", "Formación en Zoho"),
+        ("/servicios/curso-zoho-crm-avanzado/", "Curso avanzado"),
+        ("/servicios/soporte-zoho/", "Soporte y bolsas de horas"),
+    ]),
+    ("Integraciones", [
+        ("/integraciones/zoho-google-workspace/", "Google Workspace"),
+        ("/integraciones/zoho-microsoft/", "Microsoft 365 y Teams"),
+        ("/integraciones/zoho-navision-business-central/", "Navision y Business Central"),
+        ("/integraciones/centralita-zoho-crm/", "Centralita virtual"),
+        ("/servicios/integracion-whatsapp-crm/", "WhatsApp con CRM"),
+        ("/integraciones/zoho-make-n8n/", "Make y n8n"),
+        ("/integraciones/", "Todas las integraciones"),
+    ]),
+    ("Sectores y empresa", [
+        ("/consultoria-centros-formacion/", "Centros de formación"),
+        ("/sectores/crm-inmobiliarias/", "Inmobiliarias"),
+        ("/sectores/crm-asesorias-gestorias/", "Asesorías y gestorías"),
+        ("/sectores/", "Todos los sectores"),
+        ("/consultor-zoho-crm/", "Consultor de Zoho"),
+        ("/sobre-nosotros/", "Sobre nosotros"),
+        ("/blog/", "Blog"),
+    ]),
+]
+LEGAL = [("/aviso-legal/", "Aviso legal"), ("/privacidad/", "Privacidad"), ("/cookies/", "Cookies")]
+LINKEDIN = "https://www.linkedin.com/in/marioherrerod/"
+
+def pie(url):
+    marca = ('<div class="footer-marca">'
+             '<a class="brand" href="/"><img class="brand-logo" src="/brand/integracioncrm/logos/integracioncrm_logo_primary.svg" width="893" height="208" alt="IntegraciónCRM" loading="lazy" decoding="async"/></a>'
+             '<p class="footer-claim">Implantamos, integramos y automatizamos Zoho CRM para que tu equipo deje de teclear lo mismo dos veces.</p>'
+             '<p class="footer-contacto"><a href="mailto:info@integracioncrm.com">info@integracioncrm.com</a>'
+             f'<a href="https://wa.me/marioxherrero" target="_blank" rel="noopener noreferrer">WhatsApp</a>'
+             f'<a href="{LINKEDIN}" target="_blank" rel="me noopener noreferrer">LinkedIn</a></p>'
+             '<p class="footer-lugar">Madrid · Toda España · Latinoamérica</p>'
+             '<a class="button button-small" href="/auditoria-crm-gratis/">Auditoría gratis</a></div>')
+    cols = ""
+    for titulo, enlaces in COLUMNAS:
+        items = "".join(f'<li><a href="{u}"{ACTUAL if u == url else ""}>{t}</a></li>' for u, t in enlaces)
+        cols += f'<nav class="footer-col" aria-label="{titulo}"><h2>{titulo}</h2><ul>{items}</ul></nav>'
+    legal = " · ".join(f'<a href="{u}">{t}</a>' for u, t in LEGAL)
+    barra = ('<div class="footer-barra"><p>© <span data-year></span> IntegraciónCRM · Mario Herrero Delgado</p>'
+             f'<p>{legal}</p></div>')
+    return ('<footer class="site-footer"><div class="container">'
+            f'<div class="footer-grid">{marca}{cols}</div>{barra}</div></footer>')
+
 ignorados = [l.strip().strip("/") for l in open(".assetsignore") if l.strip() and not l.startswith("#")]
 cambiadas = 0
 for carpeta, dirs, archivos in os.walk("."):
@@ -93,6 +157,7 @@ for carpeta, dirs, archivos in os.walk("."):
     url = "/" + ("/".join(partes) + "/" if partes else "")
     h = open(ruta, encoding="utf-8").read()
     nuevo = re.sub(r'<nav id="main-nav" class="main-nav"[^>]*>.*?</nav>', lambda m: navegacion(url), h, count=1, flags=re.S)
+    nuevo = re.sub(r'<footer class="site-footer">.*?</footer>', lambda m: pie(url), nuevo, count=1, flags=re.S)
     if nuevo != h:
         open(ruta, "w", encoding="utf-8").write(nuevo); cambiadas += 1
 print(f"  ✓ menú actualizado en {cambiadas} páginas")

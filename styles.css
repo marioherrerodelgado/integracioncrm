@@ -1118,10 +1118,7 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 
 /* Sección oscura: resplandor verde y un raíl que une los tres pasos, para que
    no sea solo una frase verde sobre negro. */
-/* Entra y sale en degradado: el negro no aparece de golpe al hacer scroll.
-   El texto empieza por debajo del degradado, nunca encima. */
-.process { position: relative; overflow: hidden; padding-top: 210px; padding-bottom: 190px;
-  background: linear-gradient(180deg, var(--paper) 0, #0d1b2c 150px, var(--ink) 270px, var(--ink) calc(100% - 250px), #0d1b2c calc(100% - 130px), var(--paper) 100%); }
+.process { position: relative; overflow: hidden; }
 .process::after { content: ""; position: absolute; top: -240px; right: -170px; width: 580px; height: 580px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(41,199,130,.20), transparent 70%); }
 .process-grid { position: relative; z-index: 1; }
 .steps { position: relative; }

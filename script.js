@@ -286,28 +286,40 @@ document.querySelectorAll("[data-consent-state]").forEach((element) => {
     : "sin decidir";
 });
 
-/* El fondo de la página cambia según la sección que se está mirando.
-   El color no está en cada sección sino en <html>, con transición, para que
-   al bajar se perciba como un cambio gradual y no como un corte. */
-const tonos = { claro: "#f5f7f4", tinte: "#edf1ed", oscuro: "#07111f" };
+/* El fondo de la página acompaña al scroll.
+   Antes cambiaba por tramos (ganaba la sección más visible) y el salto se
+   notaba. Ahora se mezclan los colores de las secciones a la vista según
+   cuánta pantalla ocupa cada una, así que el cambio es continuo. */
+const tonos = { claro: [245, 247, 244], tinte: [237, 241, 237], oscuro: [7, 17, 31] };
 const seccionesConTono = document.querySelectorAll("[data-tono]");
-if (seccionesConTono.length && "IntersectionObserver" in window) {
+if (seccionesConTono.length) {
   const raiz = document.documentElement;
-  const visibles = new Map();
-  const pintar = () => {
-    // Gana la sección que más superficie ocupa en pantalla.
-    let mejor = null, area = 0;
-    visibles.forEach((valor, el) => { if (valor > area) { area = valor; mejor = el; } });
-    raiz.style.setProperty("--fondo", tonos[mejor?.dataset.tono] || tonos.claro);
-  };
-  const vigia = new IntersectionObserver((entradas) => {
-    entradas.forEach((e) => {
-      if (e.isIntersecting) visibles.set(e.target, e.intersectionRatio);
-      else visibles.delete(e.target);
+  let pendienteFondo = false;
+  const mezclar = () => {
+    pendienteFondo = false;
+    const alto = window.innerHeight;
+    let cubierto = 0, r = 0, g = 0, b = 0;
+    seccionesConTono.forEach((sec) => {
+      const caja = sec.getBoundingClientRect();
+      const visible = Math.max(0, Math.min(caja.bottom, alto) - Math.max(caja.top, 0));
+      if (visible <= 0) return;
+      const color = tonos[sec.dataset.tono] || tonos.claro;
+      cubierto += visible;
+      r += color[0] * visible; g += color[1] * visible; b += color[2] * visible;
     });
-    pintar();
-  }, { threshold: [0, .15, .35, .55, .75, 1] });
-  seccionesConTono.forEach((s) => vigia.observe(s));
+    // Lo que no cubre ninguna sección con tono (cabecera, pie) cuenta como claro.
+    const resto = Math.max(0, alto - cubierto);
+    r += tonos.claro[0] * resto; g += tonos.claro[1] * resto; b += tonos.claro[2] * resto;
+    raiz.style.setProperty("--fondo", `rgb(${Math.round(r / alto)}, ${Math.round(g / alto)}, ${Math.round(b / alto)})`);
+  };
+  const alMover = () => {
+    if (pendienteFondo) return;
+    pendienteFondo = true;
+    requestAnimationFrame(mezclar);
+  };
+  window.addEventListener("scroll", alMover, { passive: true });
+  window.addEventListener("resize", alMover);
+  mezclar();
 }
 
 /* Aparición al entrar en pantalla.

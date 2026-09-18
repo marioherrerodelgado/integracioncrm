@@ -133,7 +133,7 @@ svg { display: block; }
 .feature-tag { position: absolute; left: 31px; bottom: 26px; color: #77867e; font-size: 10px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 .featured .feature-tag { color: var(--mint); }
 
-.process { color: white; background: var(--ink); }
+.process { color: white; }
 .process-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 110px; align-items: center; }
 .process-copy > p { color: #9aaabd; }
 .process-copy .button { margin-top: 32px; }
@@ -682,8 +682,13 @@ body { font-size: 17px; line-height: 1.65; }
    =========================================================== */
 html { background-color: var(--fondo, var(--paper)); transition: background-color .85s ease; }
 body { background: none; }
-[data-tono] { background: transparent; }
-[data-tono="oscuro"] { color: white; background: var(--ink); }
+/* Las secciones claras pintan su propio fondo, para que nunca se oscurezcan
+   cuando el fondo de la página cambia. La oscura, en cambio, se deja
+   transparente a propósito: así el negro se va formando al hacer scroll. */
+[data-tono="claro"] { background: var(--paper); }
+[data-tono="tinte"] { background: var(--paper-tint, #edf1ed); }
+[data-tono="oscuro"] { background: transparent; }
+[data-tono="oscuro"] { color: white; }
 [data-tono="oscuro"] h2, [data-tono="oscuro"] h3, [data-tono="oscuro"] strong { color: white; }
 [data-tono="oscuro"] .section-heading > p:last-child,
 [data-tono="oscuro"] .integration-note { color: #9eafc0; }

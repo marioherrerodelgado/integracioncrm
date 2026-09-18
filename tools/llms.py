@@ -23,7 +23,7 @@ formacion = ["/consultoria-centros-formacion/", "/servicios/crm-academias-oposic
 servicios = ["/servicios/implementacion-zoho-crm/", "/servicios/zoho/", "/servicios/zoho-one/", "/servicios/precios-zoho/", "/servicios/zoho-verifactu/", "/servicios/automatizacion-crm/", "/servicios/chatbots-crm/", "/servicios/integraciones-api/", "/servicios/integracion-erp-crm/",
              "/servicios/datos-reporting-crm/", "/servicios/migracion-crm/", "/servicios/integracion-whatsapp-crm/",
              "/servicios/integracion-telefonia-crm/", "/servicios/stripe-crm/",
-             "/servicios/formacion-zoho/", "/servicios/soporte-zoho/", "/servicios/zoho-creator/", "/servicios/zoho-analytics/", "/servicios/zoho-books/", "/servicios/zoho-sign/", "/servicios/zoho-campaigns/", "/servicios/zoho-desk/", "/servicios/zoho-projects/", "/servicios/zoho-people/", "/servicios/zoho-inventory/", "/servicios/zoho-recruit/"]
+             "/servicios/formacion-zoho/", "/servicios/curso-zoho-crm-avanzado/", "/servicios/soporte-zoho/", "/servicios/zoho-creator/", "/servicios/zoho-analytics/", "/servicios/zoho-books/", "/servicios/zoho-sign/", "/servicios/zoho-campaigns/", "/servicios/zoho-desk/", "/servicios/zoho-projects/", "/servicios/zoho-people/", "/servicios/zoho-inventory/", "/servicios/zoho-recruit/"]
 salto = "\n"
 texto = f"""# IntegraciónCRM
 

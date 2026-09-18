@@ -29,6 +29,7 @@ MENU = [
         ("/servicios/integracion-telefonia-crm/", "Telefonía con CRM"),
         ("/servicios/stripe-crm/", "Stripe y pagos"),
         ("/servicios/formacion-zoho/", "Formación en Zoho"),
+        ("/servicios/curso-zoho-crm-avanzado/", "Curso Zoho CRM avanzado"),
         ("/servicios/soporte-zoho/", "Soporte y bolsas de horas"),
         ("/servicios/zoho-verifactu/", "Verifactu con Zoho"),
         ("/servicios/precios-zoho/", "Precios de Zoho"),

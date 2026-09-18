@@ -826,6 +826,22 @@ if (!document.querySelector(".whatsapp")) {
   document.body.appendChild(whatsapp);
 }
 
+/* Botón fijo de auditoría en móvil. En el móvil, el botón del principio se
+   pierde enseguida al bajar, así que reaparece abajo a la izquierda, junto al
+   de WhatsApp. No se pone en las páginas donde ya se está pidiendo la auditoría
+   ni mientras el aviso de cookies ocupa esa zona (eso último, en el CSS). */
+const RUTA = location.pathname;
+if (!document.querySelector(".cta-fijo") && !["/auditoria-crm-gratis/", "/reservar-reunion/"].includes(RUTA)) {
+  const cta = document.createElement("a");
+  cta.className = "cta-fijo";
+  cta.href = "/auditoria-crm-gratis/";
+  cta.textContent = "Auditoría gratis";
+  document.body.appendChild(cta);
+  const mostrar = () => cta.classList.toggle("visible", window.scrollY > 620);
+  window.addEventListener("scroll", mostrar, { passive: true });
+  mostrar();
+}
+
 /* Clics que indican intención de contacto. Delegado en el documento para cubrir
    también lo que se crea después (botón de WhatsApp, generador de flujo). */
 document.addEventListener("click", (event) => {

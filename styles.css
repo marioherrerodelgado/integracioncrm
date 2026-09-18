@@ -1142,3 +1142,18 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
   }
   @keyframes fichaPop { 0% { transform: scale(.93); } 55% { transform: scale(1.05); } 100% { transform: scale(1); } }
 }
+
+/* Botón fijo de auditoría (solo móvil, junto al de WhatsApp) */
+.cta-fijo { position: fixed; left: 14px; bottom: 14px; z-index: 45; display: none; align-items: center; padding: 13px 18px; color: var(--ink); background: var(--mint); border-radius: 999px; box-shadow: 0 12px 30px rgba(7,17,31,.22); font-size: 14px; font-weight: 750; opacity: 0; transform: translateY(12px); transition: opacity .25s ease, transform .25s var(--ease-out); }
+.cta-fijo.visible { opacity: 1; transform: none; }
+.cta-fijo:focus-visible { outline: 3px solid rgba(41,199,130,.5); outline-offset: 3px; }
+@media (max-width: 600px) { .cta-fijo { display: inline-flex; } }
+body:has(.cookie-banner) .cta-fijo, body:has(.main-nav.open) .cta-fijo { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .cta-fijo { transition: opacity .2s ease; transform: none; } }
+
+/* Transición entre páginas: al navegar, fundido en lugar de parpadeo blanco.
+   Los navegadores que no la soportan simplemente no hacen nada. */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}

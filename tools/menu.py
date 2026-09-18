@@ -15,23 +15,16 @@ FLECHA = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-
 
 MENU = [
     ("Servicios", [
-        ("/crm-para-pymes/", "CRM para pymes"),
+        ("/servicios/implementacion-zoho-crm/", "Implementación de Zoho CRM"),
         ("/servicios/zoho/", "Aplicaciones Zoho"),
         ("/servicios/zoho-one/", "Zoho One"),
-        ("/servicios/implementacion-zoho-crm/", "Implementación de Zoho CRM"),
         ("/servicios/automatizacion-crm/", "Automatización de procesos"),
         ("/servicios/integraciones-api/", "Integraciones API y webhooks"),
-        ("/servicios/integracion-erp-crm/", "Integración de ERP y CRM"),
-        ("/servicios/datos-reporting-crm/", "Datos y reporting"),
         ("/servicios/migracion-crm/", "Migración de CRM"),
-        ("/servicios/chatbots-crm/", "Chatbots con IA"),
         ("/servicios/integracion-whatsapp-crm/", "WhatsApp con CRM"),
         ("/servicios/integracion-telefonia-crm/", "Telefonía con CRM"),
-        ("/servicios/stripe-crm/", "Stripe y pagos"),
         ("/servicios/formacion-zoho/", "Formación en Zoho"),
-        ("/servicios/curso-zoho-crm-avanzado/", "Curso Zoho CRM avanzado"),
         ("/servicios/soporte-zoho/", "Soporte y bolsas de horas"),
-        ("/servicios/zoho-verifactu/", "Verifactu con Zoho"),
         ("/servicios/precios-zoho/", "Precios de Zoho"),
     ], ("/servicios/", "Ver todos los servicios →")),
     ("Integraciones", [

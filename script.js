@@ -843,6 +843,32 @@ if (!document.querySelector(".cta-fijo") && !["/auditoria-crm-gratis/", "/reserv
   mostrar();
 }
 
+/* Volver arriba. Solo aparece en páginas largas y cuando ya se ha bajado
+   bastante, para no competir con el resto de botones flotantes. */
+if (document.documentElement.scrollHeight > window.innerHeight * 3.5) {
+  const arriba = document.createElement("button");
+  arriba.type = "button";
+  arriba.className = "subir";
+  arriba.setAttribute("aria-label", "Volver arriba");
+  arriba.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  arriba.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    document.querySelector("header a, header button")?.focus({ preventScroll: true });
+  });
+  document.body.appendChild(arriba);
+  let pendienteSubir = false;
+  const verSubir = () => {
+    pendienteSubir = false;
+    arriba.classList.toggle("visible", window.scrollY > window.innerHeight * 2);
+  };
+  window.addEventListener("scroll", () => {
+    if (pendienteSubir) return;
+    pendienteSubir = true;
+    requestAnimationFrame(verSubir);
+  }, { passive: true });
+  verSubir();
+}
+
 /* Clics que indican intención de contacto. Delegado en el documento para cubrir
    también lo que se crea después (botón de WhatsApp, generador de flujo). */
 document.addEventListener("click", (event) => {

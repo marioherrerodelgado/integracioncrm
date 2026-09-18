@@ -532,6 +532,32 @@ if (monta) {
       },
       propuestas: ["Lista de espera que avisa sola cuando se libera una plaza.", "Cobro recurrente de cuotas con aviso si un pago falla.", "Comunicaciones a las familias por grupo o turno."]
     },
+    asesoria: {
+      nombre: "asesorías y gestorías", persona: "Elena", busca: "cambiar de asesoría", rol: "un socio del despacho", dato: "los servicios que necesita",
+      entrada: ["Formularios web", "Llamadas", "Correo"], salida: ["Firma online", "Facturación", "Informes"],
+      pasos: {
+        "Agenda y citas": "Reserva una reunión para que le expliquéis el cambio, sin correos de ida y vuelta.",
+        "Firma online": "Firma la hoja de encargo y el mandato de representación desde el móvil.",
+        "Cobros y pagos": "Domicilia la cuota mensual y el primer cobro queda registrado.",
+        "Facturación": "La cuota se factura sola cada mes, con sus servicios contratados.",
+        "Campus o área privada": "Sube su documentación a un área privada en vez de mandarla por WhatsApp.",
+        "Informes": "Cuenta en el informe de altas, bajas y cuota media por cliente."
+      },
+      propuestas: ["Aviso de renovación y de subida de tarifas antes de que toque.", "Campaña automática a los clientes a los que afecta un cambio normativo.", "Alerta cuando un cliente lleva meses sin contacto: suele ser el que se va."]
+    },
+    seguros: {
+      nombre: "correduría de seguros", persona: "Miguel", busca: "un seguro para su negocio", rol: "un mediador", dato: "el riesgo que quiere cubrir",
+      entrada: ["Llamadas", "Formularios web", "WhatsApp"], salida: ["Firma online", "Cobros y pagos", "Informes"],
+      pasos: {
+        "Agenda y citas": "Reserva una llamada para revisar coberturas y precios.",
+        "Firma online": "Firma la documentación de la póliza sin desplazarse.",
+        "Cobros y pagos": "Paga el primer recibo y queda asociado a su póliza.",
+        "Facturación": "La comisión queda registrada al activarse la póliza.",
+        "Campus o área privada": "Consulta sus pólizas y partes en un área privada.",
+        "Informes": "Cuenta en el informe de renovaciones del trimestre y primas por ramo."
+      },
+      propuestas: ["Aviso de vencimiento con la antelación que decidáis, asignado a quien corresponda.", "Detección de clientes con una sola póliza para ofrecer la segunda.", "Seguimiento de siniestros abiertos para que ninguno se quede sin respuesta."]
+    },
     otro: {
       nombre: "tu sector", persona: "Tu próximo cliente", busca: "información", rol: "la persona adecuada del equipo", dato: "lo que necesita",
       entrada: ["Formularios web", "WhatsApp"], salida: ["Agenda y citas", "Informes"],

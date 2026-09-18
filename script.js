@@ -286,29 +286,11 @@ document.querySelectorAll("[data-consent-state]").forEach((element) => {
     : "sin decidir";
 });
 
-/* El fondo de la página cambia según la sección que se está mirando.
-   El color no está en cada sección sino en <html>, con transición, para que
-   al bajar se perciba como un cambio gradual y no como un corte. */
-const tonos = { claro: "#f5f7f4", tinte: "#edf1ed", oscuro: "#07111f" };
-const seccionesConTono = document.querySelectorAll("[data-tono]");
-if (seccionesConTono.length && "IntersectionObserver" in window) {
-  const raiz = document.documentElement;
-  const visibles = new Map();
-  const pintar = () => {
-    // Gana la sección que más superficie ocupa en pantalla.
-    let mejor = null, area = 0;
-    visibles.forEach((valor, el) => { if (valor > area) { area = valor; mejor = el; } });
-    raiz.style.setProperty("--fondo", tonos[mejor?.dataset.tono] || tonos.claro);
-  };
-  const vigia = new IntersectionObserver((entradas) => {
-    entradas.forEach((e) => {
-      if (e.isIntersecting) visibles.set(e.target, e.intersectionRatio);
-      else visibles.delete(e.target);
-    });
-    pintar();
-  }, { threshold: [0, .15, .35, .55, .75, 1] });
-  seccionesConTono.forEach((s) => vigia.observe(s));
-}
+/* Antes el color de fondo de <html> cambiaba según la sección visible, y las
+   secciones eran transparentes. El problema: al entrar la sección oscura, la
+   sección clara que seguía en pantalla se oscurecía también y su texto quedaba
+   ilegible. Ahora cada sección pinta su propio fondo (ver styles.css) y aquí no
+   hace falta nada. */
 
 /* Aparición al entrar en pantalla.
    La clase se añade desde aquí y no en el HTML: si este script no llega a

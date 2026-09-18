@@ -683,7 +683,7 @@ body { font-size: 17px; line-height: 1.65; }
 html { background-color: var(--fondo, var(--paper)); transition: background-color .85s ease; }
 body { background: none; }
 [data-tono] { background: transparent; }
-[data-tono="oscuro"] { color: white; }
+[data-tono="oscuro"] { color: white; background: var(--ink); }
 [data-tono="oscuro"] h2, [data-tono="oscuro"] h3, [data-tono="oscuro"] strong { color: white; }
 [data-tono="oscuro"] .section-heading > p:last-child,
 [data-tono="oscuro"] .integration-note { color: #9eafc0; }

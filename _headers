@@ -24,3 +24,12 @@
 
 /og/*
   Cache-Control: public, max-age=2592000
+
+# Codificación en la cabecera HTTP, no solo en la etiqueta <meta>: algunos
+# rastreadores solo miran la cabecera. Las URL limpias acaban en "/", así que
+# esto no afecta a css, js ni imágenes.
+/
+  Content-Type: text/html; charset=utf-8
+
+/*/
+  Content-Type: text/html; charset=utf-8

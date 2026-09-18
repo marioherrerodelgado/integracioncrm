@@ -14,7 +14,7 @@ respuesta: Depende del proceso, el volumen, la seguridad, la lógica y el manten
 pregunta: ¿Cómo se mide una automatización?
 respuesta: Comparando antes y después: tiempo ahorrado, velocidad de respuesta, errores, tareas completadas y conversión cuando el proceso está ligado a oportunidades.
 ---
-La mejor automatización elimina una fricción concreta: repartir un lead, avisar de un retraso, crear una tarea o mantener dos sistemas sincronizados. Si el proceso no está claro, la tecnología solo lo vuelve más difícil de seguir.
+Esta guía explica por dónde empezar a automatizar un CRM sin acabar con un sistema que nadie entiende. La mejor automatización elimina una fricción concreta: repartir un lead, avisar de un retraso, crear una tarea o mantener dos sistemas sincronizados. Si el proceso no está claro, la tecnología solo lo vuelve más difícil de seguir.
 
 Antes de elegir herramienta, describe cuatro cosas: el estado inicial, el evento que lo cambia, la persona responsable y el resultado esperado. Si no puedes escribirlas en una frase cada una, todavía no es momento de automatizar.
 

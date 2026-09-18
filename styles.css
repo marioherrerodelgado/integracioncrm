@@ -1113,3 +1113,10 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 .plan-destacado .plan-para, .prose .plan-destacado p { color: rgba(255,255,255,.72); }
 .plan-destacado .check-list li { color: white; }
 .plan-etiqueta { position: absolute; top: -12px; left: 22px; padding: 4px 11px; color: var(--ink); background: var(--mint); border-radius: 999px; font-size: 12px; font-weight: 800; }
+
+/* Quién está detrás (páginas de consultoría) */
+.persona { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 28px; align-items: start; margin-top: 24px; }
+.persona img { width: 100%; height: auto; border-radius: 20px; object-fit: cover; }
+.prose .persona-nombre { margin: 0; color: var(--ink); font: 750 22px/1.2 var(--display); letter-spacing: -.03em; }
+.prose .persona-rol { margin: 4px 0 14px; color: var(--mint-dark); font-size: 14px; font-weight: 700; }
+@media (max-width: 700px) { .persona { grid-template-columns: 1fr; gap: 20px; } .persona img { max-width: 260px; } }

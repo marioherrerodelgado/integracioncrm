@@ -786,7 +786,8 @@ if (monta) {
     pintar();
   });
   probar.addEventListener("click", ejecutar);
-  aplicarSector();
+  // Al entrar no se marca nada: el bloque ocupa poco y cada uno elige. Los
+  // valores habituales se marcan solo cuando alguien elige su sector.
   aviso.textContent = "";
   pintar();
 

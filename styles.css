@@ -72,7 +72,8 @@ svg { display: block; }
 .text-link span { color: var(--mint-dark); font-size: 19px; }
 
 .hero { position: relative; min-height: 760px; padding: 166px 0 100px; overflow: hidden; }
-.hero::before { content: ""; position: absolute; inset: 0; opacity: .85; background-image: linear-gradient(rgba(7,17,31,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(7,17,31,.05) 1px, transparent 1px); background-size: 72px 72px; -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 55%, transparent 100%); mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 55%, transparent 100%); }
+/* Sin retícula al entrar: solo el verde de arriba, que es lo que da identidad. */
+.hero::before { content: ""; position: absolute; inset: 0 0 auto; height: 460px; pointer-events: none; background: linear-gradient(180deg, rgba(41,199,130,.13), rgba(41,199,130,.04) 45%, transparent 100%); }
 .hero-glow { position: absolute; border-radius: 50%; filter: blur(2px); pointer-events: none; }
 .hero-glow-one { width: 520px; height: 520px; top: -190px; right: -130px; background: radial-gradient(circle, rgba(134,247,192,.26), transparent 70%); }
 .hero-glow-two { width: 500px; height: 500px; bottom: -240px; left: -200px; background: radial-gradient(circle, rgba(113,123,255,.14), transparent 70%); }
@@ -1120,3 +1121,13 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 .prose .persona-nombre { margin: 0; color: var(--ink); font: 750 22px/1.2 var(--display); letter-spacing: -.03em; }
 .prose .persona-rol { margin: 4px 0 14px; color: var(--mint-dark); font-size: 14px; font-weight: 700; }
 @media (max-width: 700px) { .persona { grid-template-columns: 1fr; gap: 20px; } .persona img { max-width: 260px; } }
+
+/* Sección oscura: resplandor verde y un raíl que une los tres pasos, para que
+   no sea solo una frase verde sobre negro. */
+.process { position: relative; overflow: hidden; }
+.process::after { content: ""; position: absolute; top: -240px; right: -170px; width: 580px; height: 580px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(41,199,130,.20), transparent 70%); }
+.process-grid { position: relative; z-index: 1; }
+.steps { position: relative; }
+.steps::before { content: ""; position: absolute; left: 17px; top: 44px; bottom: 44px; width: 1px; background: linear-gradient(180deg, rgba(41,199,130,.5), rgba(41,199,130,.06)); }
+.steps li > span { position: relative; display: inline-grid; place-items: center; width: 35px; height: 35px; background: #0b1726; border: 1px solid rgba(41,199,130,.38); border-radius: 50%; }
+@media (max-width: 720px) { .steps::before { left: 17px; } }

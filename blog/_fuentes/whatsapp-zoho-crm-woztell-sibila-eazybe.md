@@ -17,6 +17,9 @@ WhatsApp es, en muchas empresas, el canal por el que más se habla con los clien
 
 Conectar WhatsApp con Zoho CRM lo resuelve, pero hay varias formas de hacerlo y no son intercambiables. Elegir mal significa pagar una plataforma que el equipo no necesita o quedarse corto a los tres meses.
 
+
+> **Aviso de septiembre de 2026.** Meta cobra por mensaje desde julio de 2025, y a partir del **1 de octubre de 2026** empieza a cobrar también los mensajes de servicio, que hasta ahora eran gratuitos. Lo explicamos en [mejores CRM para WhatsApp](/blog/mejores-crm-para-whatsapp/).
+
 ## Tres formas de conectar WhatsApp con Zoho CRM
 
 1. **La API oficial de WhatsApp Business.** Es la vía pensada para empresas: varias personas atienden el mismo número, se integran automatizaciones y chatbots, y se pueden enviar plantillas aprobadas. Requiere una cuenta de empresa verificada en Meta y cumplir sus condiciones. Es la base de la integración propia de Zoho CRM y de plataformas como [Woztell](/integraciones/zoho-woztell/).

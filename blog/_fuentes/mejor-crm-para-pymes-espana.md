@@ -29,7 +29,7 @@ Aviso por delante: trabajamos con Zoho. Por eso cada dato lleva su fuente, para 
 | **Bitrix24** | Sí | 49 €/mes por **organización** (5 usuarios) | Incluidas |
 | **HubSpot Sales** | 2 usuarios | 20 $ | 100 $ **+ 1.500 $ de alta** |
 
-Zoho, Pipedrive y monday, por usuario y mes con pago anual, sin IVA. Bitrix24 cobra por organización. HubSpot publica sus precios en dólares. Fuentes: [Zoho](https://www.zoho.com/es-xl/crm/zohocrm-pricing.html), [Pipedrive](https://www.pipedrive.com/es/pricing), [monday](https://monday.com/crm/pricing), [Bitrix24](https://www.bitrix24.eu/prices/) y [HubSpot](https://www.hubspot.com/pricing/sales).
+Zoho, Pipedrive y monday, por usuario y mes con pago anual, sin IVA. Bitrix24 cobra por organización. Los precios de HubSpot son los que publica en dólares; su web muestra la divisa según el país desde el que se consulta, así que conviene comprobarlos desde España. Fuentes: [Zoho](https://www.zoho.com/es-xl/crm/zohocrm-pricing.html), [Pipedrive](https://www.pipedrive.com/es/pricing), [monday](https://monday.com/crm/pricing), [Bitrix24](https://www.bitrix24.eu/prices/) y [HubSpot](https://www.hubspot.com/pricing/sales).
 
 ## La trampa de cada uno
 

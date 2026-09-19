@@ -118,6 +118,8 @@ COLUMNAS = [
         ("/sectores/crm-asesorias-gestorias/", "Asesorías y gestorías"),
         ("/sectores/", "Todos los sectores"),
         ("/consultor-zoho-crm/", "Consultor de Zoho"),
+        ("/consultor-zoho-crm-barcelona/", "Zoho en Barcelona"),
+        ("/consultor-zoho-crm-valencia/", "Zoho en Valencia"),
         ("/sobre-nosotros/", "Sobre nosotros"),
         ("/casos/", "Casos"),
         ("/blog/", "Blog"),

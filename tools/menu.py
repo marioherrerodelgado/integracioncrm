@@ -51,7 +51,7 @@ MENU = [
         ("/sectores/crm-centros-deportivos/", "Centros deportivos"),
     ], ("/sectores/", "Ver todos los sectores →")),
 ]
-ENLACES = [("/casos-de-exito-zoho/", "Casos"), ("/blog/", "Blog"), ("/sobre-nosotros/", "Sobre nosotros"), ("/auditoria-crm-gratis/", "Auditoría gratis")]
+ENLACES = [("/casos/", "Casos"), ("/blog/", "Blog"), ("/sobre-nosotros/", "Sobre nosotros"), ("/auditoria-crm-gratis/", "Auditoría gratis")]
 
 # Páginas que no están en un desplegable pero pertenecen a una sección
 FORMACION = ("/consultoria-centros-formacion/", "/checklist-crm-centros-formacion/", "/servicios/crm-", "/servicios/gestion-formacion",
@@ -119,7 +119,7 @@ COLUMNAS = [
         ("/sectores/", "Todos los sectores"),
         ("/consultor-zoho-crm/", "Consultor de Zoho"),
         ("/sobre-nosotros/", "Sobre nosotros"),
-        ("/casos-de-exito-zoho/", "Casos de éxito"),
+        ("/casos/", "Casos"),
         ("/blog/", "Blog"),
     ]),
 ]

@@ -1221,3 +1221,42 @@ body:has(.cookie-banner) .subir, body:has(.main-nav.open) .subir { opacity: 0; p
 @media (max-width: 1080px) { .footer-grid { grid-template-columns: minmax(0, 1fr) repeat(2, minmax(0, 1fr)); } .footer-marca { grid-column: 1 / -1; max-width: 460px; } }
 /* En móvil, hueco extra abajo: si no, los botones flotantes tapan lo legal. */
 @media (max-width: 620px) { .site-footer { padding: 48px 0 92px; } .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 20px; } .footer-barra { margin-top: 36px; } }
+
+/* ── Movimiento ligado al scroll ──────────────────────────────────────────
+   animacion ligada al scroll: el avance lo marca la posición de cada bloque en
+   la pantalla, no un temporizador. Por eso al subir vuelven solos a su sitio.
+   Donde no esté soportado sigue funcionando la aparición de siempre, y con
+   «reducir movimiento» no se aplica nada. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .section-heading,
+    .services-grid > .service-tile,
+    .panel-grid > .panel,
+    .modulos-grid > .pieza,
+    .piezas > .pieza,
+    .garantias > .garantia,
+    .stat-band > div,
+    .related-grid > .related-card,
+    .steps li,
+    .logo-cloud span {
+      animation: entraConScroll linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 32%;
+    }
+    @keyframes entraConScroll {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* La tarjeta del hero acompaña al scroll, un poco más despacio que el texto */
+    .hero-visual {
+      animation: flotaConScroll linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    @keyframes flotaConScroll {
+      from { transform: translateY(24px); }
+      to { transform: translateY(-24px); }
+    }
+  }
+}

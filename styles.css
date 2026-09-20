@@ -138,6 +138,9 @@ svg { display: block; }
 .featured .feature-tag { color: var(--mint); }
 
 .process { color: white; }
+/* Red de seguridad: si alguna vez se olvida el data-tono, esta seccion tendria
+   texto blanco sobre fondo claro y no se leeria nada. Paso en /servicios/. */
+.process:not([data-tono]) { background: var(--ink); }
 .process-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 110px; align-items: center; }
 .process-copy > p { color: #9aaabd; }
 .process-copy .button { margin-top: 32px; }

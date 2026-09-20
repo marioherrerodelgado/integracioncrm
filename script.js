@@ -318,8 +318,10 @@ if (seccionesOscuras.length && !window.matchMedia("(prefers-reduced-motion: redu
   const pintarOscuras = () => {
     const alto = window.innerHeight;
     seccionesOscuras.forEach((s) => {
+      // Se calculan todas, tambien las que estan fuera de pantalla: si se saltaran,
+      // un valor viejo podria quedarse fijado cuando la pagina se recoloca al
+      // terminar de cargar las fuentes o las imagenes.
       const caja = s.getBoundingClientRect();
-      if (caja.bottom < -200 || caja.top > alto + 200) return;
       const avance = Math.min(1, Math.max(0, (alto - caja.top) / (alto * 0.22)));
       s.style.setProperty("--fondo-oscuro", avance.toFixed(3));
     });
@@ -332,6 +334,7 @@ if (seccionesOscuras.length && !window.matchMedia("(prefers-reduced-motion: redu
   };
   window.addEventListener("scroll", alScrollOscuras, { passive: true });
   window.addEventListener("resize", alScrollOscuras);
+  window.addEventListener("load", pintarOscuras);
   pintarOscuras();
 }
 

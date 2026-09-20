@@ -145,7 +145,11 @@ svg { display: block; }
 
 .integrations { background: #edf1ed; }
 .logo-cloud { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
-.logo-cloud span { min-height: 84px; display: flex; align-items: center; justify-content: center; gap: 9px; color: #334254; background: rgba(255,255,255,.68); border: 1px solid rgba(7,17,31,.08); border-radius: 14px; font-family: var(--display); font-size: 13px; font-weight: 700; }
+.logo-cloud span, .logo-cloud a { min-height: 84px; display: flex; align-items: center; justify-content: center; gap: 9px; color: #334254; background: rgba(255,255,255,.68); border: 1px solid rgba(7,17,31,.08); border-radius: 14px; font-family: var(--display); font-size: 13px; font-weight: 700; }
+.logo-cloud a { text-align: center; text-decoration: none; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.logo-cloud a:hover, .logo-cloud a:focus-visible { border-color: rgba(41,199,130,.55); box-shadow: 0 8px 22px rgba(7,17,31,.08); transform: translateY(-2px); }
+[data-tono="oscuro"] .logo-cloud a:hover, [data-tono="oscuro"] .logo-cloud a:focus-visible { border-color: rgba(41,199,130,.5); background: rgba(255,255,255,.09); }
+@media (prefers-reduced-motion: reduce) { .logo-cloud a { transition: none; } .logo-cloud a:hover { transform: none; } }
 .logo-cloud b { width: 29px; height: 29px; display: grid; place-items: center; color: var(--ink); background: var(--mint); border-radius: 8px; font-size: 12px; }
 .integration-note { margin: 26px 0 0; color: var(--muted); text-align: center; font-size: 13px; }
 
@@ -407,7 +411,7 @@ svg { display: block; }
 @media (max-width: 720px) { .flow-diagram { min-width: 620px; } .flow-scroll { overflow-x: auto; padding-bottom: 8px; } }
 
 /* Nube de logos con iconos reales */
-.logo-cloud span svg { width: 26px; height: 26px; color: var(--ink); }
+.logo-cloud span svg, .logo-cloud a svg { width: 26px; height: 26px; color: var(--ink); }
 .logo-cloud b { background: var(--mint); }
 
 /* Caso de exito */
@@ -693,8 +697,8 @@ body { background: none; }
 [data-tono="oscuro"] .section-heading > p:last-child,
 [data-tono="oscuro"] .integration-note { color: #9eafc0; }
 [data-tono="oscuro"] .eyebrow { color: #8fa1b4; }
-[data-tono="oscuro"] .logo-cloud span { color: #c3d2e0; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }
-[data-tono="oscuro"] .logo-cloud span svg { color: var(--mint); }
+[data-tono="oscuro"] .logo-cloud span, [data-tono="oscuro"] .logo-cloud a { color: #c3d2e0; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); }
+[data-tono="oscuro"] .logo-cloud span svg, [data-tono="oscuro"] .logo-cloud a svg { color: var(--mint); }
 @media (prefers-reduced-motion: reduce) { html { transition: none; } }
 
 /* Pastilla en el enlace activo del menú */
@@ -918,8 +922,14 @@ body { background: none; }
 .audit-hero .page-lead { max-width: 56ch; }
 
 /* La sección oscura, sin tramas: el fondo limpio y el degradado de entrada. */
-[data-tono="oscuro"] { position: relative; }
+[data-tono="oscuro"] { position: relative; isolation: isolate; }
 [data-tono="oscuro"] > * { position: relative; z-index: 1; }
+/* El negro es de la propia seccion, no del fondo de la pagina: asi el texto
+   blanco nunca puede quedarse sobre un fondo claro. La variable --fondo-oscuro
+   la escribe script.js mientras la seccion entra, para que se forme al bajar;
+   si el JavaScript no llega a ejecutarse, vale 1 y el fondo esta desde el principio. */
+[data-tono="oscuro"]::before { content: ""; position: absolute; inset: 0; z-index: 0;
+  background: #07111f; opacity: var(--fondo-oscuro, 1); pointer-events: none; }
 
 /* Sobre nosotros: foto en la cabecera y qué hacemos */
 .sobre-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: center; }
@@ -1158,14 +1168,14 @@ body:has(.cookie-banner) .cta-fijo, body:has(.main-nav.open) .cta-fijo { opacity
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
 
-/* La frase se rellena al bajar: empieza apagada, salvo las palabras verdes, y
+/* La frase se rellena al bajar: empieza atenuada, salvo las palabras verdes, y
    el texto se va tiñendo con el scroll. Usa animaciones ligadas al scroll, así
    que no hace falta JavaScript. Donde no estén soportadas, el texto se ve
    normal desde el principio. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .statement p {
-      background-image: linear-gradient(90deg, var(--ink) 50%, rgba(7, 17, 31, .16) 50%);
+      background-image: linear-gradient(90deg, var(--ink) 50%, rgba(7, 17, 31, .46) 50%);
       background-size: 220% 100%;
       background-position: 100% 0;
       -webkit-background-clip: text;

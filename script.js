@@ -310,6 +310,31 @@ if (seccionesConTono.length && "IntersectionObserver" in window) {
   seccionesConTono.forEach((s) => vigia.observe(s));
 }
 
+/* El fondo de las secciones oscuras se forma al bajar. Llega al negro completo
+   cuando su borde superior alcanza el 78 % de la pantalla, es decir antes de que
+   se vea su primera linea de texto: asi nunca hay texto blanco sobre fondo claro. */
+const seccionesOscuras = [...document.querySelectorAll('[data-tono="oscuro"]')];
+if (seccionesOscuras.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const pintarOscuras = () => {
+    const alto = window.innerHeight;
+    seccionesOscuras.forEach((s) => {
+      const caja = s.getBoundingClientRect();
+      if (caja.bottom < -200 || caja.top > alto + 200) return;
+      const avance = Math.min(1, Math.max(0, (alto - caja.top) / (alto * 0.22)));
+      s.style.setProperty("--fondo-oscuro", avance.toFixed(3));
+    });
+  };
+  let pendienteOscuras = false;
+  const alScrollOscuras = () => {
+    if (pendienteOscuras) return;
+    pendienteOscuras = true;
+    requestAnimationFrame(() => { pendienteOscuras = false; pintarOscuras(); });
+  };
+  window.addEventListener("scroll", alScrollOscuras, { passive: true });
+  window.addEventListener("resize", alScrollOscuras);
+  pintarOscuras();
+}
+
 /* Movimiento ligado al scroll.
    El avance de cada bloque depende de dónde está en la pantalla, así que al
    bajar entran y al subir vuelven. Lo calcula JavaScript en todos los
@@ -317,9 +342,13 @@ if (seccionesConTono.length && "IntersectionObserver" in window) {
    variable --avance; el aspecto lo pone el CSS. */
 const CON_SCROLL = ".section-heading, .services-grid > .service-tile, .panel-grid > .panel,"
   + " .modulos-grid > .pieza, .piezas > .pieza, .garantias > .garantia, .stat-band > div,"
-  + " .related-grid > .related-card, .steps li, .faq-list > details, .logo-cloud > span,"
-  + " .form-intro, .lead-form, .monta, .caso-grid > .caso, .tarjetas > .tarjeta";
-const bloquesScroll = [...document.querySelectorAll(CON_SCROLL)];
+  + " .related-grid > .related-card, .steps li, .faq-list > details, .logo-cloud > *,"
+  + " .form-intro, .lead-form, .monta, .caso-grid > .caso, .tarjetas > .tarjeta,"
+  + " .prose-section, .aside-card, .cta-card, .mini-proof";
+const candidatosScroll = [...document.querySelectorAll(CON_SCROLL)];
+// Si un bloque ya se mueve, sus hijos no se mueven aparte: las opacidades se
+// multiplicarian y el resultado seria un parpadeo raro.
+const bloquesScroll = candidatosScroll.filter((el) => !candidatosScroll.some((otro) => otro !== el && otro.contains(el)));
 const quietoMov = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 if (bloquesScroll.length && "IntersectionObserver" in window && !quietoMov.matches) {

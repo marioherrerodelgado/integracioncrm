@@ -7,6 +7,10 @@
   --line: #dce3df;
   --mint: #86f7c0;
   --mint-dark: #29c782;
+  /* Verde para texto pequeno sobre fondo claro: 4,6 de contraste, frente al 2,0
+     del verde de marca, que ahi se queda corto. Los titulares grandes siguen
+     con --mint-dark, igual que bordes, iconos y fondos. */
+  --verde-texto: #0b7f4d;
   --blue: #717bff;
   --display: "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body: "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -69,7 +73,7 @@ svg { display: block; }
 .button-small { min-height: 42px; padding: 0 17px; font-size: 13px; border-radius: 14px; }
 .button-light { color: var(--ink); border-color: white; background: white; box-shadow: none; }
 .text-link { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
-.text-link span { color: var(--mint-dark); font-size: 19px; }
+.text-link span { color: var(--verde-texto); font-size: 19px; }
 
 .hero { position: relative; min-height: 760px; padding: 166px 0 100px; overflow: hidden; }
 /* Sin retícula al entrar: solo el verde de arriba, que es lo que da identidad. */
@@ -157,8 +161,8 @@ svg { display: block; }
 .page-hero::after { content: ""; position: absolute; width: 520px; height: 520px; top: -290px; right: -130px; border-radius: 50%; background: radial-gradient(circle, rgba(134,247,192,.36), transparent 70%); }
 .page-hero .container { position: relative; z-index: 1; }
 .breadcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 28px; color: #6d7b89; font-size: 12px; font-weight: 600; }
-.breadcrumbs a:hover { color: var(--mint-dark); }
-.breadcrumbs span[aria-hidden] { color: #a5b0aa; }
+.breadcrumbs a:hover { color: var(--verde-texto); }
+.breadcrumbs span[aria-hidden] { color: #8b968f; }
 .page-hero h1 { max-width: 900px; margin: 0; font: 800 clamp(42px, 6vw, 68px)/1.05 var(--display); letter-spacing: -.055em; }
 .page-hero h1 em { color: var(--mint-dark); font-style: normal; }
 .page-lead { max-width: 760px; margin: 24px 0 0; color: #526274; font-size: 19px; }
@@ -184,7 +188,7 @@ svg { display: block; }
 .check-list li::before { content: "✓"; position: absolute; left: 16px; color: #087847; font-weight: 900; }
 .number-list { counter-reset: detail; margin: 28px 0 0; padding: 0; list-style: none; }
 .number-list li { counter-increment: detail; display: grid; grid-template-columns: 45px 1fr; gap: 17px; padding: 21px 0; border-bottom: 1px solid var(--line); }
-.number-list li::before { content: counter(detail, decimal-leading-zero); color: var(--mint-dark); font: 800 12px var(--display); }
+.number-list li::before { content: counter(detail, decimal-leading-zero); color: var(--verde-texto); font: 800 12px var(--display); }
 .number-list strong { display: block; margin-bottom: 4px; font-family: var(--display); }
 .number-list p { margin: 0; color: var(--muted); font-size: 14px; }
 .aside-card { position: sticky; top: 104px; padding: 28px; color: white; background: var(--ink); border-radius: 20px; }
@@ -532,12 +536,12 @@ body { font-size: 17px; line-height: 1.65; }
 .service-tile { counter-increment: ficha; display: grid; grid-template-columns: 78px minmax(0, 1fr) 150px; gap: 9px 32px; align-items: start;
   min-height: 0; padding: 40px 0; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; }
 .service-tile:hover { transform: none; box-shadow: none; background: rgba(41,199,130,.035); }
-.service-tile::before { grid-column: 1; grid-row: 1 / span 2; content: counter(ficha, decimal-leading-zero); color: var(--mint-dark); font: 600 13px/1.5 var(--mono); letter-spacing: .06em; }
+.service-tile::before { grid-column: 1; grid-row: 1 / span 2; content: counter(ficha, decimal-leading-zero); color: var(--verde-texto); font: 600 13px/1.5 var(--mono); letter-spacing: .06em; }
 .service-tile .feature-icon { display: none; }
 .service-tile h2, .service-tile h3 { grid-column: 2; grid-row: 1; max-width: none; margin: 0; font-size: 26px; letter-spacing: -.035em; }
 .service-tile p { grid-column: 2; grid-row: 2; max-width: 66ch; margin: 0; font-size: 16px; }
 .service-tile .card-link { position: static; grid-column: 3; grid-row: 1 / span 2; align-self: start; color: var(--muted); font-size: 13px; font-weight: 600; text-align: right; white-space: nowrap; }
-.service-tile:hover .card-link { color: var(--mint-dark); }
+.service-tile:hover .card-link { color: var(--verde-texto); }
 @media (max-width: 860px) {
   .service-tile { grid-template-columns: 54px minmax(0, 1fr); gap: 8px 18px; padding: 32px 0; }
   .service-tile h2, .service-tile h3, .service-tile p { grid-column: 2; }
@@ -548,7 +552,7 @@ body { font-size: 17px; line-height: 1.65; }
 /* --- Listas: sin cajas, con regla fina --- */
 .check-list { gap: 0; border-top: 1px solid var(--line); }
 .check-list li { padding: 14px 16px 14px 30px; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; font-size: 15.5px; font-weight: 500; }
-.check-list li::before { left: 2px; color: var(--mint-dark); font-weight: 700; }
+.check-list li::before { left: 2px; color: var(--verde-texto); font-weight: 700; }
 
 /* --- Pasos numerados: la numeración se hace grande --- */
 .number-list li { grid-template-columns: 62px 1fr; gap: 26px; padding: 28px 0; }
@@ -669,7 +673,7 @@ body { font-size: 17px; line-height: 1.65; }
 /* Pilares: compromisos numerados, sin caja */
 .pilares { margin: 34px 0 0; padding: 0; list-style: none; counter-reset: pilar; border-top: 1px solid var(--line); }
 .pilares li { counter-increment: pilar; display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 6px 26px; padding: 26px 0; border-bottom: 1px solid var(--line); }
-.pilares li::before { grid-column: 1; grid-row: 1 / span 2; content: counter(pilar, decimal-leading-zero); color: var(--mint-dark); font: 600 13px/1.5 var(--mono); letter-spacing: .06em; }
+.pilares li::before { grid-column: 1; grid-row: 1 / span 2; content: counter(pilar, decimal-leading-zero); color: var(--verde-texto); font: 600 13px/1.5 var(--mono); letter-spacing: .06em; }
 .pilares b { grid-column: 2; grid-row: 1; display: block; margin-bottom: 6px; font: 750 19px/1.3 var(--display); letter-spacing: -.02em; }
 .pilares p { grid-column: 2; grid-row: 2; margin: 0; max-width: 62ch; color: var(--muted); font-size: 16px; line-height: 1.65; }
 @media (max-width: 620px) { .pilares li { grid-template-columns: 44px minmax(0, 1fr); gap: 5px 14px; } }
@@ -760,7 +764,7 @@ body { background: none; }
 .panel { position: relative; display: block; padding: 22px 22px 46px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 14px; transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
 .panel h3 { margin: 14px 0 6px; font: 750 17px/1.25 var(--display); letter-spacing: -.02em; }
 .panel p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
-.panel::after { content: "→"; position: absolute; left: 22px; bottom: 20px; color: var(--mint-dark); font-size: 15px; font-weight: 700; transition: transform .16s ease; }
+.panel::after { content: "→"; position: absolute; left: 22px; bottom: 20px; color: var(--verde-texto); font-size: 15px; font-weight: 700; transition: transform .16s ease; }
 .panel-ico { width: 34px; height: 34px; display: grid; place-items: center; color: var(--ink); background: var(--mint); border-radius: 8px; }
 .panel-ico svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
 @media (hover: hover) and (pointer: fine) {
@@ -823,7 +827,7 @@ body { background: none; }
 .monta-elige { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; align-items: start; }
 .monta fieldset { margin: 0; padding: 0; border: 0; }
 .monta-sector { grid-column: 1 / -1; }
-.monta-aviso { min-height: 1.5em; margin: 10px 0 0; color: var(--mint-dark); font-size: 13px; font-weight: 600; }
+.monta-aviso { min-height: 1.5em; margin: 10px 0 0; color: var(--verde-texto); font-size: 13px; font-weight: 600; }
 .monta legend { padding: 0 0 12px; color: var(--ink); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 .fichas { display: flex; flex-wrap: wrap; gap: 8px; }
 .ficha { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px 9px 11px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 999px; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: color .14s ease, background-color .14s ease, border-color .14s ease; }
@@ -944,7 +948,7 @@ body { background: none; }
 .que-hacemos a { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; padding: 18px; background: var(--paper-bright); border: 1px solid var(--line); border-radius: 16px; transition: border-color .18s ease, transform .2s var(--ease-out); }
 .que-hacemos svg { grid-row: 1 / span 2; width: 40px; height: 40px; padding: 9px; color: var(--mint-dark); background: rgba(41,199,130,.1); border-radius: 11px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
 .que-hacemos b { color: var(--ink); font-size: 15.5px; line-height: 1.3; }
-.que-hacemos b::after { content: " →"; color: var(--mint-dark); }
+.que-hacemos b::after { content: " →"; color: var(--verde-texto); }
 .que-hacemos span { margin-top: 4px; color: var(--muted); font-size: 14px; line-height: 1.5; }
 @media (hover: hover) and (pointer: fine) { .que-hacemos a:hover { border-color: var(--mint-dark); transform: translateY(-2px); } }
 @media (prefers-reduced-motion: reduce) { .que-hacemos a { transition: border-color .18s ease; } .que-hacemos a:hover { transform: none; } }

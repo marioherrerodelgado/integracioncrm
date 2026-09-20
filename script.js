@@ -310,6 +310,54 @@ if (seccionesConTono.length && "IntersectionObserver" in window) {
   seccionesConTono.forEach((s) => vigia.observe(s));
 }
 
+/* Movimiento ligado al scroll.
+   El avance de cada bloque depende de dónde está en la pantalla, así que al
+   bajar entran y al subir vuelven. Lo calcula JavaScript en todos los
+   navegadores (no todos soportan animation-timeline) y lo escribe en la
+   variable --avance; el aspecto lo pone el CSS. */
+const CON_SCROLL = ".section-heading, .services-grid > .service-tile, .panel-grid > .panel,"
+  + " .modulos-grid > .pieza, .piezas > .pieza, .garantias > .garantia, .stat-band > div,"
+  + " .related-grid > .related-card, .steps li, .faq-list > details, .logo-cloud > span,"
+  + " .form-intro, .lead-form, .monta, .caso-grid > .caso, .tarjetas > .tarjeta";
+const bloquesScroll = [...document.querySelectorAll(CON_SCROLL)];
+const quietoMov = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+if (bloquesScroll.length && "IntersectionObserver" in window && !quietoMov.matches) {
+  const desfase = new Map();
+  bloquesScroll.forEach((el) => {
+    const hermanos = [...(el.parentElement?.children || [])].filter((h) => bloquesScroll.includes(h));
+    desfase.set(el, Math.min(Math.max(hermanos.indexOf(el), 0), 4) * 0.12);
+    el.classList.add("con-scroll");
+  });
+
+  const enPantalla = new Set();
+  let pendienteMov = false;
+  const pintarMov = () => {
+    pendienteMov = false;
+    const alto = window.innerHeight;
+    enPantalla.forEach((el) => {
+      const caja = el.getBoundingClientRect();
+      // 0 cuando el bloque asoma por abajo, 1 cuando ha subido media pantalla
+      const bruto = (alto - caja.top) / (alto * 0.55);
+      const avance = Math.min(1, Math.max(0, bruto - desfase.get(el)));
+      el.style.setProperty("--avance", avance.toFixed(3));
+    });
+  };
+  const alMoverScroll = () => {
+    if (pendienteMov) return;
+    pendienteMov = true;
+    requestAnimationFrame(pintarMov);
+  };
+  const vigiaMov = new IntersectionObserver((entradas) => {
+    entradas.forEach((e) => (e.isIntersecting ? enPantalla.add(e.target) : enPantalla.delete(e.target)));
+    pintarMov();
+  }, { rootMargin: "200px 0px" });
+  bloquesScroll.forEach((el) => vigiaMov.observe(el));
+  window.addEventListener("scroll", alMoverScroll, { passive: true });
+  window.addEventListener("resize", alMoverScroll);
+  pintarMov();
+}
+
 /* Aparición al entrar en pantalla.
    La clase se añade desde aquí y no en el HTML: si este script no llega a
    ejecutarse, el contenido se ve con normalidad en lugar de quedar invisible.
@@ -335,7 +383,8 @@ const gruposQueAparecen = [
   ".monta-elige fieldset:not(.monta-sector) .ficha"
 ];
 
-const candidatos = [...new Set(gruposQueAparecen.flatMap((s) => [...document.querySelectorAll(s)]))];
+const candidatos = [...new Set(gruposQueAparecen.flatMap((s) => [...document.querySelectorAll(s)]))]
+  .filter((el) => !el.classList.contains("con-scroll"));
 
 if (candidatos.length && "IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   // El desfase se calcula por posición dentro del grupo, no global.

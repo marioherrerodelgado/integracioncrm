@@ -1221,3 +1221,9 @@ body:has(.cookie-banner) .subir, body:has(.main-nav.open) .subir { opacity: 0; p
 @media (max-width: 1080px) { .footer-grid { grid-template-columns: minmax(0, 1fr) repeat(2, minmax(0, 1fr)); } .footer-marca { grid-column: 1 / -1; max-width: 460px; } }
 /* En móvil, hueco extra abajo: si no, los botones flotantes tapan lo legal. */
 @media (max-width: 620px) { .site-footer { padding: 48px 0 92px; } .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 34px 20px; } .footer-barra { margin-top: 36px; } }
+
+/* Bloques cuyo movimiento va atado al scroll: --avance lo escribe script.js,
+   de 0 (aún por entrar) a 1 (colocado). Si el JavaScript no llega a ejecutarse,
+   el valor por defecto es 1 y todo se ve con normalidad. */
+.con-scroll { opacity: var(--avance, 1); transform: translateY(calc((1 - var(--avance, 1)) * 44px)) scale(calc(.98 + var(--avance, 1) * .02)); }
+@media (prefers-reduced-motion: reduce) { .con-scroll { opacity: 1; transform: none; } }

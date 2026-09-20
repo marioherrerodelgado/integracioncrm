@@ -827,6 +827,49 @@ if (!document.querySelector(".whatsapp")) {
   document.body.appendChild(whatsapp);
 }
 
+/* Movimiento ligado al scroll para navegadores que no soportan
+   animation-timeline (hoy, Firefox). Calcula cuánto ha entrado cada bloque en
+   pantalla y lo escribe en --avance; el CSS hace el resto. Se apaga solo en el
+   resto de navegadores, que ya lo resuelven sin JavaScript. */
+const soportaScrollCSS = CSS.supports("animation-timeline", "view()");
+const quietoScroll = window.matchMedia("(prefers-reduced-motion: reduce)");
+if (!soportaScrollCSS && !quietoScroll.matches && "IntersectionObserver" in window) {
+  const SELECTORES = ".section-heading, .services-grid > .service-tile, .panel-grid > .panel,"
+    + " .modulos-grid > .pieza, .piezas > .pieza, .garantias > .garantia, .stat-band > div,"
+    + " .related-grid > .related-card, .steps li, .logo-cloud span";
+  const bloques = [...document.querySelectorAll(SELECTORES)];
+  if (bloques.length) {
+    const visibles = new Set();
+    let pendiente = false;
+    const pintar = () => {
+      pendiente = false;
+      const alto = window.innerHeight;
+      visibles.forEach((el) => {
+        const caja = el.getBoundingClientRect();
+        // 0 cuando el bloque asoma por abajo; 1 cuando ha subido un 40% de pantalla
+        const avance = Math.min(1, Math.max(0, (alto - caja.top) / (alto * 0.4)));
+        el.style.setProperty("--avance", avance.toFixed(3));
+      });
+    };
+    const alMover = () => {
+      if (pendiente) return;
+      pendiente = true;
+      requestAnimationFrame(pintar);
+    };
+    const vigia = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add("con-scroll"); visibles.add(e.target); }
+        else visibles.delete(e.target);
+      });
+      pintar();
+    }, { rootMargin: "120px 0px" });
+    bloques.forEach((el) => vigia.observe(el));
+    window.addEventListener("scroll", alMover, { passive: true });
+    window.addEventListener("resize", alMover);
+    pintar();
+  }
+}
+
 /* Botón fijo de auditoría en móvil. En el móvil, el botón del principio se
    pierde enseguida al bajar, así que reaparece abajo a la izquierda, junto al
    de WhatsApp. No se pone en las páginas donde ya se está pidiendo la auditoría

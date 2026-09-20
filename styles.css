@@ -1241,12 +1241,36 @@ body:has(.cookie-banner) .subir, body:has(.main-nav.open) .subir { opacity: 0; p
     .logo-cloud span {
       animation: entraConScroll linear both;
       animation-timeline: view();
-      animation-range: entry 8% cover 32%;
+      animation-range: entry 0% cover 40%;
     }
     @keyframes entraConScroll {
-      from { opacity: 0; transform: translateY(26px); }
+      from { opacity: 0; transform: translateY(42px) scale(.985); }
       to { opacity: 1; transform: none; }
     }
+
+    /* Escalonado: como todas las tarjetas de una fila entran a la vez, se
+       retrasa el tramo de scroll de la segunda y la tercera. Así vuelve el
+       efecto en cascada que había antes con el retardo del JavaScript. */
+    .services-grid > .service-tile:nth-child(3n + 2),
+    .panel-grid > .panel:nth-child(3n + 2),
+    .related-grid > .related-card:nth-child(3n + 2),
+    .modulos-grid > .pieza:nth-child(3n + 2),
+    .piezas > .pieza:nth-child(3n + 2),
+    .garantias > .garantia:nth-child(3n + 2),
+    .stat-band > div:nth-child(3n + 2),
+    .logo-cloud span:nth-child(3n + 2) { animation-range: entry 7% cover 47%; }
+
+    .services-grid > .service-tile:nth-child(3n + 3),
+    .panel-grid > .panel:nth-child(3n + 3),
+    .related-grid > .related-card:nth-child(3n + 3),
+    .modulos-grid > .pieza:nth-child(3n + 3),
+    .piezas > .pieza:nth-child(3n + 3),
+    .garantias > .garantia:nth-child(3n + 3),
+    .stat-band > div:nth-child(3n + 3),
+    .logo-cloud span:nth-child(3n + 3) { animation-range: entry 14% cover 54%; }
+
+    .steps li:nth-child(2) { animation-range: entry 7% cover 47%; }
+    .steps li:nth-child(3) { animation-range: entry 14% cover 54%; }
 
     /* La tarjeta del hero acompaña al scroll, un poco más despacio que el texto */
     .hero-visual {
@@ -1255,8 +1279,16 @@ body:has(.cookie-banner) .subir, body:has(.main-nav.open) .subir { opacity: 0; p
       animation-range: cover 0% cover 100%;
     }
     @keyframes flotaConScroll {
-      from { transform: translateY(24px); }
-      to { transform: translateY(-24px); }
+      from { transform: translateY(40px); }
+      to { transform: translateY(-40px); }
     }
+  }
+}
+
+/* Respaldo para navegadores sin animaciones ligadas al scroll (Firefox).
+   El avance lo calcula script.js y lo escribe en --avance, de 0 a 1. */
+@supports not (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .con-scroll { opacity: var(--avance, 1); transform: translateY(calc((1 - var(--avance, 1)) * 42px)) scale(calc(.985 + var(--avance, 1) * .015)); will-change: opacity, transform; }
   }
 }

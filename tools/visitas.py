@@ -52,13 +52,35 @@ def credenciales():
     return token, cuenta
 
 
-def etiqueta_del_sitio():
-    """El identificador de Web Analytics está en el beacon de la portada."""
+def etiqueta_del_sitio(token, cuenta):
+    """El identificador que pide la API (siteTag) NO es el del beacon (siteToken).
+
+    En el HTML va el siteToken; la API de analítica quiere el siteTag. Se
+    traduce uno en otro preguntando a Cloudflare por los sitios de la cuenta.
+    """
     portada = (RAIZ / "index.html").read_text(encoding="utf8")
     m = re.search(r'data-cf-beacon=\'{"token":\s*"([0-9a-f]{32})"', portada)
     if not m:
         sys.exit("No se encuentra el token de Web Analytics en index.html.")
-    return m.group(1)
+    del_beacon = m.group(1)
+
+    peticion = urllib.request.Request(
+        f"https://api.cloudflare.com/client/v4/accounts/{cuenta}/rum/site_info/list",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    try:
+        with urllib.request.urlopen(peticion, timeout=30) as r:
+            sitios = json.load(r).get("result") or []
+    except urllib.error.HTTPError as e:
+        sys.exit(f"No se pueden listar los sitios de Web Analytics: {e.code} {e.read().decode()[:200]}")
+
+    for s in sitios:
+        if s.get("site_token") == del_beacon:
+            return s["site_tag"]
+    for s in sitios:                                   # si no, el del propio dominio
+        if (s.get("ruleset") or {}).get("zone_name", "").endswith("integracioncrm.com"):
+            return s["site_tag"]
+    sys.exit("No se encuentra el sitio de Web Analytics de integracioncrm.com.")
 
 
 def consulta(token, cuerpo, variables):
@@ -119,7 +141,7 @@ def main():
     args = p.parse_args()
 
     token, cuenta = credenciales()
-    sitio = etiqueta_del_sitio()
+    sitio = etiqueta_del_sitio(token, cuenta)
     hasta = date.today() + timedelta(days=1)
     desde = hasta - timedelta(days=args.dias + 1)
     d1, d2 = f"{desde}T00:00:00Z", f"{hasta}T00:00:00Z"

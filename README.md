@@ -57,8 +57,9 @@ la sección Leads del panel interno
 
 La copia no se espera: si Supabase falla, el aviso por correo de Formspree llega igual.
 
-- Variables del Worker: `SUPABASE_URL` y el secreto `SUPABASE_SERVICE_ROLE_KEY`
-  (`npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY`). La clave `service_role` solo se
+- `SUPABASE_URL` está en `vars` de [`wrangler.jsonc`](wrangler.jsonc) (no en el dashboard:
+  allí se borraría en cada deploy). El secreto `SUPABASE_SERVICE_ROLE_KEY` se añade en
+  Cloudflare como *Secret* o con `npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY`. La clave `service_role` solo se
   usa en el Worker y nunca debe aparecer en HTML, JS público ni en el repositorio.
 - Quién puede ver los leads en el panel: tabla `panel_usuarios` de Supabase.
 - Opcional: un binding de Email Sending llamado `EMAIL` con `integracioncrm.com`

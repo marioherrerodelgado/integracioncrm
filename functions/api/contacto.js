@@ -85,7 +85,8 @@ export async function onRequestPost({ request, env }) {
     objetivo: clean(input.objetivo || (input.tipo_centro ? `Tipo de centro: ${input.tipo_centro}` : ""), 2500),
     plataforma: clean(input.plataforma, 80),
     fecha: clean(input.fecha, 30),
-    hora: clean(input.hora, 20)
+    hora: clean(input.hora, 20),
+    pagina: clean(input.pagina, 200) || null
   };
 
   if (!data.nombre || !data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {

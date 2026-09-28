@@ -145,6 +145,7 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
 
     const data = new FormData(form);
     data.set("tipo", form.dataset.formType || "Consulta web");
+    data.set("pagina", location.pathname);
     const submitButton = form.querySelector("button[type='submit']");
     if (status) status.textContent = "Enviando solicitud…";
     if (submitButton) submitButton.disabled = true;

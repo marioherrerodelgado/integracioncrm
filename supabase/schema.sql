@@ -26,7 +26,9 @@ alter table public.contactos
   add column if not exists puntuacion int not null default 50
     check (puntuacion between 0 and 100),
   add column if not exists responsable text,
-  add column if not exists origen text not null default 'Web';
+  add column if not exists origen text not null default 'Web',
+  -- Página desde la que se envió el formulario (para medir la conversión por página)
+  add column if not exists pagina text;
 
 alter table public.contactos enable row level security;
 

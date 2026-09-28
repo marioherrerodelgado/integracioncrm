@@ -149,6 +149,10 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
     if (status) status.textContent = "Enviando solicitud…";
     if (submitButton) submitButton.disabled = true;
 
+    // Copia para el panel interno (Supabase, vía /api/contacto). No se espera su
+    // respuesta: el aviso por correo sigue llegando por Formspree aunque esto falle.
+    fetch("/api/contacto", { method: "POST", body: data, keepalive: true }).catch(() => {});
+
     try {
       const response = await fetch(form.action, {
         method: "POST",

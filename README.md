@@ -47,18 +47,22 @@ formulario hace un POST nativo al mismo endpoint, así que el envío nunca se pi
 > encargado del tratamiento y ampara la transferencia internacional en el capítulo V del
 > RGPD (apartados 5 y 6 de `/privacidad/`).
 
-## Endpoint propio `/api/contacto` (inactivo)
+## Endpoint propio `/api/contacto` → panel interno
 
-[`worker.js`](worker.js) mantiene [`functions/api/contacto.js`](functions/api/contacto.js),
-que valida la solicitud, la guarda en Supabase ([`supabase/schema.sql`](supabase/schema.sql))
-y envía un aviso por email. **Ningún formulario lo usa actualmente.** Se conserva por si se
-abandona Formspree; si se descarta definitivamente, pueden borrarse `worker.js`,
-`functions/` y `supabase/`, y quitar `main` de `wrangler.jsonc`.
+Además de Formspree, cada envío se copia a `/api/contacto` ([`worker.js`](worker.js) →
+[`functions/api/contacto.js`](functions/api/contacto.js)), que lo valida y lo guarda en la
+tabla `contactos` de Supabase ([`supabase/schema.sql`](supabase/schema.sql)). De ahí lo lee
+la sección Leads del panel interno
+([integracionCRM-panel](https://github.com/marioherrerodelgado/integracionCRM-panel)).
 
-Para reactivarlo hacen falta las variables de entorno `SUPABASE_URL` y
-`SUPABASE_SERVICE_ROLE_KEY`, y/o un binding de Email Sending llamado `EMAIL` con
-`integracioncrm.com` verificado como dominio remitente. La clave `service_role` solo se
-usa en el Worker y nunca debe aparecer en HTML, JS público ni en el repositorio.
+La copia no se espera: si Supabase falla, el aviso por correo de Formspree llega igual.
+
+- Variables del Worker: `SUPABASE_URL` y el secreto `SUPABASE_SERVICE_ROLE_KEY`
+  (`npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY`). La clave `service_role` solo se
+  usa en el Worker y nunca debe aparecer en HTML, JS público ni en el repositorio.
+- Quién puede ver los leads en el panel: tabla `panel_usuarios` de Supabase.
+- Opcional: un binding de Email Sending llamado `EMAIL` con `integracioncrm.com`
+  verificado como dominio remitente, para avisar sin depender de Formspree.
 
 ## Despliegue
 
@@ -132,6 +136,6 @@ el nombre de cookie `_ga_<ID>` documentado en `/cookies/`.
 
 ## Pendiente
 
-- [ ] Los formularios no crean el lead en Zoho CRM: llegan solo por correo y a Formspree
-      (plan gratuito: 50 envios/mes y 30 dias de historial)
+- [ ] Los formularios no crean el lead en Zoho CRM: llegan por correo (Formspree, plan
+      gratuito: 50 envios/mes) y al panel interno (Supabase)
 - [ ] SPF/DKIM/DMARC del dominio

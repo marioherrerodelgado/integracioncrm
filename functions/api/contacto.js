@@ -71,7 +71,9 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: false, error: "Formato no válido" }, 400);
   }
 
-  if (input.website) return json({ ok: true });
+  // Honeypots: _gotcha (el de Formspree, que usan los formularios) y website (antiguo)
+  if (input._gotcha || input.website) return json({ ok: true });
+  if (!input.consentimiento) return json({ ok: false, error: "Falta el consentimiento" }, 400);
 
   const data = {
     tipo: clean(input.tipo, 100),
@@ -80,13 +82,13 @@ export async function onRequestPost({ request, env }) {
     telefono: clean(input.telefono, 50),
     empresa: clean(input.empresa, 150),
     crm: clean(input.crm, 100),
-    objetivo: clean(input.objetivo, 2500),
+    objetivo: clean(input.objetivo || (input.tipo_centro ? `Tipo de centro: ${input.tipo_centro}` : ""), 2500),
     plataforma: clean(input.plataforma, 80),
     fecha: clean(input.fecha, 30),
     hora: clean(input.hora, 20)
   };
 
-  if (!data.nombre || !data.email || !data.objetivo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+  if (!data.nombre || !data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     return json({ ok: false, error: "Revisa los campos obligatorios" }, 400);
   }
 

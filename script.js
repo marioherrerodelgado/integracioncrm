@@ -161,17 +161,25 @@ document.querySelectorAll("[data-mail-form]").forEach((form) => {
         body: data
       });
       if (!response.ok) throw new Error("Automatic delivery unavailable");
-      medir("generate_lead", { tipo_formulario: form.dataset.formType || "Consulta web", pagina: location.pathname });
+      const lead = { tipo_formulario: form.dataset.formType || "Consulta web", pagina: location.pathname };
       // Formularios de descarga: al enviarse, se muestra el enlace al archivo
       const descarga = form.dataset.descarga && document.querySelector(form.dataset.descarga);
       if (descarga) {
+        medir("generate_lead", lead);
         form.hidden = true;
         descarga.hidden = false;
         descarga.querySelector("a")?.focus();
         return;
       }
-      if (status) status.textContent = "Solicitud recibida. Te contactaremos para confirmar los siguientes pasos. ✓";
+      /* El resto va a /gracias/, que Cloudflare cuenta aunque no se acepten
+         cookies. Se espera a que Analytics envíe el evento antes de salir,
+         con un tope por si no llega a responder. */
+      if (status) status.textContent = "Solicitud recibida. ✓";
       form.reset();
+      let ido = false;
+      const irAGracias = () => { if (!ido) { ido = true; location.assign("/gracias/"); } };
+      medir("generate_lead", { ...lead, event_callback: irAGracias, event_timeout: 1500 });
+      setTimeout(irAGracias, typeof window.gtag === "function" ? 1600 : 0);
       return;
     } catch {
       if (status) status.textContent = "No se pudo enviar la solicitud. Revisa la conexión e inténtalo de nuevo.";
@@ -918,7 +926,7 @@ if (!document.querySelector(".whatsapp")) {
    de WhatsApp. No se pone en las páginas donde ya se está pidiendo la auditoría
    ni mientras el aviso de cookies ocupa esa zona (eso último, en el CSS). */
 const RUTA = location.pathname;
-if (!document.querySelector(".cta-fijo") && !["/auditoria-crm-gratis/", "/reservar-reunion/"].includes(RUTA)) {
+if (!document.querySelector(".cta-fijo") && !["/auditoria-crm-gratis/", "/reservar-reunion/", "/gracias/"].includes(RUTA)) {
   const cta = document.createElement("a");
   cta.className = "cta-fijo";
   cta.href = "/auditoria-crm-gratis/";

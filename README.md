@@ -43,6 +43,11 @@ formulario hace un POST nativo al mismo endpoint, así que el envío nunca se pi
 - `_gotcha` es el honeypot antispam nativo de Formspree (funciona también sin JS).
 - `tipo` distingue de qué formulario procede cada solicitud.
 
+Tras un envío correcto, la auditoría y la reunión llevan a [`/gracias/`](gracias/index.html)
+(la descarga del checklist no: muestra el enlace al PDF en la misma página). Es `noindex`
+y no va en el sitemap. Las visitas a `/gracias/` en Cloudflare Web Analytics son el número
+real de solicitudes, porque Cloudflare cuenta también a quien no acepta cookies.
+
 > Formspree es un proveedor estadounidense. La política de privacidad ya lo declara como
 > encargado del tratamiento y ampara la transferencia internacional en el capítulo V del
 > RGPD (apartados 5 y 6 de `/privacidad/`).

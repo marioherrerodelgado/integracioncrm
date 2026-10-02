@@ -1,5 +1,6 @@
 -- Solicitudes de los formularios de la web.
--- El Worker (/api/contacto) inserta con la clave service_role, que se salta RLS.
+-- El Worker (/api/contacto) inserta con la función registrar_contacto
+-- (supabase/formularios.sql), que se salta RLS sin necesitar la clave service_role.
 -- El panel interno (integracionCRM-panel) lee y actualiza con la sesión de la
 -- persona, y solo si su email está en panel_usuarios.
 -- Se puede ejecutar varias veces sin romper nada.

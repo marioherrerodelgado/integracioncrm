@@ -24,27 +24,58 @@ const escapeHtml = (value) =>
     "'": "&#039;"
   })[character]);
 
-const saveToSupabase = async (data, env) => {
-  if (!env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) return false;
-
-  const response = await fetch(`${env.SUPABASE_URL.replace(/\/$/, "")}/rest/v1/contactos`, {
+// Guarda la solicitud en Supabase llamando a la función registrar_contacto
+// (supabase/formularios.sql) con la clave publishable, que es pública: no hace
+// falta ningún secreto en Cloudflare, así que nada se pierde al publicar.
+const rpc = (env, body) =>
+  fetch(`${env.SUPABASE_URL.replace(/\/$/, "")}/rest/v1/rpc/registrar_contacto`, {
     method: "POST",
-    headers: {
-      apikey: env.SUPABASE_SERVICE_ROLE_KEY,
-      authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
-      "content-type": "application/json",
-      prefer: "return=minimal"
-    },
-    body: JSON.stringify(data)
+    headers: { apikey: env.SUPABASE_PUBLISHABLE_KEY, "content-type": "application/json" },
+    body: JSON.stringify(body)
   });
 
+const saveToSupabase = async (data, env) => {
+  if (!env.SUPABASE_URL || !env.SUPABASE_PUBLISHABLE_KEY) return false;
+
+  const response = await rpc(env, { datos: { ...data, consentimiento: "si" } });
   if (!response.ok) {
-    console.error("Supabase contact insert failed", response.status);
+    const detail = await response.text().catch(() => "");
+    console.error("Supabase registrar_contacto failed", response.status, detail.slice(0, 300));
     throw new Error("Supabase insert failed");
   }
 
   return true;
 };
+
+const PANEL = "https://panel.integracioncrm.com";
+
+// GET /api/contacto/estado: comprueba, sin guardar nada, que la web puede escribir
+// en Supabase (URL, clave y función correctas). Lo usan la vigilancia y el panel.
+export async function onRequestEstado({ env }) {
+  const headers = { "access-control-allow-origin": PANEL };
+  if (!env.SUPABASE_URL || !env.SUPABASE_PUBLISHABLE_KEY) {
+    return new Response(JSON.stringify({ ok: false, error: "Falta la configuración de Supabase" }), {
+      status: 503,
+      headers: { ...headers, "content-type": "application/json; charset=utf-8", "cache-control": "no-store" }
+    });
+  }
+  let ok = false;
+  let error = "";
+  try {
+    // Un envío vacío debe rechazarse por la validación de la función: eso prueba
+    // que la función existe y que la clave es válida, sin insertar ninguna fila.
+    const response = await rpc(env, { datos: {} });
+    const body = await response.text();
+    ok = response.status === 400 && body.includes("Revisa los campos obligatorios");
+    if (!ok) error = `Supabase responde ${response.status}: ${body.slice(0, 160)}`;
+  } catch (e) {
+    error = e?.message || "Sin respuesta de Supabase";
+  }
+  return new Response(JSON.stringify(ok ? { ok: true } : { ok: false, error }), {
+    status: ok ? 200 : 503,
+    headers: { ...headers, "content-type": "application/json; charset=utf-8", "cache-control": "no-store" }
+  });
+}
 
 export async function onRequestPost({ request, env }) {
   const origin = request.headers.get("origin");
@@ -93,7 +124,7 @@ export async function onRequestPost({ request, env }) {
     return json({ ok: false, error: "Revisa los campos obligatorios" }, 400);
   }
 
-  const hasSupabase = Boolean(env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY);
+  const hasSupabase = Boolean(env.SUPABASE_URL && env.SUPABASE_PUBLISHABLE_KEY);
   if (!hasSupabase && !env.EMAIL) return json({ ok: false, error: "Destino pendiente de configurar" }, 503);
 
   const rows = Object.entries(data)

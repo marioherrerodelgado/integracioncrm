@@ -3,11 +3,12 @@
   "name": "integracioncrm",
   "main": "worker.js",
   "compatibility_date": "2026-09-15",
-  // URL pública del proyecto de Supabase. La clave service_role NO va aquí:
-  // es un secreto del Worker (npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY).
-  // Las variables de texto creadas a mano en el dashboard se pierden en cada deploy.
+  // Supabase: URL y clave publishable. Las dos son públicas (la clave es la misma
+  // que usa el panel en el navegador); lo que se puede hacer con ella lo limita la
+  // base de datos (función registrar_contacto y RLS). No hace falta ningún secreto.
   "vars": {
-    "SUPABASE_URL": "https://uplszvhiqwtmzoyucdip.supabase.co"
+    "SUPABASE_URL": "https://uplszvhiqwtmzoyucdip.supabase.co",
+    "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_gVoFtx-VepYJ-e0hRRPq9g_xXn11S8F"
   },
   "observability": {
     "enabled": true

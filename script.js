@@ -1,3 +1,21 @@
+/* Contador de visitas propio, sin cookies ni identificadores: guarda la página,
+   el dominio de procedencia y si es el inicio de una visita. Lo lee la sección Web
+   del panel interno. Solo cuenta en el dominio real (no en pruebas locales) y se
+   puede desactivar en un navegador abriendo cualquier página con ?no-contar. */
+(() => {
+  try {
+    if (new URLSearchParams(location.search).has("no-contar")) localStorage.setItem("icrm-no-contar", "1");
+    if (localStorage.getItem("icrm-no-contar")) return;
+  } catch { /* sin almacenamiento: se cuenta igual */ }
+  if (location.hostname !== "integracioncrm.com" || navigator.webdriver) return;
+  let origen = "";
+  try { origen = document.referrer ? new URL(document.referrer).hostname : ""; } catch { /* referencia rara */ }
+  const interna = origen === location.hostname;
+  const datos = JSON.stringify({ pagina: location.pathname, referente: interna ? "" : origen, nueva: !interna });
+  const enviado = navigator.sendBeacon?.("/api/visita", new Blob([datos], { type: "application/json" }));
+  if (!enviado) fetch("/api/visita", { method: "POST", body: datos, keepalive: true, headers: { "content-type": "application/json" } }).catch(() => {});
+})();
+
 const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector(".main-nav");

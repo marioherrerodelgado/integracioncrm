@@ -74,6 +74,16 @@ La copia no se espera: si Supabase falla, el aviso por correo de Formspree llega
 - Opcional: un binding de Email Sending llamado `EMAIL` con `integracioncrm.com`
   verificado como dominio remitente, para avisar sin depender de Formspree.
 
+## Contador de visitas propio
+
+Cloudflare Web Analytics muestrea (apunta 1 de cada 10 páginas vistas) y contaba también
+las pruebas en `localhost`, así que con poco tráfico no servía. `script.js` envía cada página
+vista a `POST /api/visita` ([`functions/api/visita.js`](functions/api/visita.js)), que filtra
+robots y la guarda con la función `registrar_visita` ([`supabase/visitas.sql`](supabase/visitas.sql)).
+Sin cookies ni identificadores: página, dominio de procedencia, país, tipo de dispositivo y si
+es el inicio de una visita. Solo cuenta en `integracioncrm.com`; `?no-contar` en cualquier
+página excluye ese navegador. El panel lo lee con `resumen_visitas`.
+
 ## Despliegue
 
 ```bash

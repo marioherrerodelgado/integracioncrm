@@ -261,7 +261,7 @@ const buildBanner = () => {
   const herramientas = CLARITY_ID ? "Google Analytics y Microsoft Clarity" : "Google Analytics";
   banner.innerHTML = `<p>Usamos cookies de ${herramientas} para saber qué páginas se visitan y cómo se usan. `
     + 'Solo se instalan si las aceptas y puedes cambiar de opinión cuando quieras. '
-    + '<a href="/cookies/">Más información</a>.</p>'
+    + '<a href="/cookies/">Más información sobre las cookies</a>.</p>'
     + '<div class="cookie-actions">'
     + '<button type="button" class="button button-ghost" data-consent="rejected">Rechazar</button>'
     + '<button type="button" class="button button-light" data-consent="granted">Aceptar</button>'

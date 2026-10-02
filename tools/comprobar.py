@@ -13,18 +13,19 @@ from html.parser import HTMLParser
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(RAIZ)
+sys.stdout.reconfigure(encoding="utf-8")  # Windows: si no, los acentos salen mal
 BASE = "https://integracioncrm.com"
 errores, avisos = [], []
 
 def error(msg): errores.append(msg)
 def aviso(msg): avisos.append(msg)
 
-ignorados = [l.strip().strip("/") for l in open(".assetsignore") if l.strip() and not l.startswith("#")]
+ignorados = [l.strip().strip("/") for l in open(".assetsignore", encoding="utf-8") if l.strip() and not l.startswith("#")]
 def publicado(ruta):
     partes = ruta.strip("/").split("/")
     return not any(p in ignorados or p.startswith(".") for p in partes) and ruta.strip("/") not in ignorados
 
-redirecciones = {l.split()[0] for l in open("_redirects") if l.strip() and not l.startswith("#")}
+redirecciones = {l.split()[0] for l in open("_redirects", encoding="utf-8") if l.strip() and not l.startswith("#")}
 
 # Páginas publicadas
 paginas = []
@@ -36,6 +37,7 @@ for carpeta, dirs, archivos in os.walk("."):
     for a in archivos:
         if a.endswith(".html"):
             paginas.append(os.path.join(rel, a) if rel != "." else a)
+paginas = [p.replace(os.sep, "/") for p in paginas]  # Windows usa "\\"
 paginas.sort()
 
 VACIOS = {"area","base","br","col","embed","hr","img","input","link","meta","source","track","wbr",
@@ -113,22 +115,22 @@ for p in paginas:
     if f'<link rel="canonical" href="{BASE}{url}"' not in h: error(f"{p}: canonical ausente o distinto de {url}")
 
 # Sitemap
-sitemap = set(re.findall(rf"<loc>{re.escape(BASE)}([^<]*)</loc>", open("sitemap.xml").read()))
+sitemap = set(re.findall(rf"<loc>{re.escape(BASE)}([^<]*)</loc>", open("sitemap.xml", encoding="utf-8").read()))
 for falta in sorted(indexables - sitemap): error(f"sitemap.xml: falta {falta}")
 for sobra in sorted(sitemap - indexables): error(f"sitemap.xml: incluye {sobra}, que no existe o no se publica")
 
 # script.js y styles.css
 r = subprocess.run(["node", "--check", "script.js"], capture_output=True, text=True)
 if r.returncode != 0: error(f"script.js: error de sintaxis\n{r.stderr.strip()[:400]}")
-css = open("styles.css").read()
+css = open("styles.css", encoding="utf-8").read()
 if css.count("{") != css.count("}"): error(f"styles.css: llaves descompensadas ({css.count('{')} abren, {css.count('}')} cierran)")
 
 # Blog: las páginas generadas deben coincidir con las fuentes
 fuentes = [f for f in os.listdir("blog/_fuentes") if f.endswith(".md") and not f.startswith("_")]
 for f in fuentes:
     slug = f[:-3]
-    borrador = re.search(r"^borrador:\s*si", open(f"blog/_fuentes/{f}").read(), re.M)
-    fecha = re.search(r"^fecha:\s*(\S+)", open(f"blog/_fuentes/{f}").read(), re.M)
+    borrador = re.search(r"^borrador:\s*si", open(f"blog/_fuentes/{f}", encoding="utf-8").read(), re.M)
+    fecha = re.search(r"^fecha:\s*(\S+)", open(f"blog/_fuentes/{f}", encoding="utf-8").read(), re.M)
     import datetime
     if not borrador and fecha and fecha.group(1) <= datetime.date.today().isoformat() and not os.path.isfile(f"blog/{slug}/index.html"):
         error(f"blog/_fuentes/{f}: no está generado. Ejecuta python3 tools/blog.py")

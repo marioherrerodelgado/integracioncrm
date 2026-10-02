@@ -1147,6 +1147,10 @@ body:has(.cookie-banner) .whatsapp, body:has(.main-nav.open) .whatsapp { opacity
 .steps::before { content: ""; position: absolute; left: 17px; top: 44px; bottom: 44px; width: 1px; background: linear-gradient(180deg, rgba(41,199,130,.5), rgba(41,199,130,.06)); }
 .steps li > span { position: relative; display: inline-grid; place-items: center; width: 35px; height: 35px; background: #0b1726; border: 1px solid rgba(41,199,130,.38); border-radius: 50%; }
 @media (max-width: 720px) { .steps::before { left: 17px; } }
+/* Pasos sobre fondo claro (auditoría, gracias): el gris de .steps p no se lee sobre blanco */
+.steps-claro { max-width: 850px; margin: 0 auto; color: var(--ink); border-color: var(--line); }
+.steps-claro li { border-color: var(--line); }
+.steps-claro p { color: var(--muted); }
 
 /* Las fichas del generador, con algo de vida: se levantan al pasar por encima,
    dan un pequeño salto al marcarse y se hunden al pulsarlas. */

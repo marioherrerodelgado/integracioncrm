@@ -10,7 +10,7 @@ import { readFileSync } from "node:fs";
 const BASE = process.env.BASE_URL || "http://127.0.0.1:8080";
 const ANCHOS = [1440, 1024, 390, 320];
 const xml = readFileSync("sitemap.xml", "utf8");
-const paginas = [...xml.matchAll(/<loc>https:\/\/integracioncrm\.com([^<]*)<\/loc>/g)].map((m) => m[1]).concat(["/404.html", "/gracias/"]);
+const paginas = [...xml.matchAll(/<loc>https:\/\/integracioncrm\.com([^<]*)<\/loc>/g)].map((m) => m[1]).concat(["/404.html", "/gracias/", "/demo/"]);
 
 const navegador = await chromium.launch();
 const pagina = await navegador.newPage();

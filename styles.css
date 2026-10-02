@@ -1248,3 +1248,14 @@ body:has(.cookie-banner) .subir, body:has(.main-nav.open) .subir { opacity: 0; p
    el valor por defecto es 1 y todo se ve con normalidad. */
 .con-scroll { opacity: var(--avance, 1); transform: translateY(calc((1 - var(--avance, 1)) * 44px)) scale(calc(.98 + var(--avance, 1) * .02)); }
 @media (prefers-reduced-motion: reduce) { .con-scroll { opacity: 1; transform: none; } }
+
+/* Esquema en capas de /crm-a-medida/: quién lo usa, la aplicación a medida y el CRM */
+.capas { display: grid; gap: 10px; margin: 26px 0 0; }
+.capa-fila { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.capa { display: grid; gap: 3px; padding: 16px 18px; background: white; border: 1px solid var(--line); border-radius: 14px; }
+.capa strong { font-family: var(--display); font-size: 15px; }
+.capa span { color: var(--muted); font-size: 14px; line-height: 1.45; }
+.capa-medio { color: white; background: var(--ink); border-color: var(--ink); }
+.capa-medio span { color: #b9c6d3; }
+.capa-base { background: var(--paper); }
+@media (max-width: 560px) { .capa-fila { grid-template-columns: 1fr; } }

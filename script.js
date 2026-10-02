@@ -357,14 +357,12 @@ if (seccionesOscuras.length && !window.matchMedia("(prefers-reduced-motion: redu
       s.style.setProperty("--fondo-oscuro", avance.toFixed(3));
     });
   };
-  let pendienteOscuras = false;
-  const alScrollOscuras = () => {
-    if (pendienteOscuras) return;
-    pendienteOscuras = true;
-    requestAnimationFrame(() => { pendienteOscuras = false; pintarOscuras(); });
-  };
-  window.addEventListener("scroll", alScrollOscuras, { passive: true });
-  window.addEventListener("resize", alScrollOscuras);
+  // Se pinta en el mismo evento, sin esperar a requestAnimationFrame: si ese
+  // fotograma no llega (pestaña en segundo plano, navegador sin pantalla), la
+  // sección se quedaba sin fondo y el texto blanco, sobre claro. Son una o dos
+  // secciones por página, así que calcularlas en cada scroll no cuesta nada.
+  window.addEventListener("scroll", pintarOscuras, { passive: true });
+  window.addEventListener("resize", pintarOscuras);
   window.addEventListener("load", pintarOscuras);
   pintarOscuras();
 }

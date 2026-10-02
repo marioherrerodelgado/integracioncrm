@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@source "./";
+
+@theme inline {
+  --font-sans: "Avenir Next", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-frame: var(--frame);
+  --color-frame-ink: var(--frame-ink);
+  --color-frame-muted: var(--frame-muted);
+  --color-mint: var(--mint);
+  --color-mint-text: var(--mint-text);
+  --color-mint-soft: var(--mint-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-zoho: var(--zoho);
+  --color-zoho-soft: var(--zoho-soft);
+}
+
+/* Paleta clara completa; el modo oscuro solo redefine los tokens. */
+:root {
+  --bg: #eef2f0;
+  --surface: #ffffff;
+  --surface-2: #f6f8f7;
+  --ink: #0b1624;
+  --muted: #5b6979;
+  --line: #dbe3df;
+  /* Marco de IntegraciónCRM: oscuro en los dos temas */
+  --frame: #07111f;
+  --frame-ink: #eef4f8;
+  --frame-muted: #93a3b5;
+  --mint: #2de6a6;
+  --mint-text: #0b7f4d;
+  --mint-soft: #dcf7ec;
+  /* Marca ficticia del cliente: Altavento */
+  --accent: #17639e;
+  --accent-ink: #ffffff;
+  --accent-soft: #e5eff7;
+  --accent-text: #135486;
+  --ok: #18794a;
+  --ok-soft: #dff3e8;
+  --warn: #9a5b00;
+  --warn-soft: #fbefd9;
+  --bad: #b42d2d;
+  --bad-soft: #f9e2e2;
+  --zoho: #7a4b00;
+  --zoho-soft: #fff1d6;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0a1018;
+    --surface: #111a25;
+    --surface-2: #16212e;
+    --ink: #e6edf3;
+    --muted: #97a6b6;
+    --line: #243241;
+    --mint-text: #5fe0a6;
+    --mint-soft: #10301f;
+    --accent: #4f9fdc;
+    --accent-ink: #061420;
+    --accent-soft: #13283b;
+    --accent-text: #8fc3ec;
+    --ok: #55cf8f;
+    --ok-soft: #0f2b1d;
+    --warn: #f0a94e;
+    --warn-soft: #33240c;
+    --bad: #f28b8b;
+    --bad-soft: #3a1717;
+    --zoho: #f4c26b;
+    --zoho-soft: #2e2410;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0a1018;
+  --surface: #111a25;
+  --surface-2: #16212e;
+  --ink: #e6edf3;
+  --muted: #97a6b6;
+  --line: #243241;
+  --mint-text: #5fe0a6;
+  --mint-soft: #10301f;
+  --accent: #4f9fdc;
+  --accent-ink: #061420;
+  --accent-soft: #13283b;
+  --accent-text: #8fc3ec;
+  --ok: #55cf8f;
+  --ok-soft: #0f2b1d;
+  --warn: #f0a94e;
+  --warn-soft: #33240c;
+  --bad: #f28b8b;
+  --bad-soft: #3a1717;
+  --zoho: #f4c26b;
+  --zoho-soft: #2e2410;
+}
+
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { text-wrap: balance; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* Un cambio que llega desde la otra vista se ilumina un momento */
+@keyframes destello {
+  0% { box-shadow: 0 0 0 3px var(--mint), 0 0 0 9px color-mix(in srgb, var(--mint) 35%, transparent); }
+  100% { box-shadow: 0 0 0 0 transparent, 0 0 0 0 transparent; }
+}
+.destello { animation: destello 2.6s ease-out; }
+
+@keyframes entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.entra { animation: entra .25s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .destello { animation: none; outline: 2px solid var(--mint); outline-offset: 2px; }
+  .entra { animation: none; }
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* En el móvil, los campos a menos de 16px hacen que el iPhone amplíe la página al tocarlos */
+@media (max-width: 640px) {
+  input, select, textarea { font-size: 16px !important; }
+}

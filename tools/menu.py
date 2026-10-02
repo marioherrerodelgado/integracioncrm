@@ -6,15 +6,17 @@ Sustituye la navegación de todas las páginas por la definida aquí y marca la
 sección activa (aria-current) según la URL. Se ejecuta solo desde tools/blog.py.
 Para cambiar el menú: editar MENU y volver a ejecutarlo.
 """
-import os, re
+import os, re, sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(RAIZ)
+sys.stdout.reconfigure(encoding="utf-8")  # Windows: si no, los acentos rompen la salida
 ACTUAL = ' aria-current="page"'
 FLECHA = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>'
 
 MENU = [
     ("Servicios", [
+        ("/crm-a-medida/", "CRM y portales a medida"),
         ("/servicios/implementacion-zoho-crm/", "Implementación de Zoho CRM"),
         ("/servicios/zoho/", "Aplicaciones Zoho"),
         ("/servicios/zoho-one/", "Zoho One"),
@@ -86,6 +88,7 @@ def navegacion(url):
 # menú: se define aquí una sola vez y se reescribe en todas las páginas.
 COLUMNAS = [
     ("Servicios", [
+        ("/crm-a-medida/", "CRM y portales a medida"),
         ("/servicios/implementacion-zoho-crm/", "Implementación de Zoho CRM"),
         ("/servicios/automatizacion-crm/", "Automatización de procesos"),
         ("/servicios/integraciones-api/", "Integraciones API"),

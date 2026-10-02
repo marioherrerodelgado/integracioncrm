@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Genera /llms.txt: resumen de IntegraciónCRM y sus páginas clave para asistentes de IA.
 Formato propuesto en https://llmstxt.org. Se ejecuta solo desde tools/blog.py."""
-import glob, html, os, re
+import glob, html, os, re, sys
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(RAIZ)
+sys.stdout.reconfigure(encoding="utf-8")  # Windows: si no, los acentos rompen la salida
 B = "https://integracioncrm.com"
 
 def linea(ruta):
@@ -27,7 +28,7 @@ servicios = ["/servicios/implementacion-zoho-crm/", "/servicios/zoho/", "/servic
 salto = "\n"
 texto = f"""# IntegraciónCRM
 
-> Consultoría e integración de CRM en España, liderada por Mario Herrero Delgado. Implantamos y adaptamos Zoho CRM (también HubSpot y Salesforce), los conectamos con la web, WhatsApp, telefonía, pagos, facturación y plataformas de formación como Moodle, y automatizamos procesos comerciales y administrativos. Especialización en centros de formación: FP, academias, certificados de profesionalidad, formación bonificada (FUNDAE) y subvencionada.
+> Consultoría e integración de CRM en España, liderada por Mario Herrero Delgado. Partimos del CRM del cliente (sobre todo Zoho CRM, también HubSpot y Salesforce) o lo creamos desde cero, y encima construimos una interfaz y portales de clientes a medida, con su marca; además lo conectamos con la web, WhatsApp, telefonía, pagos, facturación y plataformas de formación como Moodle, y automatizamos procesos comerciales y administrativos. Especialización en centros de formación: FP, academias, certificados de profesionalidad, formación bonificada (FUNDAE) y subvencionada.
 
 Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto (toda España). Diagnóstico inicial gratuito: {B}/auditoria-crm-gratis/
 
@@ -35,6 +36,7 @@ Contacto: info@integracioncrm.com · WhatsApp @marioxherrero · Madrid y remoto 
 
 - [Sobre nosotros]({B}/sobre-nosotros/): el equipo, su enfoque de trabajo y la trayectoria de Mario Herrero Delgado (fundador y CEO; consultor senior de CRM).
 - [Servicios]({B}/servicios/): catálogo completo de servicios de CRM, integración y automatización.
+- [CRM a medida y portales para clientes]({B}/crm-a-medida/): el punto diferencial: sobre el CRM existente (Zoho u otro) o uno creado desde cero, una interfaz a medida para cada puesto y portales de clientes, agentes o alumnos con la marca de la empresa. Demo con datos ficticios: {B}/demo/
 - [CRM para pymes]({B}/crm-para-pymes/): cómo elegir e implantar un CRM en una pequeña o mediana empresa de cualquier sector.
 - [Consultor de Zoho CRM y Zoho One]({B}/consultor-zoho-crm/): consultoría independiente de Zoho, sin revender licencias; diferencia entre partner y consultor.
 - [Consultor Zoho CRM en Madrid]({B}/consultor-zoho-crm-madrid/): implantación, Zoho One, Deluge e integraciones, con reuniones presenciales en Madrid y trabajo en remoto.

@@ -21,7 +21,7 @@ const desc = (t) => t.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#
 function paginas(dir = ".") {
   const out = [];
   for (const nombre of readdirSync(dir)) {
-    const ruta = join(dir, nombre);
+    const ruta = join(dir, nombre).replaceAll("\\", "/"); // Windows usa "\"
     const partes = ruta.split("/");
     if (partes.some((p) => p.startsWith(".") || ignorados.includes(p) || p === "node_modules" || p === "brand")) continue;
     if (statSync(ruta).isDirectory()) out.push(...paginas(ruta));
